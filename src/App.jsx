@@ -82,7 +82,7 @@ const ALL_SCHOOLS_DATA = [
     coaches: [{ name: "Head Coach TBD", role: "Head Coach", email: "recruit@jessup.edu", phone: "" }],
     setters: [{ name: "Sophomore Setter", grad: "2027", class: "SO" }],
     azRadar: [],
-    winHistory: [{ yr: '2025', w: 10, l: 12, p: '.454' }, { yr: '2024', w: 8, l: 15, p: '.347' }],
+    winHistory: [{ yr: '2026', w: 8, l: 15, p: '.348' }, { yr: '2025', w: 10, l: 12, p: '.454' }, { yr: '2024', w: 8, l: 15, p: '.347' }],
     news: [{ date: "Feb 2026", title: "Jessup Transitions to Full DII PacWest Membership", body: "Warriors begin full membership cycle in the PacWest Conference.", url: "https://jessupathletics.com" }],
     schedule26: [
       { d: "Jan 16", o: "vs Vanguard", r: "W 3-1", home: true }, { d: "Jan 17", o: "vs Cal Baptist", r: "L 1-3", home: true },
@@ -104,7 +104,7 @@ const ALL_SCHOOLS_DATA = [
     id: "cui", name: "Concordia Irvine", city: "Irvine", state: "CA", mascot: "Golden Eagles",
     divLevel: "DI", conference: "MPSF", priority: "Target", section: "primary",
     acceptance: "78%", tuitionIn: "$41,200", tuitionOut: "$41,200",
-    programRank: "#18", setterNeed: "High",
+    programRank: "NR", setterNeed: "High",
     url: "https://www.cui.edu", logoUrl: "https://www.cui.edu",
     vbUrl: "https://www.cuigoldeneagles.com/sports/mens-volleyball",
     programIG: "@cuimvb", questionnaireUrl: "https://www.cuigoldeneagles.com/sb_output.aspx?form=3",
@@ -113,7 +113,7 @@ const ALL_SCHOOLS_DATA = [
     coaches: [{ name: "Jon Girten", role: "Head Coach", email: "jonathan.girten@cui.edu", phone: "" }],
     setters: [{ name: "Yotam Briger", grad: "2027", class: "SO" }, { name: "McLain Mott", grad: "2026", class: "SR" }, { name: "Tijmen Doornstra", grad: "2028", class: "FR" }],
     azRadar: [],
-    winHistory: [{ yr: '2025', w: 12, l: 15, p: '.444' }, { yr: '2024', w: 6, l: 19, p: '.240' }, { yr: '2023', w: 8, l: 19, p: '.296' }, { yr: '2022', w: 10, l: 16, p: '.385' }],
+    winHistory: [{ yr: '2026', w: 7, l: 15, p: '.318' }, { yr: '2025', w: 12, l: 15, p: '.444' }, { yr: '2024', w: 6, l: 19, p: '.240' }, { yr: '2023', w: 8, l: 19, p: '.296' }, { yr: '2022', w: 10, l: 16, p: '.385' }],
     news: [
       { date: "Feb 26, 2026", title: "Briger Named MPSF Offensive Player of the Week", body: "Sophomore setter Yotam Briger recognized for elite distribution in win over Princeton.", url: "https://mpsports.org" },
       { date: "Jan 12, 2026", title: "New Training Facility Phase 1 Complete", body: "CUI unveils renovated weight room designed for explosive vertical training.", url: "https://www.cuigoldeneagles.com" }
@@ -141,16 +141,16 @@ const ALL_SCHOOLS_DATA = [
     id: "bsu", name: "Ball State", city: "Muncie", state: "IN", mascot: "Cardinals",
     divLevel: "DI", conference: "MIVA", priority: "Reach", section: "primary",
     acceptance: "69%", tuitionIn: "$10,500", tuitionOut: "$28,400",
-    programRank: "#5", setterNeed: "Med",
+    programRank: "#7", setterNeed: "Med",
     url: "https://www.bsu.edu", logoUrl: "https://www.bsu.edu",
     vbUrl: "https://ballstatesports.com/sports/mens-volleyball",
     programIG: "@ballstatemvb", questionnaireUrl: "https://ballstatesports.com/sb_output.aspx?form=10",
     academic: { top10: ["Architecture","Nursing","Business Admin","Education","Marketing","Aviation","Journalism","Criminal Justice","Actuarial Science","Psychology"], business: "Miller College of Business — strong marketing & entrepreneurship", theology: "Philosophy & Religious Studies department", aviation: "★★★ Elite Flight Technology Program — top 5 nationally, own airport (KMUN)", avgGPA: "3.3", gradRate: "70%" },
     parkerFit: { business: true, aviation: true, theology: false, notes: "Ball State is a TOP match for Parker's aviation interest — ranked elite nationally with its own campus airport. Miller College of Business is strong. At #5 nationally this is a Reach but worth pursuing. AZ Fear playing at high level nationally will get noticed by Coach Cruz." },
-    coaches: [{ name: "Donan Cruz", role: "Head Coach", email: "donan.cruz@bsu.edu", phone: "" }],
+    coaches: [{ name: "Mike Iandolo", role: "Head Coach", email: "miandolo@bsu.edu", phone: "" }],
     setters: [{ name: "Peter Zurawski", grad: "2027", class: "JR" }, { name: "Lucas Machado", grad: "2026", class: "SR" }],
     azRadar: [{ name: "Ryan Louis", pos: "OPP", hs: "Shadow Ridge (Surprise)" }],
-    winHistory: [{ yr: '2025', w: 22, l: 8, p: '.733' }, { yr: '2024', w: 21, l: 10, p: '.677' }, { yr: '2023', w: 20, l: 9, p: '.690' }, { yr: '2022', w: 23, l: 4, p: '.852' }],
+    winHistory: [{ yr: '2026', w: 21, l: 4, p: '.840' }, { yr: '2025', w: 22, l: 8, p: '.733' }, { yr: '2024', w: 21, l: 10, p: '.677' }, { yr: '2023', w: 20, l: 9, p: '.690' }, { yr: '2022', w: 23, l: 4, p: '.852' }],
     news: [{ date: "Feb 18, 2026", title: "Cruz Reaches 100 Career Wins", body: "HC secures milestone win against Illinois.", url: "https://ballstatesports.com" }],
     schedule26: [
       { d: "Jan 09", o: "vs Lindenwood", r: "W 3-0", home: true }, { d: "Jan 10", o: "vs McKendree", r: "W 3-1", home: true },
@@ -175,7 +175,7 @@ const ALL_SCHOOLS_DATA = [
     id: "usc", name: "USC", city: "Los Angeles", state: "CA", mascot: "Trojans",
     divLevel: "DI", conference: "MPSF", priority: "Reach", section: "primary",
     acceptance: "12%", tuitionIn: "$66,600", tuitionOut: "$66,600",
-    programRank: "#8", setterNeed: "Low",
+    programRank: "#4", setterNeed: "Low",
     url: "https://www.usc.edu", logoUrl: "https://www.usc.edu",
     vbUrl: "https://usctrojans.com/sports/mens-volleyball",
     programIG: "@uscmvb", questionnaireUrl: "https://usctrojans.com/sb_output.aspx?form=15",
@@ -184,7 +184,7 @@ const ALL_SCHOOLS_DATA = [
     coaches: [{ name: "Jeff Nygaard", role: "Head Coach", email: "jnygaard@usc.edu", phone: "" }],
     setters: [{ name: "Caleb Blanchette", grad: "2028", class: "SO" }, { name: "Jackson Payne", grad: "2026", class: "SR" }],
     azRadar: [],
-    winHistory: [{ yr: '2025', w: 17, l: 12, p: '.586' }, { yr: '2024', w: 13, l: 15, p: '.464' }, { yr: '2023', w: 10, l: 16, p: '.385' }, { yr: '2022', w: 22, l: 7, p: '.758' }],
+    winHistory: [{ yr: '2026', w: 16, l: 3, p: '.842' }, { yr: '2025', w: 17, l: 12, p: '.586' }, { yr: '2024', w: 13, l: 15, p: '.464' }, { yr: '2023', w: 10, l: 16, p: '.385' }, { yr: '2022', w: 22, l: 7, p: '.758' }],
     news: [{ date: "Feb 2026", title: "Trojans Surge to AVCA Top 10", body: "USC jumps to #8 after back-to-back road wins in the MPSF.", url: "https://usctrojans.com" }],
     schedule26: [
       { d: "Jan 09", o: "vs UC Santa Cruz", r: "W 3-0", home: true }, { d: "Jan 10", o: "vs Pepperdine", r: "W 3-1", home: true },
@@ -208,7 +208,7 @@ const ALL_SCHOOLS_DATA = [
     id: "psu", name: "Penn State", city: "University Park", state: "PA", mascot: "Nittany Lions",
     divLevel: "DI", conference: "EIVA", priority: "Reach", section: "primary",
     acceptance: "55%", tuitionIn: "$19,500", tuitionOut: "$39,200",
-    programRank: "#3", setterNeed: "Low",
+    programRank: "#15", setterNeed: "Low",
     url: "https://www.psu.edu", logoUrl: "https://www.psu.edu",
     vbUrl: "https://gopsusports.com/sports/mens-volleyball",
     programIG: "@pennstatemvball", questionnaireUrl: "https://gopsusports.com/sports/mens-volleyball",
@@ -217,7 +217,7 @@ const ALL_SCHOOLS_DATA = [
     coaches: [{ name: "Mark Pavlik", role: "Head Coach", email: "map33@psu.edu", phone: "(814) 863-7464" }],
     setters: [{ name: "Ryan Mullahey", grad: "2026", class: "SR" }, { name: "Erik Rohde", grad: "2027", class: "JR" }],
     azRadar: [],
-    winHistory: [{ yr: '2025', w: 24, l: 7, p: '.774' }, { yr: '2024', w: 21, l: 9, p: '.700' }, { yr: '2023', w: 19, l: 10, p: '.655' }, { yr: '2022', w: 18, l: 12, p: '.600' }],
+    winHistory: [{ yr: '2026', w: 16, l: 7, p: '.696' }, { yr: '2025', w: 24, l: 7, p: '.774' }, { yr: '2024', w: 21, l: 9, p: '.700' }, { yr: '2023', w: 19, l: 10, p: '.655' }, { yr: '2022', w: 18, l: 12, p: '.600' }],
     news: [{ date: "Mar 2026", title: "Nittany Lions Ranked #3 in AVCA Poll", body: "Penn State remains in contention for the EIVA title and NCAA bid.", url: "https://gopsusports.com" }],
     schedule26: [
       { d: "Jan 10", o: "vs Sacred Heart — EIVA", r: "W 3-0", home: true }, { d: "Jan 17", o: "vs Harvard — EIVA", r: "W 3-1", home: true },
@@ -235,7 +235,7 @@ const ALL_SCHOOLS_DATA = [
     id: "csun", name: "CSUN", city: "Northridge", state: "CA", mascot: "Matadors",
     divLevel: "DI", conference: "Big West", priority: "Target", section: "primary",
     acceptance: "73%", tuitionIn: "$7,100", tuitionOut: "$19,200",
-    programRank: "#12", setterNeed: "Med",
+    programRank: "#18", setterNeed: "Med",
     url: "https://www.csun.edu", logoUrl: "https://www.csun.edu",
     vbUrl: "https://gomatadors.com/sports/mens-volleyball",
     programIG: "@csunmvball", questionnaireUrl: "https://gomatadors.com/sports/mens-volleyball",
@@ -244,7 +244,7 @@ const ALL_SCHOOLS_DATA = [
     coaches: [{ name: "Theo Edwards", role: "Head Coach", email: "theo.edwards@csun.edu", phone: "(818) 677-4512" }],
     setters: [{ name: "Lucas Yoder", grad: "2027", class: "JR" }, { name: "Sophomore Setter TBD", grad: "2028", class: "SO" }],
     azRadar: [],
-    winHistory: [{ yr: '2025', w: 16, l: 11, p: '.593' }, { yr: '2024', w: 15, l: 12, p: '.556' }, { yr: '2023', w: 13, l: 14, p: '.481' }],
+    winHistory: [{ yr: '2026', w: 12, l: 11, p: '.522' }, { yr: '2025', w: 16, l: 11, p: '.593' }, { yr: '2024', w: 15, l: 12, p: '.556' }, { yr: '2023', w: 13, l: 14, p: '.481' }],
     news: [{ date: "Feb 2026", title: "Matadors Climb to #12 in AVCA Poll", body: "CSUN turns heads with sweep of UC Davis and strong home record.", url: "https://gomatadors.com" }],
     schedule26: [
       { d: "Jan 10", o: "vs UC Santa Cruz", r: "W 3-0", home: true }, { d: "Jan 17", o: "vs UC San Diego — Big West", r: "L 1-3", home: true },
@@ -259,7 +259,7 @@ const ALL_SCHOOLS_DATA = [
     id: "luc", name: "Loyola Chicago", city: "Chicago", state: "IL", mascot: "Ramblers",
     divLevel: "DI", conference: "MIVA", priority: "Target", section: "primary",
     acceptance: "79%", tuitionIn: "$50,200", tuitionOut: "$50,200",
-    programRank: "NR", setterNeed: "High",
+    programRank: "#9", setterNeed: "High",
     url: "https://www.luc.edu", logoUrl: "https://www.luc.edu",
     vbUrl: "https://loyolaramblers.com/sports/mens-volleyball",
     programIG: "@loyolacmvball", questionnaireUrl: "https://loyolaramblers.com/sports/mens-volleyball",
@@ -268,7 +268,7 @@ const ALL_SCHOOLS_DATA = [
     coaches: [{ name: "Shane Davis", role: "Head Coach", email: "sdavis6@luc.edu", phone: "" }],
     setters: [{ name: "Senior Setter", grad: "2026", class: "SR" }],
     azRadar: [],
-    winHistory: [{ yr: '2025', w: 14, l: 14, p: '.500' }, { yr: '2024', w: 11, l: 16, p: '.407' }, { yr: '2023', w: 9, l: 17, p: '.346' }],
+    winHistory: [{ yr: '2026', w: 18, l: 6, p: '.750' }, { yr: '2025', w: 14, l: 14, p: '.500' }, { yr: '2024', w: 11, l: 16, p: '.407' }, { yr: '2023', w: 9, l: 17, p: '.346' }],
     news: [{ date: "Mar 2026", title: "Ramblers Win Consecutive MIVA Matches for First Time Since 2022", body: "Loyola earning momentum in conference play.", url: "https://loyolaramblers.com" }],
     schedule26: [
       { d: "Jan 09", o: "vs McKendree — MIVA", r: "W 3-1", home: true }, { d: "Jan 16", o: "@ Ball State — MIVA", r: "L 1-3", home: false },
@@ -283,7 +283,7 @@ const ALL_SCHOOLS_DATA = [
     id: "ucsb", name: "UCSB", city: "Santa Barbara", state: "CA", mascot: "Gauchos",
     divLevel: "DI", conference: "Big West", priority: "Target", section: "primary",
     acceptance: "26%", tuitionIn: "$13,200", tuitionOut: "$44,100",
-    programRank: "#10", setterNeed: "Med",
+    programRank: "#8", setterNeed: "Med",
     url: "https://www.ucsb.edu", logoUrl: "https://www.ucsb.edu",
     vbUrl: "https://ucsbgauchos.com/sports/mens-volleyball",
     programIG: "@ucsbmvball", questionnaireUrl: "https://ucsbgauchos.com/sports/mens-volleyball",
@@ -292,7 +292,7 @@ const ALL_SCHOOLS_DATA = [
     coaches: [{ name: "Rick McLaughlin", role: "Head Coach", email: "RMcLaughlin@athletics.ucsb.edu", phone: "(805) 893-8320" }],
     setters: [{ name: "Alex Frantti", grad: "2026", class: "SR" }, { name: "Sophomore Setter TBD", grad: "2028", class: "SO" }],
     azRadar: [],
-    winHistory: [{ yr: '2025', w: 18, l: 9, p: '.667' }, { yr: '2024', w: 16, l: 11, p: '.593' }, { yr: '2023', w: 14, l: 13, p: '.519' }],
+    winHistory: [{ yr: '2026', w: 13, l: 9, p: '.591' }, { yr: '2025', w: 18, l: 9, p: '.667' }, { yr: '2024', w: 16, l: 11, p: '.593' }, { yr: '2023', w: 14, l: 13, p: '.519' }],
     news: [{ date: "Feb 2026", title: "Gauchos Hold Strong at #10 in AVCA National Poll", body: "UCSB riding six-match win streak heading into Big West play.", url: "https://ucsbgauchos.com" }],
     schedule26: [
       { d: "Jan 10", o: "vs UC San Diego — Big West", r: "W 3-1", home: true }, { d: "Jan 17", o: "@ CSUN — Big West", r: "L 2-3", home: false },
@@ -306,7 +306,7 @@ const ALL_SCHOOLS_DATA = [
     id: "uci", name: "UC Irvine", city: "Irvine", state: "CA", mascot: "Anteaters",
     divLevel: "DI", conference: "Big West", priority: "Target", section: "primary",
     acceptance: "21%", tuitionIn: "$14,500", tuitionOut: "$45,200",
-    programRank: "#7", setterNeed: "Med",
+    programRank: "#6", setterNeed: "Med",
     url: "https://www.uci.edu", logoUrl: "https://www.uci.edu",
     vbUrl: "https://ucirvinesports.com/sports/mens-volleyball",
     programIG: "@ucimvball", questionnaireUrl: "https://ucirvinesports.com/sports/mens-volleyball",
@@ -315,7 +315,7 @@ const ALL_SCHOOLS_DATA = [
     coaches: [{ name: "David Kniffin", role: "Head Coach", email: "dkniffin@uci.edu", phone: "(949) 824-5000" }],
     setters: [{ name: "Matthew Szymanski", grad: "2026", class: "SR" }, { name: "JR Setter TBD", grad: "2027", class: "JR" }],
     azRadar: [],
-    winHistory: [{ yr: '2025', w: 20, l: 8, p: '.714' }, { yr: '2024', w: 18, l: 9, p: '.667' }, { yr: '2023', w: 17, l: 11, p: '.607' }],
+    winHistory: [{ yr: '2026', w: 16, l: 5, p: '.762' }, { yr: '2025', w: 20, l: 8, p: '.714' }, { yr: '2024', w: 18, l: 9, p: '.667' }, { yr: '2023', w: 17, l: 11, p: '.607' }],
     news: [{ date: "Feb 2026", title: "Anteaters Dominate MPSF Crossover Weekend", body: "UCI sweeps Concordia Irvine and USC to secure top Big West standing.", url: "https://ucirvinesports.com" }],
     schedule26: [
       { d: "Jan 09", o: "@ USC — MPSF Crossover", r: "W 3-2", home: false }, { d: "Jan 16", o: "vs CUI — MPSF Crossover", r: "W 3-1", home: true },
@@ -329,7 +329,7 @@ const ALL_SCHOOLS_DATA = [
     id: "pep", name: "Pepperdine", city: "Malibu", state: "CA", mascot: "Waves",
     divLevel: "DI", conference: "MPSF", priority: "Target", section: "primary",
     acceptance: "49%", tuitionIn: "$62,400", tuitionOut: "$62,400",
-    programRank: "#6", setterNeed: "Med",
+    programRank: "#5", setterNeed: "Med",
     url: "https://www.pepperdine.edu", logoUrl: "https://www.pepperdine.edu",
     vbUrl: "https://pepperdinewaves.com/sports/mens-volleyball",
     programIG: "@pepperdinemvb", questionnaireUrl: "https://pepperdinewaves.com/sports/mens-volleyball",
@@ -338,7 +338,7 @@ const ALL_SCHOOLS_DATA = [
     coaches: [{ name: "Jonathan Winder", role: "Head Coach", email: "jonathan.winder@pepperdine.edu", phone: "(310) 506-4528" }],
     setters: [{ name: "Alex Gersham", grad: "2026", class: "SR" }, { name: "Sophomore Setter TBD", grad: "2028", class: "SO" }],
     azRadar: [],
-    winHistory: [{ yr: '2025', w: 19, l: 10, p: '.655' }, { yr: '2024', w: 17, l: 12, p: '.586' }, { yr: '2023', w: 20, l: 9, p: '.690' }],
+    winHistory: [{ yr: '2026', w: 18, l: 5, p: '.783' }, { yr: '2025', w: 19, l: 10, p: '.655' }, { yr: '2024', w: 17, l: 12, p: '.586' }, { yr: '2023', w: 20, l: 9, p: '.690' }],
     news: [{ date: "Feb 2026", title: "Waves Ranked #6 — Setter Depth is a Point of Emphasis", body: "Pepperdine looking to develop younger setter talent ahead of 2027 season.", url: "https://pepperdinewaves.com" }],
     schedule26: [
       { d: "Jan 09", o: "@ USC", r: "L 1-3", home: false }, { d: "Jan 16", o: "@ Long Beach State — MPSF", r: "W 3-2", home: false },
@@ -378,7 +378,7 @@ const ALL_SCHOOLS_DATA = [
     coaches: [{ name: "Head Coach TBD", role: "Head Coach", email: "athletics@vanguard.edu", phone: "" }],
     setters: [],
     azRadar: [],
-    winHistory: [{ yr: '2025', w: 14, l: 10, p: '.583' }, { yr: '2024', w: 12, l: 12, p: '.500' }],
+    winHistory: [{ yr: '2026', w: 8, l: 13, p: '.381' }, { yr: '2025', w: 14, l: 10, p: '.583' }, { yr: '2024', w: 12, l: 12, p: '.500' }],
     news: [], schedule26: [], notes: ""
   },
   {
@@ -393,7 +393,7 @@ const ALL_SCHOOLS_DATA = [
     parkerFit: { business: true, aviation: true, theology: false, notes: "If Parker's path leads toward aviation as a primary major, OCC's Aviation Academy is nationally elite. This JUCO path (2 years + transfer) could allow Parker to develop his game and then transfer to a 4-year program. Lowest cost option on the list by far." },
     coaches: [{ name: "Head Coach TBD", role: "Head Coach", email: "athletics@orangecoastcollege.edu", phone: "" }],
     setters: [], azRadar: [],
-    winHistory: [{ yr: '2025', w: 18, l: 6, p: '.750' }],
+    winHistory: [{ yr: '2026', w: 14, l: 0, p: '1.000' }, { yr: '2025', w: 18, l: 6, p: '.750' }],
     news: [], schedule26: [], notes: ""
   },
   // ── DISCOVERY PHASE ──
@@ -401,7 +401,7 @@ const ALL_SCHOOLS_DATA = [
     id: "lewis", name: "Lewis University", city: "Romeoville", state: "IL", mascot: "Flyers",
     divLevel: "DI", conference: "MIVA", priority: "Target", section: "discovery",
     acceptance: "71%", tuitionIn: "$36,000", tuitionOut: "$36,000",
-    programRank: "NR", setterNeed: "Med",
+    programRank: "#16", setterNeed: "Med",
     url: "https://www.lewisu.edu", logoUrl: "https://www.lewisu.edu",
     vbUrl: "https://lewisflyers.com/sports/mens-volleyball",
     programIG: "#", questionnaireUrl: "#",
@@ -410,7 +410,7 @@ const ALL_SCHOOLS_DATA = [
     coaches: [{ name: "Dan Friend", role: "Head Coach", email: "dfriend@lewisu.edu", phone: "(815) 836-5248" }],
     setters: [{ name: "Tyler Morgan", grad: "2026", class: "SR" }],
     azRadar: [],
-    winHistory: [{ yr: '2025', w: 18, l: 12, p: '.600' }],
+    winHistory: [{ yr: '2026', w: 16, l: 12, p: '.571' }, { yr: '2025', w: 18, l: 12, p: '.600' }],
     news: [], schedule26: [], notes: ""
   },
   {
@@ -426,7 +426,7 @@ const ALL_SCHOOLS_DATA = [
     coaches: [{ name: "Head Coach TBD", role: "Head Coach", email: "athletics@ben.edu", phone: "" }],
     setters: [],
     azRadar: [{ name: "Brophy Alum TBD", pos: "L", hs: "Brophy Prep (Phoenix)" }],
-    winHistory: [{ yr: '2025', w: 18, l: 10, p: '.642' }],
+    winHistory: [{ yr: '2026', w: 12, l: 14, p: '.462' }, { yr: '2025', w: 18, l: 10, p: '.642' }],
     news: [], schedule26: [], notes: ""
   },
   {
@@ -442,14 +442,14 @@ const ALL_SCHOOLS_DATA = [
     coaches: [{ name: "Matt Fuerbringer", role: "Head Coach", email: "mfuerbringer@calbaptist.edu", phone: "" }],
     setters: [],
     azRadar: [],
-    winHistory: [{ yr: '2025', w: 12, l: 14, p: '.462' }],
+    winHistory: [{ yr: '2026', w: 10, l: 15, p: '.400' }, { yr: '2025', w: 12, l: 14, p: '.462' }],
     news: [], schedule26: [], notes: ""
   },
   {
     id: "lbsu", name: "Long Beach State", city: "Long Beach", state: "CA", mascot: "Beach",
     divLevel: "DI", conference: "Big West", priority: "Target", section: "discovery",
     acceptance: "40%", tuitionIn: "$7,400", tuitionOut: "$7,400",
-    programRank: "#4", setterNeed: "Low",
+    programRank: "#3", setterNeed: "Low",
     url: "https://www.csulb.edu", logoUrl: "https://www.csulb.edu",
     vbUrl: "https://longbeachstate.com/sports/mens-volleyball",
     programIG: "@lbsmvb", questionnaireUrl: "https://longbeachstate.com/sports/mens-volleyball",
@@ -458,7 +458,7 @@ const ALL_SCHOOLS_DATA = [
     coaches: [{ name: "Nick MacRae", role: "Head Coach", email: "Nick.MacRae@csulb.edu", phone: "(562) 985-1450" }],
     setters: [{ name: "Kyle Hobus", grad: "2026", class: "SR" }, { name: "JR Setter TBD", grad: "2027", class: "JR" }],
     azRadar: [],
-    winHistory: [{ yr: '2025', w: 23, l: 7, p: '.767' }, { yr: '2024', w: 22, l: 8, p: '.733' }, { yr: '2023', w: 20, l: 9, p: '.690' }],
+    winHistory: [{ yr: '2026', w: 18, l: 4, p: '.818' }, { yr: '2025', w: 23, l: 7, p: '.767' }, { yr: '2024', w: 22, l: 8, p: '.733' }, { yr: '2023', w: 20, l: 9, p: '.690' }],
     news: [], schedule26: [], notes: ""
   },
   {
@@ -474,7 +474,7 @@ const ALL_SCHOOLS_DATA = [
     coaches: [{ name: "Charlie Wade", role: "Head Coach", email: "cwade@hawaii.edu", phone: "(808) 956-9931" }],
     setters: [{ name: "Setter TBD", grad: "2027", class: "JR" }],
     azRadar: [],
-    winHistory: [{ yr: '2025', w: 25, l: 5, p: '.833' }, { yr: '2024', w: 23, l: 7, p: '.767' }, { yr: '2023', w: 24, l: 6, p: '.800' }],
+    winHistory: [{ yr: '2026', w: 23, l: 3, p: '.885' }, { yr: '2025', w: 25, l: 5, p: '.833' }, { yr: '2024', w: 23, l: 7, p: '.767' }, { yr: '2023', w: 24, l: 6, p: '.800' }],
     news: [], schedule26: [], notes: ""
   },
   {
@@ -490,14 +490,14 @@ const ALL_SCHOOLS_DATA = [
     coaches: [{ name: "Jay Hosack", role: "Head Coach", email: "jhosack@gmu.edu", phone: "(703) 993-3227" }],
     setters: [],
     azRadar: [],
-    winHistory: [{ yr: '2025', w: 15, l: 11, p: '.577' }, { yr: '2024', w: 14, l: 13, p: '.519' }],
+    winHistory: [{ yr: '2026', w: 18, l: 7, p: '.720' }, { yr: '2026', w: 10, l: 14, p: '.417' }, { yr: '2025', w: 15, l: 11, p: '.577' }, { yr: '2024', w: 14, l: 13, p: '.519' }],
     news: [], schedule26: [], notes: ""
   },
   {
     id: "pf", name: "Purdue Fort Wayne", city: "Fort Wayne", state: "IN", mascot: "Mastodons",
     divLevel: "DI", conference: "MIVA", priority: "Safety", section: "discovery",
     acceptance: "80%", tuitionIn: "$8,400", tuitionOut: "$21,000",
-    programRank: "NR", setterNeed: "High",
+    programRank: "#20", setterNeed: "High",
     url: "https://www.pfw.edu", logoUrl: "https://www.pfw.edu",
     vbUrl: "https://gomastodons.com/sports/mens-volleyball",
     programIG: "#", questionnaireUrl: "https://gomastodons.com/sports/mens-volleyball",
@@ -506,7 +506,7 @@ const ALL_SCHOOLS_DATA = [
     coaches: [{ name: "Donny Gleason", role: "Head Coach", email: "dgleason@pfw.edu", phone: "" }],
     setters: [{ name: "SR Setter TBD", grad: "2026", class: "SR" }],
     azRadar: [],
-    winHistory: [{ yr: '2025', w: 10, l: 16, p: '.385' }, { yr: '2024', w: 9, l: 17, p: '.346' }],
+    winHistory: [{ yr: '2026', w: 11, l: 11, p: '.500' }, { yr: '2025', w: 10, l: 16, p: '.385' }, { yr: '2024', w: 9, l: 17, p: '.346' }],
     news: [], schedule26: [], notes: ""
   },
   {
@@ -538,7 +538,7 @@ const ALL_SCHOOLS_DATA = [
     coaches: [{ name: "Head Coach TBD", role: "Head Coach", email: "athletics@arizonachristian.edu", phone: "" }],
     setters: [],
     azRadar: [],
-    winHistory: [{ yr: '2025', w: 13, l: 13, p: '.500' }],
+    winHistory: [{ yr: '2026', w: 11, l: 13, p: '.458' }, { yr: '2025', w: 13, l: 13, p: '.500' }],
     news: [], schedule26: [], notes: ""
   },
   {
@@ -554,7 +554,7 @@ const ALL_SCHOOLS_DATA = [
     coaches: [{ name: "Ali'i Keohohou", role: "Head Coach", email: "alii.keohohou@menlo.edu", phone: "" }],
     setters: [],
     azRadar: [],
-    winHistory: [{ yr: '2025', w: 14, l: 12, p: '.538' }],
+    winHistory: [{ yr: '2026', w: 3, l: 14, p: '.176' }, { yr: '2025', w: 14, l: 12, p: '.538' }],
     news: [], schedule26: [], notes: ""
   },
 ];
