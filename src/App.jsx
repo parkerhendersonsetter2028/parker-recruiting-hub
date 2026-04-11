@@ -751,33 +751,33 @@ const ExecutiveSummary = ({ school }) => {
   );
 };
 
-// ─── CLAUDE API ───────────────────────────────────────────────────────────────
+// ─── CLAUDE API (SERVER-SIDE PROXY) ───────────────────────────────────────────
+/**
+ * Calls the Netlify Function proxy instead of the Anthropic API directly.
+ * The API key is kept server-side and never exposed to the browser.
+ * 
+ * Endpoint: /.netlify/functions/claude-discovery
+ */
 async function fetchSchoolFromClaude(schoolName) {
-  const prompt = `You are a college volleyball recruiting expert. Provide comprehensive data for "${schoolName}" men's volleyball program for a recruit named Parker Henderson (setter, born 5/10/09, Brophy College Prep Phoenix AZ, club: AZ Fear 17s, interests: business, aviation, theology).
-Return ONLY valid JSON (no markdown, no backticks):
-{
-  "id": "short_id", "name": "Full Name", "city": "City", "state": "ST", "mascot": "Mascot",
-  "divLevel": "DI|DII|DIII|NAIA|JUCO", "conference": "Conference name",
-  "acceptance": "XX%", "tuitionIn": "$XX,XXX", "tuitionOut": "$XX,XXX",
-  "programRank": "#XX or NR", "setterNeed": "High|Med|Low", "priority": "Reach|Target|Safety",
-  "url": "https://school.edu", "logoUrl": "https://school.edu", "vbUrl": "https://...", "programIG": "@handle", "questionnaireUrl": "https://...",
-  "academic": { "top10": ["Major1","Major2"], "business": "description", "theology": "description", "aviation": "description", "avgGPA": "3.X", "gradRate": "XX%" },
-  "parkerFit": { "business": true, "aviation": false, "theology": true, "notes": "2-3 sentence explanation of why this school fits Parker specifically" },
-  "coaches": [{ "name": "Name", "role": "Head Coach", "email": "email@school.edu", "phone": "" }],
-  "setters": [{ "name": "Name", "grad": "20XX", "class": "JR" }],
-  "azRadar": [], "winHistory": [{ "yr": "2025", "w": 0, "l": 0, "p": ".000" }],
-  "schedule26": [], "news": [], "notes": "", "section": "discovery", "isVolleyballSchool": true
-}
-If no men's volleyball program, return: {"isVolleyballSchool": false}`;
+  try {
+    // Call our Netlify Function proxy
+    const res = await fetch("/.netlify/functions/claude-discovery", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ schoolName }),
+    });
 
-  const res = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST", headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ model: "claude-sonnet-4-20250514", max_tokens: 2000, messages: [{ role: "user", content: prompt }] })
-  });
-  if (!res.ok) throw new Error(`API error: ${res.status}`);
-  const data = await res.json();
-  const text = data.content?.find(b => b.type === "text")?.text || "";
-  return JSON.parse(text.replace(/```json[\s\S]*?```|```/g, "").trim());
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData.error || `Proxy error: ${res.status}`);
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.error("Error in fetchSchoolFromClaude:", err);
+    throw err;
+  }
 }
 
 // ─── EMAIL TEMPLATES ─────────────────────────────────────────────────────────
@@ -1253,18 +1253,55 @@ const GmailDraftsView = ({ allSchools, onBack }) => {
 
 // ─── MAIN APP ─────────────────────────────────────────────────────────────────
 export default function App() {
-  const [extraSchools, setExtraSchools] = useState(() => {
-    try {
-      const saved = localStorage.getItem('parker_extra_schools');
-      return saved ? JSON.parse(saved) : [];
-    } catch { return []; }
-  });
+  const [extraSchools, setExtraSchools] = useState([]);
+  const [driveReady, setDriveReady] = useState(false);
+  const [driveSyncing, setDriveSyncing] = useState(false);
 
-  // Persist extraSchools to localStorage whenever it changes
+  // Load schools from Google Drive on mount
   useEffect(() => {
-    try { localStorage.setItem('parker_extra_schools', JSON.stringify(extraSchools)); }
-    catch { /* storage full or unavailable */ }
-  }, [extraSchools]);
+    loadSchoolsFromDrive();
+  }, []);
+
+  // Save to Google Drive whenever extraSchools changes (with debounce)
+  useEffect(() => {
+    if (!driveReady || extraSchools.length === 0) return;
+    const timer = setTimeout(() => {
+      saveSchoolsToDrive(extraSchools);
+    }, 2000); // Wait 2 seconds after last change before saving
+    return () => clearTimeout(timer);
+  }, [extraSchools, driveReady]);
+
+  const loadSchoolsFromDrive = async () => {
+    try {
+      const res = await fetch('/.netlify/functions/drive-load-schools', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setExtraSchools(data.schools || []);
+      }
+      setDriveReady(true);
+    } catch (err) {
+      console.warn('Could not load from Google Drive:', err);
+      setDriveReady(true); // Still proceed, just without Drive sync
+    }
+  };
+
+  const saveSchoolsToDrive = async (schools) => {
+    if (!driveReady) return;
+    setDriveSyncing(true);
+    try {
+      await fetch('/.netlify/functions/drive-save-schools', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ schools })
+      });
+    } catch (err) {
+      console.warn('Could not save to Google Drive:', err);
+    }
+    setDriveSyncing(false);
+  };
   const [view, setView] = useState('master');
   const [sel, setSel] = useState(null);
   const [search, setSearch] = useState('');
