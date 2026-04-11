@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import {
   Search, Target, PlusCircle, ArrowLeft, ShieldCheck, Compass,
   ChevronRight, Instagram, Sparkles, Loader2, Trophy,
@@ -1253,7 +1253,18 @@ const GmailDraftsView = ({ allSchools, onBack }) => {
 
 // ─── MAIN APP ─────────────────────────────────────────────────────────────────
 export default function App() {
-  const [extraSchools, setExtraSchools] = useState([]);
+  const [extraSchools, setExtraSchools] = useState(() => {
+    try {
+      const saved = localStorage.getItem('parker_extra_schools');
+      return saved ? JSON.parse(saved) : [];
+    } catch { return []; }
+  });
+
+  // Persist extraSchools to localStorage whenever it changes
+  useEffect(() => {
+    try { localStorage.setItem('parker_extra_schools', JSON.stringify(extraSchools)); }
+    catch { /* storage full or unavailable */ }
+  }, [extraSchools]);
   const [view, setView] = useState('master');
   const [sel, setSel] = useState(null);
   const [search, setSearch] = useState('');
@@ -1285,8 +1296,8 @@ export default function App() {
     return matchSearch && matchDiv;
   });
 
-  const filteredPrimary = useMemo(() => applyFilters(primarySchools), [search, divFilter, primarySchools]);
-  const filteredDiscovery = useMemo(() => applyFilters(discoverySchools), [search, divFilter, discoverySchools]);
+  const filteredPrimary = useMemo(() => applyFilters(primarySchools).sort((a,b) => a.name.localeCompare(b.name)), [search, divFilter, primarySchools]);
+  const filteredDiscovery = useMemo(() => applyFilters(discoverySchools).sort((a,b) => a.name.localeCompare(b.name)), [search, divFilter, discoverySchools]);
 
   const handleAddSchool = async () => {
     if (!newSchoolName.trim()) return;
@@ -1432,6 +1443,12 @@ export default function App() {
                 {isSearching ? <Loader2 className="w-4 h-4 animate-spin" /> : <PlusCircle className="w-4 h-4" />}
                 Add Program
               </button>
+              {extraSchools.length > 0 && (
+                <button onClick={() => { if (window.confirm(`Remove all ${extraSchools.length} added school(s)?`)) setExtraSchools([]); }}
+                  className="bg-white/10 border border-white/20 text-white/60 px-4 py-3.5 rounded-xl text-xs font-bold uppercase tracking-wide hover:bg-white/20 hover:text-white transition-all flex-shrink-0">
+                  Clear Added ({extraSchools.length})
+                </button>
+              )}
             </div>
           </div>
         </div>
