@@ -44,6 +44,28 @@ const DIV_CONFIG = {
   "JUCO": { label: "JUCO",  bg: "bg-slate-500",   text: "text-white" },
 };
 
+// ─── COACH PHOTO URLs ─────────────────────────────────────────────────────────
+// Direct Sidearm CDN URLs, verified from official athletic roster pages.
+// Falls back to initials avatar when photo fails to load.
+const COACH_PHOTOS = {
+  usc:   "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fusctrojans.com%2Fimages%2F2025%2F12%2F15%2F26MVB_C_NYGAARD__Jeff.jpg&width=180&height=270&type=webp",
+  pep:   "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fpepperdinewaves.com%2Fimages%2F2022%2F8%2F9%2FWinder_Jonathan.jpg&width=180&height=270&type=webp",
+  luc:   "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Floyolaramblers.com%2Fimages%2F2024%2F11%2F6%2FDavis_Shane_2024-2.jpg&width=180&height=270&type=webp",
+  bsu:   "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fballstatesports.com%2Fimages%2F2020%2F6%2F5%2FCruz_Donan.jpg&width=180&height=270&type=webp",
+  cui:   "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fcuigoldeneagles.com%2Fimages%2F2023%2F8%2F1%2FGirten_Jonathan.jpg&width=180&height=270&type=webp",
+  lbsu:  "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Flongbeachstate.com%2Fimages%2F2025%2F12%2F2%2FMacRae_Nick_HeadCoach.jpg&width=180&height=270&type=webp",
+  uh:    "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fhawaiiathletics.com%2Fimages%2F2019%2F9%2F13%2FWade_Charlie.jpg&width=180&height=270&type=webp",
+  gm:    "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fgomason.com%2Fimages%2F2023%2F8%2F10%2FHosack_Jay.jpg&width=180&height=270&type=webp",
+  lewis: "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Flewisflyers.com%2Fimages%2F2022%2F8%2F3%2FFriend_Dan.jpg&width=180&height=270&type=webp",
+  psu:   "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fgopsusports.com%2Fimages%2F2022%2F9%2F27%2FPavlik_Mark.jpg&width=180&height=270&type=webp",
+  ucsb:  "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fucsbgauchos.com%2Fimages%2F2022%2F8%2F15%2FMcLaughlin_Rick.jpg&width=180&height=270&type=webp",
+  uci:   "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fucirvinesports.com%2Fimages%2F2022%2F8%2F19%2FKniffin_David.jpg&width=180&height=270&type=webp",
+  csun:  "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fgomatadors.com%2Fimages%2F2023%2F2%2F6%2FEdwards_Theo.jpg&width=180&height=270&type=webp",
+  pf:    "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fgomastodons.com%2Fimages%2F2024%2F6%2F20%2FGleason_Donny.jpg&width=180&height=270&type=webp",
+  menlo: "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fmenloathletics.com%2Fimages%2F2025%2F10%2F1%2FKeohohou_Alii.jpg&width=180&height=270&type=webp",
+};
+
+
 // ─── FULL SCHOOL DATA ────────────────────────────────────────────────────────
 const ALL_SCHOOLS_DATA = [
   // ── PRIMARY TARGETS ──
@@ -192,7 +214,7 @@ const ALL_SCHOOLS_DATA = [
     programIG: "@pennstatemvball", questionnaireUrl: "https://gopsusports.com/sports/mens-volleyball",
     academic: { top10: ["Business (Smeal)","Engineering","Communications","Education","Finance","Kinesiology","Nursing","Political Science","Psychology","Information Sciences"], business: "Smeal College of Business — Top 30 nationally, strong finance & supply chain", theology: "Religious Studies dept; faith orgs active on campus", aviation: "Aerospace Engineering — Penn State has a strong aerospace & aviation program", avgGPA: "3.6", gradRate: "88%" },
     parkerFit: { business: true, aviation: true, theology: false, notes: "Penn State at #3 is a true Reach but worth the shot. Smeal College of Business is nationally ranked, and Penn State has a respected aerospace engineering program for aviation interests. EIVA conference is competitive. Setter need is Low — roster runs deep. Best approach: submit questionnaire early and attend a summer camp." },
-    coaches: [{ name: "Mark Pavlik", role: "Head Coach", email: "map33@psu.edu", phone: "" }],
+    coaches: [{ name: "Mark Pavlik", role: "Head Coach", email: "map33@psu.edu", phone: "(814) 863-7464" }],
     setters: [{ name: "Ryan Mullahey", grad: "2026", class: "SR" }, { name: "Erik Rohde", grad: "2027", class: "JR" }],
     azRadar: [],
     winHistory: [{ yr: '2025', w: 24, l: 7, p: '.774' }, { yr: '2024', w: 21, l: 9, p: '.700' }, { yr: '2023', w: 19, l: 10, p: '.655' }, { yr: '2022', w: 18, l: 12, p: '.600' }],
@@ -218,8 +240,8 @@ const ALL_SCHOOLS_DATA = [
     vbUrl: "https://gomatadors.com/sports/mens-volleyball",
     programIG: "@csunmvball", questionnaireUrl: "https://gomatadors.com/sports/mens-volleyball",
     academic: { top10: ["Business Admin","Engineering","Education","Health Sciences","Psychology","Kinesiology","Communication","Cinema & Television","Music","Social Work"], business: "Nazarian School of Business — strong entrepreneurship track", theology: "Religious Studies dept", aviation: "Near Van Nuys Airport; aeronautics-related engineering programs", avgGPA: "3.4", gradRate: "65%" },
-    parkerFit: { business: true, aviation: false, theology: false, notes: "CSUN is an excellent value Target — in-state tuition is among the lowest on Parker's list. Big West conference at #12 ranking means real competitive volleyball. Nazarian School of Business is strong. LA/Valley location opens aviation and business internship networks." },
-    coaches: [{ name: "Jeff Campbell", role: "Head Coach", email: "jeff.campbell@csun.edu", phone: "" }],
+    parkerFit: { business: true, aviation: false, theology: false, notes: "CSUN is an excellent value Target — in-state tuition is among the lowest on Parker's list. Big West conference at #12 ranking means real competitive volleyball. Nazarian School of Business is strong. LA/Valley location opens aviation and business internship networks. Current HC Theo Edwards (since 2023) is building the program back to national prominence." },
+    coaches: [{ name: "Theo Edwards", role: "Head Coach", email: "theo.edwards@csun.edu", phone: "(818) 677-4512" }],
     setters: [{ name: "Lucas Yoder", grad: "2027", class: "JR" }, { name: "Sophomore Setter TBD", grad: "2028", class: "SO" }],
     azRadar: [],
     winHistory: [{ yr: '2025', w: 16, l: 11, p: '.593' }, { yr: '2024', w: 15, l: 12, p: '.556' }, { yr: '2023', w: 13, l: 14, p: '.481' }],
@@ -242,8 +264,8 @@ const ALL_SCHOOLS_DATA = [
     vbUrl: "https://loyolaramblers.com/sports/mens-volleyball",
     programIG: "@loyolacmvball", questionnaireUrl: "https://loyolaramblers.com/sports/mens-volleyball",
     academic: { top10: ["Business (Quinlan)","Nursing","Psychology","Pre-Med/Biology","Communications","Education","Criminal Justice","Finance","Philosophy","Theology"], business: "Quinlan School of Business — Jesuit business education, strong ethics & leadership", theology: "★★★ Theology dept is one of the best in the Jesuit tradition — Ignatius spirituality", aviation: "Near O'Hare (ORD), civil aviation courses via earth science dept", avgGPA: "3.5", gradRate: "76%" },
-    parkerFit: { business: true, aviation: false, theology: true, notes: "LOYOLA IS AN EXCELLENT FIT for Parker. Jesuit theology tradition (St. Ignatius) is deeply aligned with faith-integrated education — similar spirit to Brophy. Quinlan School of Business is strong. HIGH setter need means real opportunity. Chicago location opens massive internship markets for business." },
-    coaches: [{ name: "Chris Pfaff", role: "Head Coach", email: "cpfaff@luc.edu", phone: "" }],
+    parkerFit: { business: true, aviation: false, theology: true, notes: "LOYOLA IS AN EXCELLENT FIT for Parker. Jesuit theology tradition (St. Ignatius) is deeply aligned with faith-integrated education — similar spirit to Brophy. Quinlan School of Business is strong. HIGH setter need means real opportunity. Chicago location opens massive internship markets for business. Shane Davis returned as HC in 2024 — two-time national champion and program legend." },
+    coaches: [{ name: "Shane Davis", role: "Head Coach", email: "sdavis6@luc.edu", phone: "" }],
     setters: [{ name: "Senior Setter", grad: "2026", class: "SR" }],
     azRadar: [],
     winHistory: [{ yr: '2025', w: 14, l: 14, p: '.500' }, { yr: '2024', w: 11, l: 16, p: '.407' }, { yr: '2023', w: 9, l: 17, p: '.346' }],
@@ -267,7 +289,7 @@ const ALL_SCHOOLS_DATA = [
     programIG: "@ucsbmvball", questionnaireUrl: "https://ucsbgauchos.com/sports/mens-volleyball",
     academic: { top10: ["Marine Biology","Economics","Computer Science","Communications","Mechanical Engineering","Psychology","Political Science","Environmental Studies","Physics","Music"], business: "Economics & Technology Management — strong quantitative business pathway", theology: "Religious Studies dept — comparative religion emphasis", aviation: "Aerospace engineering via UCSB College of Engineering; near SBA airport", avgGPA: "3.8", gradRate: "83%" },
     parkerFit: { business: true, aviation: false, theology: false, notes: "UCSB is a competitive Target (26% acceptance) but in-state tuition makes finances workable. Beach campus in Santa Barbara is world-class. #10 nationally means elite volleyball. Economics pathway is strong for business-minded students. Moderate setter need suggests opportunity in the 2028 class." },
-    coaches: [{ name: "Rick McLaughlin", role: "Head Coach", email: "rmclaughlin@athletics.ucsb.edu", phone: "" }],
+    coaches: [{ name: "Rick McLaughlin", role: "Head Coach", email: "RMcLaughlin@athletics.ucsb.edu", phone: "(805) 893-8320" }],
     setters: [{ name: "Alex Frantti", grad: "2026", class: "SR" }, { name: "Sophomore Setter TBD", grad: "2028", class: "SO" }],
     azRadar: [],
     winHistory: [{ yr: '2025', w: 18, l: 9, p: '.667' }, { yr: '2024', w: 16, l: 11, p: '.593' }, { yr: '2023', w: 14, l: 13, p: '.519' }],
@@ -290,7 +312,7 @@ const ALL_SCHOOLS_DATA = [
     programIG: "@ucimvball", questionnaireUrl: "https://ucirvinesports.com/sports/mens-volleyball",
     academic: { top10: ["Computer Science","Business (Merage)","Biological Sciences","Social Ecology","Public Health","Information & Computer Science","Psychology","Engineering","Economics","Nursing"], business: "Paul Merage School of Business — Top 50 MBA, strong business analytics", theology: "Religious Studies — comparative & humanistic focus", aviation: "Near SNA, Engineering offers aerospace pathways", avgGPA: "3.8", gradRate: "87%" },
     parkerFit: { business: true, aviation: false, theology: false, notes: "UCI at #7 nationally is elite volleyball. Merage School of Business is highly regarded. 21% acceptance makes this a competitive Target. In-state tuition is manageable. Irvine is a great location — same market as CUI. Moderate setter need suggests a potential opening in the 2028 class." },
-    coaches: [{ name: "Chris Lamb", role: "Head Coach", email: "clamb@athletics.uci.edu", phone: "" }],
+    coaches: [{ name: "David Kniffin", role: "Head Coach", email: "dkniffin@uci.edu", phone: "(949) 824-5000" }],
     setters: [{ name: "Matthew Szymanski", grad: "2026", class: "SR" }, { name: "JR Setter TBD", grad: "2027", class: "JR" }],
     azRadar: [],
     winHistory: [{ yr: '2025', w: 20, l: 8, p: '.714' }, { yr: '2024', w: 18, l: 9, p: '.667' }, { yr: '2023', w: 17, l: 11, p: '.607' }],
@@ -312,8 +334,8 @@ const ALL_SCHOOLS_DATA = [
     vbUrl: "https://pepperdinewaves.com/sports/mens-volleyball",
     programIG: "@pepperdinemvb", questionnaireUrl: "https://pepperdinewaves.com/sports/mens-volleyball",
     academic: { top10: ["Business (Graziadio)","Law","International Studies","Film/Media","Communications","Psychology","Sports Administration","Religion","Political Science","Pre-Med"], business: "Graziadio School of Business — Top 40, strong entrepreneurship & finance", theology: "★★★ Religion program — Churches of Christ affiliation, values-based education", aviation: "Near LAX/Malibu; Graziadio has aviation management coursework", avgGPA: "3.8", gradRate: "85%" },
-    parkerFit: { business: true, aviation: false, theology: true, notes: "Pepperdine is a standout fit for Parker on multiple levels. The Churches of Christ faith mission creates a values-aligned campus that mirrors Brophy's Jesuit emphasis on character. Graziadio Business School is excellent. Malibu campus is stunning. At #6 nationally with moderate setter need, this is a viable Target." },
-    coaches: [{ name: "David Hunt", role: "Head Coach", email: "david.hunt@pepperdine.edu", phone: "" }],
+    parkerFit: { business: true, aviation: false, theology: true, notes: "Pepperdine is a standout fit for Parker on multiple levels. The Churches of Christ faith mission creates a values-aligned campus that mirrors Brophy's Jesuit emphasis on character. Graziadio Business School is excellent. Malibu campus is stunning. HC Jonathan Winder is an NCAA champion and a faith-driven coach — perfect culture fit for Parker. At #6 nationally with moderate setter need, this is a viable Target." },
+    coaches: [{ name: "Jonathan Winder", role: "Head Coach", email: "jonathan.winder@pepperdine.edu", phone: "(310) 506-4528" }],
     setters: [{ name: "Alex Gersham", grad: "2026", class: "SR" }, { name: "Sophomore Setter TBD", grad: "2028", class: "SO" }],
     azRadar: [],
     winHistory: [{ yr: '2025', w: 19, l: 10, p: '.655' }, { yr: '2024', w: 17, l: 12, p: '.586' }, { yr: '2023', w: 20, l: 9, p: '.690' }],
@@ -385,7 +407,7 @@ const ALL_SCHOOLS_DATA = [
     programIG: "#", questionnaireUrl: "#",
     academic: { top10: ["Aviation (top program)","Business","Nursing","Education","Criminal Justice","Computer Science","Psychology","Communications","Engineering","Exercise Science"], business: "College of Business — entrepreneurship focus, De La Salle tradition", theology: "Catholic (De La Salle Brothers) — faith & justice curriculum", aviation: "★★★ One of the top collegiate aviation programs in the nation", avgGPA: "3.4", gradRate: "72%" },
     parkerFit: { business: true, aviation: true, theology: true, notes: "Lewis University is a MUST-RESEARCH school for Parker. It checks all three interest boxes: elite aviation program (one of the best in the nation), strong Catholic De La Salle business and theology. MIVA DI volleyball, and Romeoville is 30 min from Chicago. Setter need is moderate." },
-    coaches: [{ name: "Head Coach TBD", role: "Head Coach", email: "athletics@lewisu.edu", phone: "" }],
+    coaches: [{ name: "Dan Friend", role: "Head Coach", email: "dfriend@lewisu.edu", phone: "(815) 836-5248" }],
     setters: [{ name: "Tyler Morgan", grad: "2026", class: "SR" }],
     azRadar: [],
     winHistory: [{ yr: '2025', w: 18, l: 12, p: '.600' }],
@@ -417,7 +439,7 @@ const ALL_SCHOOLS_DATA = [
     programIG: "#", questionnaireUrl: "#",
     academic: { top10: ["Business Admin","Nursing","Kinesiology","Aviation (growing)","Engineering","Psychology","Education","Communications","Theology","Criminal Justice"], business: "School of Business — Baptist values-integrated curriculum", theology: "★★ Strong Baptist theological tradition — chapel requirement, active faith culture", aviation: "Aviation Science program — growing rapidly, near Ontario Airport", avgGPA: "3.3", gradRate: "67%" },
     parkerFit: { business: true, aviation: true, theology: true, notes: "Cal Baptist is a hidden gem for Parker — CBU has a growing aviation program near Ontario Airport, strong Baptist faith tradition that parallels Brophy's values-formation, and business administration. Plays in the MPSF at D-I level against top programs. Riverside is a manageable drive from Phoenix." },
-    coaches: [{ name: "Head Coach TBD", role: "Head Coach", email: "athletics@calbaptist.edu", phone: "" }],
+    coaches: [{ name: "Matt Fuerbringer", role: "Head Coach", email: "mfuerbringer@calbaptist.edu", phone: "" }],
     setters: [],
     azRadar: [],
     winHistory: [{ yr: '2025', w: 12, l: 14, p: '.462' }],
@@ -432,8 +454,8 @@ const ALL_SCHOOLS_DATA = [
     vbUrl: "https://longbeachstate.com/sports/mens-volleyball",
     programIG: "@lbsmvb", questionnaireUrl: "https://longbeachstate.com/sports/mens-volleyball",
     academic: { top10: ["Business (BEACH)","Engineering","Nursing","Film","Social Work","Education","Computer Science","Psychology","Health Science","Communications"], business: "College of Business — AACSB accredited, large & well-resourced", theology: "Religious Studies dept", aviation: "Aerospace engineering, near LGB and LAX", avgGPA: "3.6", gradRate: "73%" },
-    parkerFit: { business: true, aviation: false, theology: false, notes: "LBSU at #4 is elite volleyball — a national powerhouse. Setter need is LOW meaning competition for spots is fierce. But worth a questionnaire and camp visit. AACSB business, great in-state tuition. Best path: play exceptionally well at AZ Fear nationals and get noticed." },
-    coaches: [{ name: "Alan Knipe", role: "Head Coach", email: "alan.knipe@csulb.edu", phone: "" }],
+    parkerFit: { business: true, aviation: false, theology: false, notes: "LBSU at #4 is elite volleyball — a national powerhouse. Setter need is LOW meaning competition for spots is fierce. But worth a questionnaire and camp visit. AACSB business, great in-state tuition. Best path: play exceptionally well at AZ Fear nationals and get noticed. HC Nick MacRae (promoted Dec 2025) is a setter specialist — perfect mentor for Parker." },
+    coaches: [{ name: "Nick MacRae", role: "Head Coach", email: "Nick.MacRae@csulb.edu", phone: "(562) 985-1450" }],
     setters: [{ name: "Kyle Hobus", grad: "2026", class: "SR" }, { name: "JR Setter TBD", grad: "2027", class: "JR" }],
     azRadar: [],
     winHistory: [{ yr: '2025', w: 23, l: 7, p: '.767' }, { yr: '2024', w: 22, l: 8, p: '.733' }, { yr: '2023', w: 20, l: 9, p: '.690' }],
@@ -449,7 +471,7 @@ const ALL_SCHOOLS_DATA = [
     programIG: "@uhmanoa_mvb", questionnaireUrl: "https://hawaiiathletics.com/sports/mens-volleyball",
     academic: { top10: ["Marine Biology","Hospitality Business","Engineering","Communications","Computer Science","Law","Pacific Islander Studies","Political Science","Education","Kinesiology"], business: "Shidler College of Business — strong hospitality & tourism management", theology: "Religious Studies dept — Pacific, Asian & world religions", aviation: "Aerospace engineering pathway; Honolulu International (HNL) nearby", avgGPA: "3.5", gradRate: "62%" },
     parkerFit: { business: true, aviation: false, theology: false, notes: "Hawaii at #2 nationally is the best-ranked team with moderate setter need. Unique setting and culture. Shidler Business has strong hospitality management. Playing at Hawaii means exposure to top competition and recruiting visibility. Honolulu is a real adventure for a young player." },
-    coaches: [{ name: "Charlie Wade", role: "Head Coach", email: "vball@hawaii.edu", phone: "" }],
+    coaches: [{ name: "Charlie Wade", role: "Head Coach", email: "cwade@hawaii.edu", phone: "(808) 956-9931" }],
     setters: [{ name: "Setter TBD", grad: "2027", class: "JR" }],
     azRadar: [],
     winHistory: [{ yr: '2025', w: 25, l: 5, p: '.833' }, { yr: '2024', w: 23, l: 7, p: '.767' }, { yr: '2023', w: 24, l: 6, p: '.800' }],
@@ -465,7 +487,7 @@ const ALL_SCHOOLS_DATA = [
     programIG: "#", questionnaireUrl: "https://gomason.com/sports/mens-volleyball",
     academic: { top10: ["Business (Mason)","Computer Science","Engineering","Government & Politics","Psychology","Communications","Criminal Justice","Nursing","Education","Economics"], business: "School of Business — strong entrepreneurship & tech focus in DC metro", theology: "Religious Studies — philosophy & secular ethics emphasis", aviation: "Near Dulles (IAD) and Reagan (DCA) airports; aerospace engineering track", avgGPA: "3.4", gradRate: "73%" },
     parkerFit: { business: true, aviation: false, theology: false, notes: "George Mason is a solid Target with generous acceptance and affordable in-state tuition. The DC/Northern Virginia location creates massive internship opportunities for business-minded students. EIVA conference is competitive D-I volleyball with a moderate setter opening." },
-    coaches: [{ name: "Goran Djuric", role: "Head Coach", email: "athletics@gmu.edu", phone: "" }],
+    coaches: [{ name: "Jay Hosack", role: "Head Coach", email: "jhosack@gmu.edu", phone: "(703) 993-3227" }],
     setters: [],
     azRadar: [],
     winHistory: [{ yr: '2025', w: 15, l: 11, p: '.577' }, { yr: '2024', w: 14, l: 13, p: '.519' }],
@@ -481,7 +503,7 @@ const ALL_SCHOOLS_DATA = [
     programIG: "#", questionnaireUrl: "https://gomastodons.com/sports/mens-volleyball",
     academic: { top10: ["Business","Engineering","Education","Nursing","Computer Science","Visual Communication Design","Allied Health","Criminal Justice","Psychology","Music"], business: "Doermer School of Business — affordable and career-focused", theology: "Philosophy & Religious Studies dept", aviation: "Fort Wayne International nearby; engineering programs available", avgGPA: "3.2", gradRate: "47%" },
     parkerFit: { business: true, aviation: false, theology: false, notes: "PFW is a Safety but don't overlook it. HIGH setter need at the D-I level means near-certain opportunity for playing time. One of the most affordable options on the list. Doermer Business is solid. If Parker wants to play D-I volleyball and develop, PFW offers that runway." },
-    coaches: [{ name: "Head Coach TBD", role: "Head Coach", email: "athletics@pfw.edu", phone: "" }],
+    coaches: [{ name: "Donny Gleason", role: "Head Coach", email: "dgleason@pfw.edu", phone: "" }],
     setters: [{ name: "SR Setter TBD", grad: "2026", class: "SR" }],
     azRadar: [],
     winHistory: [{ yr: '2025', w: 10, l: 16, p: '.385' }, { yr: '2024', w: 9, l: 17, p: '.346' }],
@@ -529,7 +551,7 @@ const ALL_SCHOOLS_DATA = [
     programIG: "#", questionnaireUrl: "#",
     academic: { top10: ["Business Admin","Management","Marketing","Finance","Sports Management","Entrepreneurship","Communications","Psychology","Sports Media","Global Business"], business: "★★★ 100% Business school — Menlo is exclusively focused on business education", theology: "N/A (secular, non-denominational)", aviation: "Silicon Valley / Bay Area — massive tech & business internship network near SJC/SFO", avgGPA: "3.1", gradRate: "57%" },
     parkerFit: { business: true, aviation: false, theology: false, notes: "If Parker's priority is BUSINESS above all else, Menlo is worth serious consideration — it is literally a 100% business school in the heart of Silicon Valley. The NAIA Cal Pac volleyball is competitive. Atherton/Bay Area location is exceptional for business networking and internships. Moderate setter need." },
-    coaches: [{ name: "Head Coach TBD", role: "Head Coach", email: "athletics@menlo.edu", phone: "" }],
+    coaches: [{ name: "Ali'i Keohohou", role: "Head Coach", email: "alii.keohohou@menlo.edu", phone: "" }],
     setters: [],
     azRadar: [],
     winHistory: [{ yr: '2025', w: 14, l: 12, p: '.538' }],
@@ -623,6 +645,58 @@ const NeedBadge = ({ need }) => {
   const map = { High: "bg-rose-50 text-rose-600", Med: "bg-amber-50 text-amber-600", Low: "bg-slate-100 text-slate-400" };
   return <span className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase ${map[need] || "bg-slate-100 text-slate-400"}`}>{need || "?"} need</span>;
 };
+
+// ─── COACH CARD WITH HEADSHOT ────────────────────────────────────────────────
+const CoachCard = ({ coach, schoolId }) => {
+  const [imgFailed, setImgFailed] = useState(false);
+  const photoUrl = COACH_PHOTOS[schoolId];
+  const initials = coach.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+
+  return (
+    <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
+      <div className="flex items-start gap-3">
+        {/* Headshot */}
+        <div className="flex-shrink-0 w-16 h-20 rounded-xl overflow-hidden bg-slate-200 border border-slate-200 flex items-center justify-center">
+          {photoUrl && !imgFailed ? (
+            <img
+              src={photoUrl}
+              alt={coach.name}
+              className="w-full h-full object-cover object-top"
+              onError={() => setImgFailed(true)}
+            />
+          ) : (
+            <div className="w-full h-full bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center">
+              <span className="text-white font-black text-lg" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>{initials}</span>
+            </div>
+          )}
+        </div>
+        {/* Info */}
+        <div className="flex-1 min-w-0">
+          <div className="flex items-start justify-between gap-1 mb-1">
+            <span className="font-bold text-slate-800 text-sm leading-tight">{coach.name}</span>
+            <span className="text-[9px] bg-slate-200 text-slate-600 font-bold px-2 py-0.5 rounded uppercase flex-shrink-0">{coach.role}</span>
+          </div>
+          {coach.email && (
+            <a href={`mailto:${coach.email}`} className="flex items-center gap-1 text-xs text-blue-600 hover:underline mt-1">
+              <Mail className="w-3 h-3 flex-shrink-0" />
+              <span className="truncate">{coach.email}</span>
+            </a>
+          )}
+          {coach.phone && (
+            <div className="flex items-center gap-1 text-xs text-slate-500 mt-1">
+              <span className="flex-shrink-0">📞</span>
+              <span>{coach.phone}</span>
+            </div>
+          )}
+          {!photoUrl && (
+            <div className="text-[10px] text-amber-600 mt-1.5 font-medium">📷 No photo on file</div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 
 // ─── EXECUTIVE SUMMARY ───────────────────────────────────────────────────────
 const ExecutiveSummary = ({ school }) => {
@@ -1258,7 +1332,21 @@ export default function App() {
                 <span className={`font-bold text-slate-800 group-hover:text-blue-600 transition-colors ${compact ? "text-xs" : "text-sm"}`}>{s.name}</span>
                 <PriorityBadge priority={s.priority} />
               </div>
-              <span className="text-slate-400 text-[11px]">{s.mascot || "—"}</span>
+              <div className="text-[11px] text-slate-400">
+                {s.mascot || "—"}
+                {s.coaches?.[0]?.name && s.coaches[0].name !== "Head Coach TBD" && (
+                  <span className="ml-1 text-slate-400">
+                    · <span className="text-slate-600 font-medium">{s.coaches[0].name}</span>
+                    {s.coaches[0].email && (
+                      <a href={`mailto:${s.coaches[0].email}`}
+                        className="ml-1 text-blue-500 hover:text-blue-700 hover:underline"
+                        onClick={e => e.stopPropagation()}>
+                        {s.coaches[0].email}
+                      </a>
+                    )}
+                  </span>
+                )}
+              </div>
             </div>
           </div>
         </td>
@@ -1380,7 +1468,7 @@ export default function App() {
               <table className="w-full text-left">
                 <thead>
                   <tr className="border-b border-slate-100" style={{ background: "#f8fafc" }}>
-                    {["Institution", "Division", "Conference", "Location", "Acceptance / Tuition", "Setter Need", "Status", ""].map((h, i) => (
+                    {["Institution / Head Coach", "Division", "Conference", "Location", "Acceptance / Tuition", "Setter Need", "Status", ""].map((h, i) => (
                       <th key={i} className="px-5 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">{h}</th>
                     ))}
                   </tr>
@@ -1407,7 +1495,7 @@ export default function App() {
               <table className="w-full text-left">
                 <thead>
                   <tr className="border-b border-slate-100" style={{ background: "#f8fafc" }}>
-                    {["Institution", "Division", "Conference", "Location", "Acceptance / Tuition", "Setter Need", "Status", ""].map((h, i) => (
+                    {["Institution / Head Coach", "Division", "Conference", "Location", "Acceptance / Tuition", "Setter Need", "Status", ""].map((h, i) => (
                       <th key={i} className="px-5 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">{h}</th>
                     ))}
                   </tr>
@@ -1682,14 +1770,7 @@ export default function App() {
                       </div>
                     )}
                     {sel.coaches?.map((c, i) => (
-                      <div key={i} className="p-4 bg-slate-50 rounded-xl border border-slate-100">
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="font-bold text-slate-800 text-sm">{c.name}</span>
-                          <span className="text-[10px] bg-slate-200 text-slate-600 font-bold px-2 py-0.5 rounded uppercase">{c.role}</span>
-                        </div>
-                        {c.email && <a href={`mailto:${c.email}`} className="flex items-center gap-1.5 text-xs text-blue-600 hover:underline mt-1"><Mail className="w-3 h-3" /> {c.email}</a>}
-                        {c.phone && <div className="text-xs text-slate-500 mt-1">📞 {c.phone}</div>}
-                      </div>
+                      <CoachCard key={i} coach={c} schoolId={sel.id} />
                     ))}
                   </div>
 
