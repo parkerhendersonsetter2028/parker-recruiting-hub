@@ -753,31 +753,46 @@ const ExecutiveSummary = ({ school }) => {
 
 // ─── CLAUDE API ───────────────────────────────────────────────────────────────
 async function fetchSchoolFromClaude(schoolName) {
-  const prompt = `You are a college volleyball recruiting expert. Provide comprehensive data for "${schoolName}" men's volleyball program for a recruit named Parker Henderson (setter, born 5/10/09, Brophy College Prep Phoenix AZ, club: AZ Fear 17s, interests: business, aviation, theology).
-Return ONLY valid JSON (no markdown, no backticks):
-{
-  "id": "short_id", "name": "Full Name", "city": "City", "state": "ST", "mascot": "Mascot",
-  "divLevel": "DI|DII|DIII|NAIA|JUCO", "conference": "Conference name",
-  "acceptance": "XX%", "tuitionIn": "$XX,XXX", "tuitionOut": "$XX,XXX",
-  "programRank": "#XX or NR", "setterNeed": "High|Med|Low", "priority": "Reach|Target|Safety",
-  "url": "https://school.edu", "logoUrl": "https://school.edu", "vbUrl": "https://...", "programIG": "@handle", "questionnaireUrl": "https://...",
-  "academic": { "top10": ["Major1","Major2"], "business": "description", "theology": "description", "aviation": "description", "avgGPA": "3.X", "gradRate": "XX%" },
-  "parkerFit": { "business": true, "aviation": false, "theology": true, "notes": "2-3 sentence explanation of why this school fits Parker specifically" },
-  "coaches": [{ "name": "Name", "role": "Head Coach", "email": "email@school.edu", "phone": "" }],
-  "setters": [{ "name": "Name", "grad": "20XX", "class": "JR" }],
-  "azRadar": [], "winHistory": [{ "yr": "2025", "w": 0, "l": 0, "p": ".000" }],
-  "schedule26": [], "news": [], "notes": "", "section": "discovery", "isVolleyballSchool": true
-}
-If no men's volleyball program, return: {"isVolleyballSchool": false}`;
-
-  const res = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST", headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ model: "claude-sonnet-4-20250514", max_tokens: 2000, messages: [{ role: "user", content: prompt }] })
+  const res = await fetch("/.netlify/functions/claude-discovery", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ schoolName })
   });
-  if (!res.ok) throw new Error(`API error: ${res.status}`);
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.error || `API error: ${res.status}`);
+  }
+  return res.json();
+}
+
+// ─── GOOGLE DRIVE API: Save Schools ──────────────────────────────────────────
+// Persists all schools to Google Drive via Netlify function
+async function saveSchoolsToDrive(schools) {
+  const res = await fetch("/.netlify/functions/drive-save-schools", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ schools })
+  });
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.error || `Drive save error: ${res.status}`);
+  }
+  return res.json();
+}
+
+// ─── GOOGLE DRIVE API: Load Schools ──────────────────────────────────────────
+// Loads Parker's saved schools from Google Drive via Netlify function
+async function loadSchoolsFromDrive() {
+  const res = await fetch("/.netlify/functions/drive-load-schools", {
+    method: "GET",
+    headers: { "Content-Type": "application/json" }
+  });
+  if (!res.ok) {
+    console.warn("Failed to load schools from Drive");
+    return [];
+  }
   const data = await res.json();
-  const text = data.content?.find(b => b.type === "text")?.text || "";
-  return JSON.parse(text.replace(/```json[\s\S]*?```|```/g, "").trim());
+  return data.schools || [];
 }
 
 // ─── EMAIL TEMPLATES ─────────────────────────────────────────────────────────
@@ -1317,18 +1332,52 @@ const GmailDraftsView = ({ allSchools, onBack }) => {
 
 // ─── MAIN APP ─────────────────────────────────────────────────────────────────
 export default function App() {
-  const [extraSchools, setExtraSchools] = useState(() => {
-    try {
-      const saved = localStorage.getItem('parker_extra_schools');
-      return saved ? JSON.parse(saved) : [];
-    } catch { return []; }
-  });
+  const [extraSchools, setExtraSchools] = useState([]);
+  const [isLoadingDrive, setIsLoadingDrive] = useState(true);
 
-  // Persist extraSchools to localStorage whenever it changes
+  // Load schools from Google Drive on mount
   useEffect(() => {
-    try { localStorage.setItem('parker_extra_schools', JSON.stringify(extraSchools)); }
-    catch { /* storage full or unavailable */ }
-  }, [extraSchools]);
+    const loadSchools = async () => {
+      try {
+        const driveSchools = await loadSchoolsFromDrive();
+        setExtraSchools(driveSchools);
+      } catch (err) {
+        console.error("Failed to load from Drive, using localStorage fallback:", err);
+        // Fallback to localStorage
+        try {
+          const saved = localStorage.getItem('parker_extra_schools');
+          setExtraSchools(saved ? JSON.parse(saved) : []);
+        } catch { 
+          setExtraSchools([]);
+        }
+      } finally {
+        setIsLoadingDrive(false);
+      }
+    };
+    loadSchools();
+  }, []);
+
+  // Save extraSchools to Google Drive whenever it changes
+  useEffect(() => {
+    if (extraSchools.length === 0 && isLoadingDrive) return; // Skip on initial load
+    
+    const saveSchools = async () => {
+      try {
+        await saveSchoolsToDrive(extraSchools);
+        // Also save to localStorage as backup
+        localStorage.setItem('parker_extra_schools', JSON.stringify(extraSchools));
+      } catch (err) {
+        console.warn("Failed to save to Drive, saving to localStorage only:", err);
+        // Still save to localStorage as fallback
+        try { 
+          localStorage.setItem('parker_extra_schools', JSON.stringify(extraSchools)); 
+        } catch { /* storage full */ }
+      }
+    };
+
+    const timer = setTimeout(saveSchools, 500); // Debounce 500ms to prevent hammering Drive
+    return () => clearTimeout(timer);
+  }, [extraSchools, isLoadingDrive]);
   const [view, setView] = useState('master');
   const [sel, setSel] = useState(null);
   const [search, setSearch] = useState('');
