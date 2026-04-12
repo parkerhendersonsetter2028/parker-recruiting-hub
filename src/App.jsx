@@ -1358,12 +1358,14 @@ export default function App() {
   }, []);
 
   // Save extraSchools to Google Drive whenever it changes
+  const allSchools = useMemo(() => [...ALL_SCHOOLS_DATA, ...extraSchools], [extraSchools]);
+  
   useEffect(() => {
     if (extraSchools.length === 0 && isLoadingDrive) return; // Skip on initial load
     
     const saveSchools = async () => {
       try {
-        await saveSchoolsToDrive(extraSchools);
+        await saveSchoolsToDrive(allSchools);  // Save ALL schools (hardcoded + extra)
         // Also save to localStorage as backup
         localStorage.setItem('parker_extra_schools', JSON.stringify(extraSchools));
       } catch (err) {
@@ -1377,20 +1379,7 @@ export default function App() {
 
     const timer = setTimeout(saveSchools, 500); // Debounce 500ms to prevent hammering Drive
     return () => clearTimeout(timer);
-  }, [extraSchools, isLoadingDrive]);
-  const [view, setView] = useState('master');
-  const [sel, setSel] = useState(null);
-  const [search, setSearch] = useState('');
-  const [divFilter, setDivFilter] = useState('All');
-  const [newSchoolName, setNewSchoolName] = useState('');
-  const [isSearching, setIsSearching] = useState(false);
-  const [logs, setLogs] = useState({});
-  const [statuses, setStatuses] = useState({});
-  const [logDate, setLogDate] = useState('');
-  const [logType, setLogType] = useState('Submitted Questionnaire');
-  const [notes, setNotes] = useState({});
-
-  const allSchools = useMemo(() => [...ALL_SCHOOLS_DATA, ...extraSchools], [extraSchools]);
+  }, [extraSchools, isLoadingDrive, allSchools]);
   const primarySchools = useMemo(() => allSchools.filter(s => s.section === "primary"), [allSchools]);
   const discoverySchools = useMemo(() => allSchools.filter(s => s.section === "discovery"), [allSchools]);
 
