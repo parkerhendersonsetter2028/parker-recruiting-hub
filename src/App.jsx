@@ -1049,7 +1049,7 @@ const GmailDraftsView = ({ allSchools, onBack }) => {
     const message = [
       `To: ${to}`,
       `Subject: ${subject}`,
-      `Content-Type: text/plain; charset=utf-8`,
+      `MIME-Version: 1.0`r`n      `Content-Type: text/html; charset=utf-8`,
       ``,
       body,
     ].join('\r\n');
