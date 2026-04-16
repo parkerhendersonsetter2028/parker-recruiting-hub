@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
-import { ArrowLeft, Check, Loader2, Mail, PartyPopper, ShieldCheck } from 'lucide-react';
-import { FontStyle } from '../components/FontStyle.jsx';
+import { ArrowLeft, Check, Loader2, Mail, PartyPopper, X } from 'lucide-react';
 import { SchoolLogo } from '../components/SchoolLogo.jsx';
 import { buildTemplate } from '../data/emailTemplates.js';
 
 // ─── GMAIL DRAFTS VIEW ───────────────────────────────────────────────────────
-
-const GMAIL_CLIENT_ID = ''; // User will paste their Client ID here — see instructions
 
 export const GmailDraftsView = ({ allSchools, onBack }) => {
   const [authToken, setAuthToken] = useState(null);
@@ -88,31 +85,34 @@ export const GmailDraftsView = ({ allSchools, onBack }) => {
   const phaseColors = { intro: 'bg-blue-600', tournament: 'bg-emerald-600', video: 'bg-purple-600' };
 
   return (
-    <div className="min-h-screen" style={{ background: "#f1f4f9" }}>
-      <FontStyle />
-
+    <div className="px-4 sm:px-6 lg:px-10 py-6 lg:py-8 max-w-4xl">
       {/* Load Google Identity Services */}
       <script src="https://accounts.google.com/gsi/client" async></script>
 
       {/* HEADER */}
-      <div style={{ background: "linear-gradient(135deg, #0f172a, #1e3a5f)" }} className="px-8 py-6">
-        <div className="max-w-4xl mx-auto flex items-center justify-between gap-8">
-          <div>
-            <div className="flex items-center gap-3 mb-0.5">
-              <ShieldCheck className="text-blue-400 w-4 h-4" />
-              <span className="text-blue-300 text-xs font-bold uppercase tracking-widest">Parker Henderson · Gmail Draft Creator</span>
-            </div>
-            <h1 className="font-black text-white text-3xl tracking-tight" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>
-              GMAIL <span className="text-blue-400">DRAFT CREATOR</span>
-            </h1>
+      <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-6">
+        <div>
+          <div className="text-[11px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-2">
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500" />
+            Outreach Automation
           </div>
-          <button onClick={onBack} className="flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 px-5 py-2.5 rounded-xl text-white text-xs font-bold uppercase tracking-wide transition-all">
-            <ArrowLeft className="w-4 h-4" /> Back
-          </button>
+          <h1
+            className="font-black text-slate-900 tracking-tight leading-none mt-1"
+            style={{ fontSize: '2rem', fontFamily: "'Barlow Condensed', sans-serif" }}
+          >
+            GMAIL <span className="text-emerald-600">DRAFT CREATOR</span>
+          </h1>
+          <p className="text-slate-500 text-sm mt-1">Create personalized drafts for every coach on your list in one click.</p>
         </div>
+        <button
+          onClick={onBack}
+          className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 border border-slate-200 px-4 py-2 rounded-xl text-slate-700 text-xs font-bold uppercase tracking-wide transition-all self-start"
+        >
+          <ArrowLeft className="w-4 h-4" /> Back
+        </button>
       </div>
 
-      <div className="max-w-4xl mx-auto px-6 pb-20 pt-8 space-y-6">
+      <div className="space-y-6">
 
         {/* SETUP PANEL */}
         {showSetup && (
@@ -138,7 +138,7 @@ export const GmailDraftsView = ({ allSchools, onBack }) => {
 
             <div className="space-y-3">
               <div>
-                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-1.5">Google OAuth Client ID</label>
+                <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest block mb-1.5">Google OAuth Client ID</label>
                 <input
                   className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-mono text-slate-800 outline-none focus:border-blue-400 focus:bg-white transition-all"
                   placeholder="XXXXXXXXXX-xxxxxxxxxxxxxxxxxx.apps.googleusercontent.com"
@@ -161,7 +161,7 @@ export const GmailDraftsView = ({ allSchools, onBack }) => {
             <div className="flex items-center gap-3 bg-emerald-50 border border-emerald-200 rounded-2xl px-5 py-3">
               <Check className="w-5 h-5 text-emerald-600 flex-shrink-0" />
               <span className="text-emerald-800 font-bold text-sm">Connected to parkerhenderson.setter.2028@gmail.com</span>
-              <button onClick={signOut} className="ml-auto text-xs text-slate-400 hover:text-slate-600 font-bold uppercase tracking-wide">Disconnect</button>
+              <button onClick={signOut} className="ml-auto text-xs text-slate-500 hover:text-slate-700 font-bold uppercase tracking-wide">Disconnect</button>
             </div>
 
             {/* PHASE SELECTOR */}
@@ -173,7 +173,7 @@ export const GmailDraftsView = ({ allSchools, onBack }) => {
               <div className="flex gap-3">
                 {Object.entries(phaseLabels).map(([id, label]) => (
                   <button key={id} onClick={() => setDraftPhase(id)}
-                    className={`flex-1 py-3 px-4 rounded-xl font-bold text-sm uppercase tracking-wide transition-all border ${draftPhase === id ? `${phaseColors[id]} text-white border-transparent shadow-lg` : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300'}`}>
+                    className={`flex-1 py-3 px-4 rounded-xl font-bold text-sm uppercase tracking-wide transition-all border ${draftPhase === id ? `${phaseColors[id]} text-white border-transparent shadow-lg` : 'bg-white text-slate-600 border-slate-200 hover:border-slate-300'}`}>
                     {label}
                   </button>
                 ))}
@@ -187,7 +187,7 @@ export const GmailDraftsView = ({ allSchools, onBack }) => {
                   <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-black text-sm">3</div>
                   <div>
                     <h2 className="font-black text-slate-800 text-lg uppercase tracking-widest" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>Create Drafts</h2>
-                    <p className="text-xs text-slate-400 mt-0.5">{schoolsWithEmail.length} schools with coach emails · {phaseLabels[draftPhase]}</p>
+                    <p className="text-xs text-slate-500 mt-0.5">{schoolsWithEmail.length} schools with coach emails · {phaseLabels[draftPhase]}</p>
                   </div>
                 </div>
                 <button onClick={runAllDrafts} disabled={isRunning}
@@ -202,7 +202,7 @@ export const GmailDraftsView = ({ allSchools, onBack }) => {
                 <div className="flex gap-3 mb-4 p-3 bg-slate-50 rounded-xl">
                   <span className="inline-flex items-center gap-1.5 text-emerald-600 font-bold text-sm"><Check className="w-4 h-4" /> {doneCount} created</span>
                   {errorCount > 0 && <span className="inline-flex items-center gap-1.5 text-red-500 font-bold text-sm"><X className="w-4 h-4" /> {errorCount} failed</span>}
-                  <span className="text-slate-400 text-sm">{Object.keys(results).length} / {schoolsWithEmail.length} processed</span>
+                  <span className="text-slate-500 text-sm">{Object.keys(results).length} / {schoolsWithEmail.length} processed</span>
                   {!isRunning && doneCount > 0 && (
                     <a href="https://mail.google.com/mail/u/0/#drafts" target="_blank" rel="noreferrer"
                       className="ml-auto text-blue-600 font-bold text-xs hover:underline">
@@ -216,7 +216,7 @@ export const GmailDraftsView = ({ allSchools, onBack }) => {
               <div className="space-y-2">
                 {schoolsWithEmail.map(school => {
                   const status = results[school.id];
-                  const { subject, to } = buildDraftBody(school);
+                  const { to } = buildDraftBody(school);
                   return (
                     <div key={school.id} className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all ${
                       status === 'done'    ? 'bg-emerald-50 border-emerald-200' :
@@ -228,14 +228,14 @@ export const GmailDraftsView = ({ allSchools, onBack }) => {
                       <SchoolLogo school={school} size="sm" />
                       <div className="flex-1 min-w-0">
                         <div className="font-bold text-slate-800 text-sm">{school.name}</div>
-                        <div className="text-[11px] text-slate-400 truncate">To: {to || 'No email on file'}</div>
+                        <div className="text-[11px] text-slate-500 truncate">To: {to || 'No email on file'}</div>
                       </div>
-                      <div className="text-[10px] font-bold px-2 py-1 rounded-full flex-shrink-0 uppercase tracking-wide">
+                      <div className="text-[11px] font-bold px-2 py-1 rounded-full flex-shrink-0 uppercase tracking-wide">
                         {status === 'done'    && <span className="inline-flex items-center gap-1 text-emerald-700 bg-emerald-100 px-2 py-1 rounded-full"><Check className="w-3 h-3" /> Draft Created</span>}
                         {status === 'error'   && <span className="inline-flex items-center gap-1 text-red-600 bg-red-100 px-2 py-1 rounded-full"><X className="w-3 h-3" /> Error — Retry</span>}
                         {status === 'pending' && <span className="text-blue-600 bg-blue-100 px-2 py-1 rounded-full flex items-center gap-1"><Loader2 className="w-3 h-3 animate-spin inline" /> Creating…</span>}
                         {status === 'skipped' && <span className="text-slate-500 bg-slate-100 px-2 py-1 rounded-full">No Email</span>}
-                        {!status && <span className="text-slate-300 bg-slate-50 px-2 py-1 rounded-full border border-slate-200">Queued</span>}
+                        {!status && <span className="text-slate-500 bg-slate-50 px-2 py-1 rounded-full border border-slate-200">Queued</span>}
                       </div>
                     </div>
                   );

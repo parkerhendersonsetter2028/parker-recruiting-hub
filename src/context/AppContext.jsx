@@ -75,6 +75,17 @@ export function AppProvider({ children }) {
   const [logType, setLogType] = useState('Submitted Questionnaire');
   const [showHidden, setShowHidden] = useState(false);
   const [openMenuId, setOpenMenuId] = useState(null);
+  // NEW: section tab, sort, density, discovery panel
+  const [activeSection, setActiveSection] = useState('primary'); // 'primary' | 'discovery' | 'hidden'
+  const [sortBy, setSortBy] = useState('name');                  // 'name'|'divLevel'|'conference'|'location'|'setterNeed'|'status'
+  const [sortDir, setSortDir] = useState('asc');                 // 'asc' | 'desc'
+  const [density, setDensity] = useState('comfortable');         // 'comfortable' | 'compact'
+  const [openDiscovery, setOpenDiscovery] = useState(false);     // expanded AI add panel
+
+  const toggleSort = (col) => {
+    if (sortBy === col) setSortDir(d => (d === 'asc' ? 'desc' : 'asc'));
+    else { setSortBy(col); setSortDir('asc'); }
+  };
 
   // Click-outside dismiss for the ⋯ menu
   useEffect(() => {
@@ -100,6 +111,38 @@ export function AppProvider({ children }) {
 
   const contacted = useMemo(() => Object.values(statuses).filter(s => s && s !== "None").length, [statuses]);
 
+  // Rank helpers for sorting
+  const DIV_RANK = { DI: 0, DII: 1, DIII: 2, NAIA: 3, JUCO: 4 };
+  const NEED_RANK = { High: 0, Med: 1, Low: 2 };
+  const STATUS_RANK = { None: 0, Questionnaire: 1, 'Reached Out': 2, 'Coach Contact': 3, 'Campus Visit': 4, Offer: 5 };
+
+  const sortFn = (a, b) => {
+    const dir = sortDir === 'asc' ? 1 : -1;
+    const av = (() => {
+      switch (sortBy) {
+        case 'divLevel':   return DIV_RANK[a.divLevel] ?? 99;
+        case 'conference': return (a.conference || '').toLowerCase();
+        case 'location':   return `${a.state || ''} ${a.city || ''}`.toLowerCase();
+        case 'setterNeed': return NEED_RANK[a.setterNeed] ?? 99;
+        case 'status':     return STATUS_RANK[statuses[a.id] || 'None'] ?? 0;
+        default:           return (a.name || '').toLowerCase();
+      }
+    })();
+    const bv = (() => {
+      switch (sortBy) {
+        case 'divLevel':   return DIV_RANK[b.divLevel] ?? 99;
+        case 'conference': return (b.conference || '').toLowerCase();
+        case 'location':   return `${b.state || ''} ${b.city || ''}`.toLowerCase();
+        case 'setterNeed': return NEED_RANK[b.setterNeed] ?? 99;
+        case 'status':     return STATUS_RANK[statuses[b.id] || 'None'] ?? 0;
+        default:           return (b.name || '').toLowerCase();
+      }
+    })();
+    if (av < bv) return -1 * dir;
+    if (av > bv) return  1 * dir;
+    return (a.name || '').localeCompare(b.name || '');
+  };
+
   const applyFilters = (list) => list.filter(s => {
     const q = search.toLowerCase();
     const matchSearch = s.name?.toLowerCase().includes(q) || s.city?.toLowerCase().includes(q) || s.conference?.toLowerCase().includes(q);
@@ -107,8 +150,20 @@ export function AppProvider({ children }) {
     return matchSearch && matchDiv;
   });
 
-  const filteredPrimary = useMemo(() => applyFilters(primarySchools).sort((a,b) => a.name.localeCompare(b.name)), [search, divFilter, primarySchools]);
-  const filteredDiscovery = useMemo(() => applyFilters(discoverySchools).sort((a,b) => a.name.localeCompare(b.name)), [search, divFilter, discoverySchools]);
+  const activeList = useMemo(() => {
+    if (activeSection === 'primary')   return primarySchools;
+    if (activeSection === 'discovery') return discoverySchools;
+    return hiddenSchools;
+  }, [activeSection, primarySchools, discoverySchools, hiddenSchools]);
+
+  const filteredSchools = useMemo(
+    () => applyFilters(activeList).slice().sort(sortFn),
+    [activeList, search, divFilter, sortBy, sortDir, statuses]
+  );
+
+  // Legacy (kept for compatibility; master view no longer references these directly)
+  const filteredPrimary = useMemo(() => applyFilters(primarySchools).slice().sort(sortFn), [primarySchools, search, divFilter, sortBy, sortDir, statuses]);
+  const filteredDiscovery = useMemo(() => applyFilters(discoverySchools).slice().sort(sortFn), [discoverySchools, search, divFilter, sortBy, sortDir, statuses]);
 
   const handleAddSchool = async () => {
     if (!newSchoolName.trim()) return;
@@ -140,7 +195,7 @@ export function AppProvider({ children }) {
   const value = {
     // data
     allSchools, visibleSchools, primarySchools, discoverySchools, hiddenSchools,
-    filteredPrimary, filteredDiscovery, divCounts, contacted,
+    filteredPrimary, filteredDiscovery, filteredSchools, divCounts, contacted,
     extraSchools, setExtraSchools,
     // persisted state
     statuses, setStatuses, logs, setLogs, notes, setNotes,
@@ -153,6 +208,10 @@ export function AppProvider({ children }) {
     newSchoolName, setNewSchoolName, isSearching,
     logDate, setLogDate, logType, setLogType,
     showHidden, setShowHidden, openMenuId, setOpenMenuId,
+    activeSection, setActiveSection,
+    sortBy, sortDir, toggleSort,
+    density, setDensity,
+    openDiscovery, setOpenDiscovery,
     // handlers
     handleAddSchool, navigate, goEmail, goGmail, goBack, addLog,
   };
