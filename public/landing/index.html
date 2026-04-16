@@ -50,25 +50,31 @@
   .hero-video-wrap {
     position: absolute; inset: 0;
     z-index: 0;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 15%, rgba(240,180,41,0.14), transparent 70%),
+      radial-gradient(ellipse 55% 45% at 15% 85%, rgba(59,130,246,0.09), transparent 70%),
+      linear-gradient(180deg, #0a0e1a 0%, #060912 100%);
   }
 
-  .hero-video-wrap iframe {
-    position: absolute;
-    top: 50%; left: 50%;
-    width: 177.78vh; height: 100vh;
-    min-width: 100%; min-height: 56.25vw;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    border: none;
+  .hero-video-wrap::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(148,163,184,0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(148,163,184,0.07) 1px, transparent 1px);
+    background-size: 70px 70px;
+    -webkit-mask-image: radial-gradient(ellipse at center, black 25%, transparent 75%);
+    mask-image: radial-gradient(ellipse at center, black 25%, transparent 75%);
   }
 
   .hero-overlay {
     position: absolute; inset: 0;
     background: linear-gradient(
       to bottom,
-      rgba(6,9,18,0.55) 0%,
-      rgba(6,9,18,0.30) 40%,
-      rgba(6,9,18,0.75) 80%,
+      rgba(6,9,18,0.25) 0%,
+      rgba(6,9,18,0.10) 40%,
+      rgba(6,9,18,0.65) 85%,
       rgba(6,9,18,1.00) 100%
     );
     z-index: 1;
@@ -684,15 +690,7 @@
 
 <!-- ═══════════ HERO ═══════════ -->
 <section class="hero">
-  <div class="hero-video-wrap">
-    <!-- Replace VIDEO_ID with a real volleyball highlight reel YouTube ID -->
-    <iframe
-      src="https://www.youtube.com/embed/dxJz4d0jTGc?autoplay=1&mute=1&loop=1&playlist=dxJz4d0jTGc&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1"
-      allow="autoplay; encrypted-media"
-      allowfullscreen
-      title="Background video"
-    ></iframe>
-  </div>
+  <div class="hero-video-wrap" aria-hidden="true"></div>
   <div class="hero-overlay"></div>
 
   <div class="hero-content">
