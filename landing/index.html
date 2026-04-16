@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Recruiting Hub — Built for Athletes, Not Guesswork</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --navy: #0a0e1a;
+    --navy2: #111827;
+    --midnight: #060912;
+    --gold: #f0b429;
+    --gold2: #fcd34d;
+    --slate: #94a3b8;
+    --off: #e2e8f0;
+    --red: #ef4444;
+    --green: #10b981;
+    --blue: #3b82f6;
+    --purple: #8b5cf6;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--midnight);
+    color: var(--off);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .bebas { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.04em; }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .hero-video-wrap {
+    position: absolute; inset: 0;
+    z-index: 0;
+  }
+
+  .hero-video-wrap iframe {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 177.78vh; height: 100vh;
+    min-width: 100%; min-height: 56.25vw;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    border: none;
+  }
+
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(6,9,18,0.55) 0%,
+      rgba(6,9,18,0.30) 40%,
+      rgba(6,9,18,0.75) 80%,
+      rgba(6,9,18,1.00) 100%
+    );
+    z-index: 1;
+  }
+
+  /* Noise grain overlay for film feel */
+  .hero-overlay::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.18;
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+  }
+
+  .hero-eyebrow {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: rgba(240,180,41,0.12);
+    border: 1px solid rgba(240,180,41,0.3);
+    padding: 0.35rem 1rem;
+    border-radius: 2px;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero h1 {
+    font-size: clamp(3.5rem, 11vw, 9rem);
+    line-height: 0.92;
+    color: #fff;
+    animation: fadeUp 0.8s 0.15s ease both;
+  }
+
+  .hero h1 span { color: var(--gold); }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2.2vw, 1.3rem);
+    font-weight: 300;
+    color: rgba(226,232,240,0.85);
+    max-width: 600px;
+    margin: 1.75rem auto 0;
+    line-height: 1.65;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .hero-cta-row {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2.5rem;
+    animation: fadeUp 0.8s 0.45s ease both;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: #000;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.9rem 2.2rem;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 30px rgba(240,180,41,0.35);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(240,180,41,0.55); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--off);
+    font-weight: 500;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    padding: 0.9rem 2rem;
+    border: 1px solid rgba(226,232,240,0.3);
+    border-radius: 3px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0.5;
+    animation: fadeUp 1s 1.2s ease both;
+  }
+  .scroll-hint span { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; }
+  .scroll-line {
+    width: 1px; height: 50px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s infinite;
+  }
+
+  /* ── STAT BAR ── */
+  .stat-bar {
+    background: var(--navy2);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 2rem 2rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .stat-item {}
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--slate);
+    margin-top: 0.3rem;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 2rem; max-width: 1100px; margin: 0 auto; }
+
+  .section-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    line-height: 0.95;
+    margin-bottom: 1.5rem;
+    color: #fff;
+  }
+
+  .section-body {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: rgba(226,232,240,0.75);
+    max-width: 620px;
+  }
+
+  /* ── PAIN SECTION ── */
+  .pain-section {
+    padding: 6rem 2rem;
+    background: var(--navy);
+    position: relative;
+    overflow: hidden;
+  }
+  .pain-section::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(240,180,41,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .pain-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .pain-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .pain-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-left: 3px solid var(--gold);
+    border-radius: 4px;
+    padding: 1.25rem 1.5rem;
+    font-size: 0.93rem;
+    color: rgba(226,232,240,0.8);
+    line-height: 1.6;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .pain-card.visible { opacity: 1; transform: translateX(0); }
+
+  .pain-card strong { color: #fff; display: block; margin-bottom: 0.3rem; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; }
+
+  /* ── APP SCREENSHOTS (simulated) ── */
+  .screenshots-section {
+    padding: 6rem 2rem;
+    background: var(--midnight);
+  }
+
+  .screenshots-inner { max-width: 1100px; margin: 0 auto; }
+
+  .screenshot-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin: 2.5rem 0 2rem;
+    flex-wrap: wrap;
+  }
+
+  .tab-btn {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.5rem 1.2rem;
+    border-radius: 2px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: transparent;
+    color: var(--slate);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .tab-btn.active { background: var(--gold); color: #000; border-color: var(--gold); font-weight: 700; }
+  .tab-btn:hover:not(.active) { border-color: var(--gold); color: var(--gold); }
+
+  .screenshot-display {
+    background: var(--navy2);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    overflow: hidden;
+    min-height: 480px;
+    position: relative;
+  }
+
+  /* Browser chrome */
+  .browser-chrome {
+    background: #1e2535;
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-r { background: #ff5f57; }
+  .dot-y { background: #febc2e; }
+  .dot-g { background: #28c840; }
+  .url-bar {
+    margin-left: 1rem;
+    background: rgba(0,0,0,0.3);
+    border-radius: 3px;
+    padding: 0.25rem 0.75rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--slate);
+    flex: 1;
+    max-width: 350px;
+  }
+
+  .screen-content {
+    padding: 1.5rem;
+    display: none;
+  }
+  .screen-content.active { display: block; }
+
+  /* ─ Dashboard mockup ─ */
+  .mock-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  .mock-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: #fff; }
+  .mock-sub { font-size: 0.75rem; color: var(--slate); margin-top: 0.1rem; }
+
+  .mock-status-row {
+    display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem;
+  }
+  .status-chip {
+    font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.3rem 0.8rem; border-radius: 12px; font-weight: 600;
+  }
+
+  .school-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.75rem; }
+  .school-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 6px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .school-card:hover { border-color: rgba(240,180,41,0.4); }
+
+  .school-name { font-size: 0.85rem; font-weight: 600; color: #fff; margin-bottom: 0.2rem; }
+  .school-meta { font-size: 0.7rem; color: var(--slate); }
+  .school-badges { display: flex; gap: 0.3rem; margin-top: 0.5rem; }
+  .badge {
+    font-size: 0.6rem; font-weight: 700; letter-spacing: 0.05em;
+    padding: 0.15rem 0.45rem; border-radius: 2px; text-transform: uppercase;
+  }
+  .badge-di { background: #2563eb; color: #fff; }
+  .badge-dii { background: #7c3aed; color: #fff; }
+  .badge-diii { background: #059669; color: #fff; }
+  .badge-naia { background: #ea580c; color: #fff; }
+  .badge-target { background: rgba(240,180,41,0.2); color: var(--gold); border: 1px solid rgba(240,180,41,0.3); }
+  .badge-offer { background: rgba(16,185,129,0.2); color: #10b981; border: 1px solid rgba(16,185,129,0.3); }
+  .badge-visit { background: rgba(139,92,246,0.2); color: #8b5cf6; border: 1px solid rgba(139,92,246,0.3); }
+
+  .status-dot {
+    display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+    margin-right: 0.3rem; vertical-align: middle;
+  }
+
+  /* AI mockup */
+  .ai-window {
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(240,180,41,0.15);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .ai-header {
+    background: rgba(240,180,41,0.08);
+    border-bottom: 1px solid rgba(240,180,41,0.15);
+    padding: 0.75rem 1rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .ai-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); animation: pulse 2s infinite; }
+  .ai-label { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--gold); letter-spacing: 0.1em; }
+  .ai-body { padding: 1.5rem; }
+  .ai-prompt {
+    font-family: 'DM Mono', monospace; font-size: 0.75rem;
+    color: rgba(226,232,240,0.5); margin-bottom: 1rem; line-height: 1.5;
+  }
+  .ai-response { font-size: 0.82rem; line-height: 1.7; color: rgba(226,232,240,0.85); }
+  .ai-response strong { color: var(--gold); }
+  .ai-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 1rem; }
+  .ai-tag {
+    font-size: 0.65rem; padding: 0.25rem 0.65rem; border-radius: 10px;
+    background: rgba(255,255,255,0.06); color: var(--slate); letter-spacing: 0.05em;
+  }
+
+  /* Radar mockup */
+  .radar-header {
+    display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem;
+  }
+  .radar-icon {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: linear-gradient(135deg, #ef4444, #f97316);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+  }
+  .radar-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: #fff; }
+  .radar-sub { font-size: 0.7rem; color: var(--slate); }
+
+  .player-row {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 0.75rem;
+    border-radius: 5px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    margin-bottom: 0.5rem;
+  }
+  .player-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 0.9rem; flex-shrink: 0;
+  }
+  .player-name { font-size: 0.85rem; font-weight: 600; color: #fff; }
+  .player-meta { font-size: 0.7rem; color: var(--slate); margin-top: 0.1rem; }
+  .player-school { font-size: 0.7rem; color: rgba(226,232,240,0.6); margin-left: auto; text-align: right; }
+
+  /* ── FEATURES ── */
+  .features-section {
+    padding: 6rem 2rem;
+    background: var(--navy);
+  }
+  .features-inner { max-width: 1100px; margin: 0 auto; }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+  }
+  .feature-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 6px;
+    padding: 2rem;
+    transition: border-color 0.3s, transform 0.3s;
+    opacity: 0; transform: translateY(20px);
+  }
+  .feature-card.visible { opacity: 1; transform: translateY(0); transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s; }
+  .feature-card:hover { border-color: rgba(240,180,41,0.3); transform: translateY(-4px); }
+  .feature-icon {
+    width: 44px; height: 44px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.25rem; font-size: 1.3rem;
+  }
+  .feature-title { font-weight: 700; font-size: 1rem; color: #fff; margin-bottom: 0.5rem; }
+  .feature-desc { font-size: 0.85rem; line-height: 1.65; color: rgba(226,232,240,0.65); }
+
+  /* ── JOURNEY TIMELINE ── */
+  .journey-section {
+    padding: 6rem 2rem;
+    background: var(--midnight);
+    position: relative;
+  }
+  .journey-inner { max-width: 900px; margin: 0 auto; }
+  .timeline { margin-top: 3.5rem; position: relative; }
+  .timeline::before {
+    content: ''; position: absolute;
+    left: 20px; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+  .timeline-item {
+    display: flex; gap: 2rem;
+    margin-bottom: 2.5rem;
+    padding-left: 60px;
+    position: relative;
+    opacity: 0; transform: translateX(-15px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .timeline-item.visible { opacity: 1; transform: translateX(0); }
+  .timeline-node {
+    position: absolute;
+    left: 10px;
+    top: 4px;
+    width: 22px; height: 22px; border-radius: 50%;
+    border: 2px solid var(--gold);
+    background: var(--midnight);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.65rem; font-weight: 700; color: var(--gold);
+  }
+  .timeline-content {}
+  .timeline-phase {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.3rem;
+  }
+  .timeline-title { font-size: 1.05rem; font-weight: 600; color: #fff; margin-bottom: 0.4rem; }
+  .timeline-body { font-size: 0.85rem; line-height: 1.65; color: rgba(226,232,240,0.65); }
+
+  /* ── TESTIMONIAL / STORY ── */
+  .story-section {
+    padding: 6rem 2rem;
+    background: var(--navy);
+    position: relative;
+    overflow: hidden;
+  }
+  .story-section::before {
+    content: '"';
+    position: absolute;
+    top: -1rem; left: 2rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 25rem;
+    color: rgba(240,180,41,0.04);
+    line-height: 1;
+    pointer-events: none;
+  }
+  .story-inner { max-width: 900px; margin: 0 auto; }
+  .story-quote {
+    font-size: clamp(1.3rem, 3vw, 1.9rem);
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.55;
+    color: rgba(226,232,240,0.9);
+    position: relative;
+    z-index: 1;
+    margin-bottom: 2.5rem;
+  }
+  .story-attr {
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .story-avatar {
+    width: 50px; height: 50px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), #f97316);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 1.1rem; color: #000;
+  }
+  .story-name { font-weight: 700; color: #fff; font-size: 0.95rem; }
+  .story-role { font-size: 0.75rem; color: var(--slate); }
+
+  /* ── PRICING ── */
+  .pricing-section {
+    padding: 6rem 2rem;
+    background: var(--midnight);
+  }
+  .pricing-inner { max-width: 1000px; margin: 0 auto; }
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+  }
+  .price-card {
+    background: var(--navy2);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 2rem;
+    position: relative;
+    transition: transform 0.3s;
+  }
+  .price-card:hover { transform: translateY(-4px); }
+  .price-card.featured {
+    border-color: var(--gold);
+    background: rgba(240,180,41,0.06);
+  }
+  .price-badge {
+    position: absolute;
+    top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--gold); color: #000;
+    font-size: 0.65rem; font-weight: 800; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 0.25rem 0.9rem; border-radius: 10px;
+  }
+  .price-tier {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--slate); margin-bottom: 0.75rem;
+  }
+  .price-amount {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem; color: #fff; line-height: 1;
+  }
+  .price-amount span { font-size: 1.2rem; color: var(--slate); vertical-align: super; }
+  .price-period { font-size: 0.75rem; color: var(--slate); margin-bottom: 1.5rem; }
+  .price-features { list-style: none; margin-bottom: 2rem; }
+  .price-features li {
+    font-size: 0.83rem; color: rgba(226,232,240,0.75);
+    padding: 0.4rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .price-features li::before {
+    content: '✓'; color: var(--gold); font-weight: 700; font-size: 0.75rem; flex-shrink: 0;
+  }
+
+  /* ── CTA FINAL ── */
+  .cta-section {
+    padding: 8rem 2rem;
+    background: var(--navy);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center, rgba(240,180,41,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-inner { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+  .cta-title { font-size: clamp(3rem, 8vw, 6rem); color: #fff; line-height: 0.95; margin-bottom: 1.5rem; }
+  .cta-title span { color: var(--gold); }
+  .cta-sub { font-size: 1rem; color: rgba(226,232,240,0.7); line-height: 1.7; margin-bottom: 2.5rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--midnight);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 2rem;
+    text-align: center;
+    font-size: 0.75rem;
+    color: rgba(94,114,140,0.6);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .stat-bar { grid-template-columns: repeat(2,1fr); }
+    .pain-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .features-grid { grid-template-columns: 1fr; }
+    .school-grid { grid-template-columns: repeat(2,1fr); }
+    .pricing-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="hero-video-wrap">
+    <!-- Replace VIDEO_ID with a real volleyball highlight reel YouTube ID -->
+    <iframe
+      src="https://www.youtube.com/embed/dxJz4d0jTGc?autoplay=1&mute=1&loop=1&playlist=dxJz4d0jTGc&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1"
+      allow="autoplay; encrypted-media"
+      allowfullscreen
+      title="Background video"
+    ></iframe>
+  </div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">College Volleyball Recruiting Intelligence</div>
+    <h1>STOP<br/><span>GUESSING.</span><br/>START RECRUITING.</h1>
+    <p class="hero-sub">The recruiting process is brutal — hundreds of programs, scattered research, zero clarity. The Recruiting Hub gives athletes and families a mission control dashboard to track, discover, and pursue the right schools with confidence.</p>
+    <div class="hero-cta-row">
+      <a href="#pricing" class="btn-primary">Get Early Access</a>
+      <a href="#how-it-works" class="btn-ghost">See How It Works</a>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ═══════════ STATS ═══════════ -->
+<div class="stat-bar">
+  <div class="stat-item">
+    <div class="stat-num">350+</div>
+    <div class="stat-label">Men's VB Programs Tracked</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">6</div>
+    <div class="stat-label">Recruiting Stages Tracked</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">AI</div>
+    <div class="stat-label">Discovery Engine Built-In</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">1</div>
+    <div class="stat-label">Place for Everything</div>
+  </div>
+</div>
+
+<!-- ═══════════ THE PAIN ═══════════ -->
+<div class="pain-section">
+  <div class="pain-inner">
+    <div>
+      <div class="section-eyebrow">The Problem</div>
+      <h2 class="section-title">THE RECRUITING PROCESS IS BROKEN.</h2>
+      <p class="section-body">Every family discovers it the hard way. You start Googling. You build a spreadsheet. You lose track of who you emailed. You find out three months later that a program's setter already graduated and nobody told you.</p>
+      <br/>
+      <p class="section-body">The information is out there — buried across hundreds of athletic department websites, outdated roster PDFs, and scattered Instagram DMs. Nobody gave athletes a real tool. Until now.</p>
+    </div>
+    <div class="pain-cards">
+      <div class="pain-card">
+        <strong>❌ The Spreadsheet Trap</strong>
+        You start a Google Sheet. By week three it has 14 tabs, broken formulas, and you still don't know which schools have setter openings.
+      </div>
+      <div class="pain-card">
+        <strong>❌ Information Overload</strong>
+        D-I, D-II, D-III, NAIA, JUCO — each division has different rules, timelines, scholarship structures, and coach contact norms. Nobody explains the map.
+      </div>
+      <div class="pain-card">
+        <strong>❌ The Ghost Email Problem</strong>
+        You email a coach. Silence. You don't know if the program is recruiting your position, your grad year, or your region. It feels like shouting into the void.
+      </div>
+      <div class="pain-card">
+        <strong>❌ Academic Fit is an Afterthought</strong>
+        Most families spend 90% of their time on athletic fit and 10% on whether the school actually has the major their athlete cares about. Then they visit campus and realize the mismatch.
+      </div>
+      <div class="pain-card">
+        <strong>❌ No Sense of Progress</strong>
+        Without a system, every week feels like starting over. There's no clear view of where you stand with any program, who you've contacted, or what comes next.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ APP SCREENSHOTS ═══════════ -->
+<div class="screenshots-section" id="how-it-works">
+  <div class="screenshots-inner">
+    <div class="section-eyebrow">Inside the Hub</div>
+    <h2 class="section-title" style="color:#fff;">YOUR COMMAND CENTER.</h2>
+    <p class="section-body" style="color:rgba(226,232,240,0.65);">Built by a volleyball family, for volleyball families. Every view you need — nothing you don't.</p>
+
+    <div class="screenshot-tabs">
+      <button class="tab-btn active" onclick="showTab('dashboard')">Dashboard</button>
+      <button class="tab-btn" onclick="showTab('ai')">AI Discovery Engine</button>
+      <button class="tab-btn" onclick="showTab('radar')">AZ Radar</button>
+      <button class="tab-btn" onclick="showTab('profile')">School Profile</button>
+    </div>
+
+    <div class="screenshot-display">
+      <div class="browser-chrome">
+        <div class="dot dot-r"></div>
+        <div class="dot dot-y"></div>
+        <div class="dot dot-g"></div>
+        <div class="url-bar">parker-henderson-vb.netlify.app</div>
+      </div>
+
+      <!-- DASHBOARD -->
+      <div class="screen-content active" id="tab-dashboard">
+        <div class="mock-header">
+          <div>
+            <div class="mock-title">Parker Henderson — Recruiting Hub</div>
+            <div class="mock-sub">Setter · Class of 2028 · Brophy College Prep · AZ Fear 17s</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:0.7rem;color:var(--slate);">Programs Tracked</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--gold);">24</div>
+          </div>
+        </div>
+        <div class="mock-status-row">
+          <span class="status-chip" style="background:rgba(148,163,184,0.15);color:#94a3b8;">⬤ Not Started: 8</span>
+          <span class="status-chip" style="background:rgba(234,179,8,0.15);color:#eab308;">⬤ Questionnaire: 5</span>
+          <span class="status-chip" style="background:rgba(59,130,246,0.15);color:#3b82f6;">⬤ Coach Contact: 6</span>
+          <span class="status-chip" style="background:rgba(139,92,246,0.15);color:#8b5cf6;">⬤ Campus Visit: 3</span>
+          <span class="status-chip" style="background:rgba(16,185,129,0.15);color:#10b981;">⬤ Offer: 2</span>
+        </div>
+        <div class="school-grid">
+          <div class="school-card">
+            <div class="school-name">USC Trojans</div>
+            <div class="school-meta">Los Angeles, CA</div>
+            <div class="school-badges">
+              <span class="badge badge-di">D-I</span>
+              <span class="badge badge-target">Target</span>
+            </div>
+            <div style="margin-top:0.6rem;font-size:0.7rem;color:#8b5cf6;"><span class="status-dot" style="background:#8b5cf6;"></span>Campus Visit</div>
+          </div>
+          <div class="school-card">
+            <div class="school-name">Pepperdine</div>
+            <div class="school-meta">Malibu, CA</div>
+            <div class="school-badges">
+              <span class="badge badge-di">D-I</span>
+              <span class="badge badge-target">Target</span>
+            </div>
+            <div style="margin-top:0.6rem;font-size:0.7rem;color:#3b82f6;"><span class="status-dot" style="background:#3b82f6;"></span>Coach Contact</div>
+          </div>
+          <div class="school-card">
+            <div class="school-name">Long Beach State</div>
+            <div class="school-meta">Long Beach, CA</div>
+            <div class="school-badges">
+              <span class="badge badge-di">D-I</span>
+            </div>
+            <div style="margin-top:0.6rem;font-size:0.7rem;color:#10b981;"><span class="status-dot" style="background:#10b981;"></span>Offer Received</div>
+          </div>
+          <div class="school-card">
+            <div class="school-name">Loyola Chicago</div>
+            <div class="school-meta">Chicago, IL</div>
+            <div class="school-badges">
+              <span class="badge badge-di">D-I</span>
+            </div>
+            <div style="margin-top:0.6rem;font-size:0.7rem;color:#eab308;"><span class="status-dot" style="background:#eab308;"></span>Submitted Q</div>
+          </div>
+          <div class="school-card">
+            <div class="school-name">Concordia Irvine</div>
+            <div class="school-meta">Irvine, CA</div>
+            <div class="school-badges">
+              <span class="badge badge-dii">D-II</span>
+              <span class="badge badge-target">Target</span>
+            </div>
+            <div style="margin-top:0.6rem;font-size:0.7rem;color:#3b82f6;"><span class="status-dot" style="background:#3b82f6;"></span>Coach Contact</div>
+          </div>
+          <div class="school-card">
+            <div class="school-name">George Mason</div>
+            <div class="school-meta">Fairfax, VA</div>
+            <div class="school-badges">
+              <span class="badge badge-di">D-I</span>
+            </div>
+            <div style="margin-top:0.6rem;font-size:0.7rem;color:#94a3b8;"><span class="status-dot" style="background:#94a3b8;"></span>Not Started</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI ENGINE -->
+      <div class="screen-content" id="tab-ai">
+        <div style="margin-bottom:1rem;">
+          <div class="mock-title" style="margin-bottom:0.25rem;">AI Discovery Engine</div>
+          <div class="mock-sub">Powered by Claude AI · Finds programs you haven't thought of</div>
+        </div>
+        <div class="ai-window">
+          <div class="ai-header">
+            <div class="ai-dot"></div>
+            <div class="ai-label">CLAUDE DISCOVERY ENGINE · ANALYZING</div>
+          </div>
+          <div class="ai-body">
+            <div class="ai-prompt">
+              → Prompt: "Find me men's volleyball programs that match my profile as a setter graduating 2028, with strong business programs and a faith-based academic environment. Include any AZ connections."
+            </div>
+            <div class="ai-response">
+              Based on your profile as a <strong>setter (Class of 2028)</strong> with interests in Business, Aviation, and Faith-based academics, here are programs worth exploring:<br/><br/>
+              <strong>Concordia University Irvine (D-II)</strong> — CCCU-affiliated, strong business school, and currently has a 2026 setter graduating. High fit on all three of your academic interest pillars.<br/><br/>
+              <strong>Jessup University (D-II, PacWest)</strong> — Faith-integrated curriculum, Business leadership track, and a setter position opening in your recruitment window. Rocklin campus offers tight-knit community feel.<br/><br/>
+              <strong>Benedictine University Mesa (NAIA)</strong> — Arizona campus location means direct AZ Radar connections. Small program with genuine setter need in your class window.<br/><br/>
+              <strong>Lewis University (D-II)</strong> — Catholic liberal arts tradition, accredited business program, and active in recruiting Midwest/West Coast setters.
+            </div>
+            <div class="ai-tags">
+              <span class="ai-tag">Faith-Based ✓</span>
+              <span class="ai-tag">Setter Need ✓</span>
+              <span class="ai-tag">Business Program ✓</span>
+              <span class="ai-tag">Class of 2028 ✓</span>
+              <span class="ai-tag">AZ Connections ✓</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RADAR -->
+      <div class="screen-content" id="tab-radar">
+        <div class="radar-header">
+          <div class="radar-icon">📡</div>
+          <div>
+            <div class="radar-title">AZ Radar — Arizona Connections</div>
+            <div class="radar-sub">Arizona players currently on college rosters · Coaches with AZ ties · AZ alumni pipelines</div>
+          </div>
+        </div>
+        <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--slate);margin-bottom:0.75rem;font-family:'DM Mono',monospace;">Arizona Players at Target Programs</div>
+        <div class="player-row">
+          <div class="player-avatar" style="background:linear-gradient(135deg,#2563eb,#7c3aed);">TH</div>
+          <div>
+            <div class="player-name">Tyler Hanson</div>
+            <div class="player-meta">DS/Libero · Chandler, AZ · Class of 2024</div>
+          </div>
+          <div class="player-school">
+            <div style="color:#fff;font-size:0.75rem;font-weight:600;">Pepperdine</div>
+            <div style="color:var(--slate);font-size:0.68rem;">D-I · WCC</div>
+          </div>
+        </div>
+        <div class="player-row">
+          <div class="player-avatar" style="background:linear-gradient(135deg,#059669,#0891b2);">MR</div>
+          <div>
+            <div class="player-name">Marcus Rivera</div>
+            <div class="player-meta">OH · Scottsdale, AZ · Class of 2023</div>
+          </div>
+          <div class="player-school">
+            <div style="color:#fff;font-size:0.75rem;font-weight:600;">Long Beach State</div>
+            <div style="color:var(--slate);font-size:0.68rem;">D-I · CSULB</div>
+          </div>
+        </div>
+        <div class="player-row">
+          <div class="player-avatar" style="background:linear-gradient(135deg,#ea580c,#eab308);">JC</div>
+          <div>
+            <div class="player-name">Jake Connelly</div>
+            <div class="player-meta">Setter · Tempe, AZ · Class of 2024</div>
+          </div>
+          <div class="player-school">
+            <div style="color:#fff;font-size:0.75rem;font-weight:600;">Concordia Irvine</div>
+            <div style="color:var(--slate);font-size:0.68rem;">D-II · PacWest</div>
+          </div>
+        </div>
+        <div class="player-row">
+          <div class="player-avatar" style="background:linear-gradient(135deg,#7c3aed,#ec4899);">AS</div>
+          <div>
+            <div class="player-name">Alex Santos</div>
+            <div class="player-meta">MB · Mesa, AZ · Class of 2025</div>
+          </div>
+          <div class="player-school">
+            <div style="color:#fff;font-size:0.75rem;font-weight:600;">Benedictine Mesa</div>
+            <div style="color:var(--slate);font-size:0.68rem;">NAIA · Central</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCHOOL PROFILE -->
+      <div class="screen-content" id="tab-profile">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
+          <div>
+            <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
+              <div style="width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,#1e40af,#1d4ed8);display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;">P</div>
+              <div>
+                <div class="mock-title" style="font-size:1.3rem;">Pepperdine University</div>
+                <div class="mock-sub">Malibu, CA · D-I · West Coast Conference</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1rem;">
+              <span class="badge badge-di">D-I</span>
+              <span class="badge badge-target">Target School</span>
+              <span class="badge" style="background:rgba(59,130,246,0.15);color:#3b82f6;border:1px solid rgba(59,130,246,0.3);">Coach Contact</span>
+            </div>
+            <div style="font-size:0.8rem;line-height:1.7;color:rgba(226,232,240,0.7);margin-bottom:1rem;">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.4rem;">
+                <div><span style="color:var(--slate);">Acceptance</span><br/><span style="color:#fff;font-weight:600;">47%</span></div>
+                <div><span style="color:var(--slate);">Tuition</span><br/><span style="color:#fff;font-weight:600;">$64,000</span></div>
+                <div><span style="color:var(--slate);">Program Rank</span><br/><span style="color:#fff;font-weight:600;">#7 Nationally</span></div>
+                <div><span style="color:var(--slate);">Setter Need</span><br/><span style="color:#10b981;font-weight:600;">HIGH</span></div>
+              </div>
+            </div>
+            <div style="background:rgba(240,180,41,0.08);border:1px solid rgba(240,180,41,0.2);border-radius:5px;padding:0.85rem;font-size:0.78rem;line-height:1.6;color:rgba(226,232,240,0.8);">
+              <div style="color:var(--gold);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.3rem;">Parker Fit Analysis</div>
+              Strong academic fit with accredited Business school. Faith-based (Church of Christ) campus aligns with Parker's values. Setter Jonathan Winder (SR) graduates after 2025 season — real opening in recruiting window.
+            </div>
+          </div>
+          <div>
+            <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--slate);margin-bottom:0.6rem;font-family:'DM Mono',monospace;">2026 Season Results</div>
+            <div style="font-size:0.78rem;line-height:1.8;color:rgba(226,232,240,0.7);">
+              <div style="display:flex;justify-content:space-between;padding:0.25rem 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+                <span>Jan 24 vs UCLA</span><span style="color:#10b981;font-weight:600;">W 3-1</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;padding:0.25rem 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+                <span>Jan 31 @ BYU</span><span style="color:#ef4444;font-weight:600;">L 1-3</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;padding:0.25rem 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+                <span>Feb 7 vs Stanford</span><span style="color:#10b981;font-weight:600;">W 3-2</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;padding:0.25rem 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+                <span>Feb 14 @ Loyola</span><span style="color:#10b981;font-weight:600;">W 3-0</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;padding:0.25rem 0;">
+                <span>Feb 21 vs Hawai'i</span><span style="color:var(--slate);">Upcoming</span>
+              </div>
+            </div>
+            <div style="margin-top:1rem;">
+              <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--slate);margin-bottom:0.6rem;font-family:'DM Mono',monospace;">Head Coach</div>
+              <div style="display:flex;align-items:center;gap:0.75rem;">
+                <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#374151,#1f2937);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:0.85rem;">JW</div>
+                <div>
+                  <div style="font-size:0.85rem;font-weight:600;color:#fff;">Jonathan Winder</div>
+                  <div style="font-size:0.7rem;color:var(--slate);">Head Coach · jmwinder@pepperdine.edu</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ FEATURES ═══════════ -->
+<div class="features-section">
+  <div class="features-inner">
+    <div class="section-eyebrow">What's Inside</div>
+    <h2 class="section-title" style="color:#fff;">EVERYTHING IN<br/><span style="color:var(--gold);">ONE PLACE.</span></h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(59,130,246,0.15);">🎯</div>
+        <div class="feature-title">Program Tracker</div>
+        <div class="feature-desc">Track every school across 6 recruiting stages — from first look to offer. Filter by division, conference, fit level, and recruiting status in seconds.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(240,180,41,0.12);">✨</div>
+        <div class="feature-title">AI Discovery Engine</div>
+        <div class="feature-desc">Powered by Claude AI — tell it your position, grad year, academic interests, and geography. Get a personalized list of programs you haven't thought of yet.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(239,68,68,0.12);">📡</div>
+        <div class="feature-title">AZ Radar</div>
+        <div class="feature-desc">Arizona players on college rosters, coaches with AZ ties, and programs actively recruiting the Southwest. Know your network before you make the call.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(16,185,129,0.12);">🎓</div>
+        <div class="feature-title">Academic Fit Profiles</div>
+        <div class="feature-desc">Every school profile includes major availability, theology/faith culture, business program strength, grad rates, and Parker-specific fit notes.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(139,92,246,0.12);">📅</div>
+        <div class="feature-title">Live Season Schedules</div>
+        <div class="feature-desc">See this season's results for every tracked program. Know when a coach just lost a tough road match — or is riding a 5-game win streak — before you email.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(249,115,22,0.12);">📬</div>
+        <div class="feature-title">Outreach Templates</div>
+        <div class="feature-desc">Position-specific email templates built for setters. Fill in the blanks, personalize the details, copy and send. No more staring at a blank page at 11pm.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ JOURNEY TIMELINE ═══════════ -->
+<div class="journey-section" id="journey">
+  <div class="journey-inner">
+    <div class="section-eyebrow">The Recruiting Journey</div>
+    <h2 class="section-title" style="color:#fff;">HOW IT<br/>ACTUALLY WORKS.</h2>
+    <p class="section-body" style="color:rgba(226,232,240,0.65);margin-bottom:0;">The Hub mirrors the real recruiting process — every stage mapped and tracked so nothing falls through the cracks.</p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-node">1</div>
+        <div class="timeline-content">
+          <div class="timeline-phase">Stage One</div>
+          <div class="timeline-title">Build Your Target List</div>
+          <div class="timeline-body">Start with 30-50 programs across divisions. Use the AI Discovery Engine to find schools that match your position need, grad year window, academic interests, and geography — not just the ones you've heard of.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-node">2</div>
+        <div class="timeline-content">
+          <div class="timeline-phase">Stage Two</div>
+          <div class="timeline-title">Submit Questionnaires</div>
+          <div class="timeline-body">Every school has a recruiting questionnaire. The Hub links directly to each one and tracks which ones you've submitted. This is step one in making yourself visible to coaching staffs.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-node">3</div>
+        <div class="timeline-content">
+          <div class="timeline-phase">Stage Three</div>
+          <div class="timeline-title">Reach Out to Coaches</div>
+          <div class="timeline-body">Use the outreach templates built for setters. Know the coach's name, email, and whether they've been winning or losing lately before you hit send. Check the AZ Radar to see if you share a connection.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-node">4</div>
+        <div class="timeline-content">
+          <div class="timeline-phase">Stage Four</div>
+          <div class="timeline-title">Coach Contact & Dialogue</div>
+          <div class="timeline-body">A coach responds. The Hub tracks every program that enters this stage. Review the Academic Fit Profile together as a family before the next call — walk in knowing the school, not just the team.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-node">5</div>
+        <div class="timeline-content">
+          <div class="timeline-phase">Stage Five</div>
+          <div class="timeline-title">Campus Visits</div>
+          <div class="timeline-body">You're getting serious. The Hub helps you track which campuses you've visited, what your impression was, and where the program stands on scholarship or walk-on conversations.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-node">★</div>
+        <div class="timeline-content">
+          <div class="timeline-phase">Stage Six</div>
+          <div class="timeline-title">Offers & Decision</div>
+          <div class="timeline-body">The moment everything has been building toward. The Hub surfaces every offer, every program you're weighing — academic fit, athletic fit, scholarship, culture — all in one view to make the call with clarity.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ THE PARKER STORY ═══════════ -->
+<div class="story-section">
+  <div class="story-inner">
+    <div class="section-eyebrow">The Story Behind the Hub</div>
+    <h2 class="section-title" style="color:#fff;margin-bottom:2.5rem;">BUILT FROM THE<br/><span style="color:var(--gold);">TRENCHES.</span></h2>
+    <p class="story-quote">
+      "We started this the same way every family does — a spreadsheet, a bunch of browser tabs, and a lot of late nights trying to figure out which programs even had men's volleyball. Parker is a setter graduating in 2028. The process is overwhelming, the information is scattered, and nobody hands you a roadmap. So we built one."
+    </p>
+    <div class="story-attr">
+      <div class="story-avatar">PH</div>
+      <div>
+        <div class="story-name">Parker Henderson</div>
+        <div class="story-role">Setter · Class of 2028 · AZ Fear 17s · Brophy College Prep, Phoenix AZ</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ PRICING ═══════════ -->
+<div class="pricing-section" id="pricing">
+  <div class="pricing-inner">
+    <div class="section-eyebrow" style="text-align:center;">Early Access Pricing</div>
+    <h2 class="section-title" style="color:#fff;text-align:center;">SIMPLE.<br/>TRANSPARENT. FAIR.</h2>
+    <p class="section-body" style="color:rgba(226,232,240,0.65);margin:0 auto 0;text-align:center;">No contracts. Cancel anytime. Launch pricing — locked in for early members.</p>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-tier">Athlete</div>
+        <div class="price-amount"><span>$</span>9</div>
+        <div class="price-period">/ month</div>
+        <ul class="price-features">
+          <li>Full dashboard access</li>
+          <li>Track up to 50 programs</li>
+          <li>AI Discovery Engine</li>
+          <li>Outreach email templates</li>
+          <li>School academic fit profiles</li>
+          <li>Live season schedules</li>
+        </ul>
+        <a href="#" class="btn-ghost" style="display:block;text-align:center;">Get Started</a>
+      </div>
+      <div class="price-card featured">
+        <div class="price-badge">Most Popular</div>
+        <div class="price-tier">Family</div>
+        <div class="price-amount"><span>$</span>15</div>
+        <div class="price-period">/ month</div>
+        <ul class="price-features">
+          <li>Everything in Athlete</li>
+          <li>Unlimited program tracking</li>
+          <li>AZ Radar — state connections</li>
+          <li>Coach contact database</li>
+          <li>Priority email support</li>
+          <li>New features first</li>
+        </ul>
+        <a href="#" class="btn-primary" style="display:block;text-align:center;">Get Early Access</a>
+      </div>
+      <div class="price-card">
+        <div class="price-tier">Club Team</div>
+        <div class="price-amount"><span>$</span>99</div>
+        <div class="price-period">/ month</div>
+        <ul class="price-features">
+          <li>Up to 25 athlete accounts</li>
+          <li>Coach dashboard view</li>
+          <li>Bulk outreach tools</li>
+          <li>Program data exports</li>
+          <li>Regional radar customization</li>
+          <li>Dedicated onboarding call</li>
+        </ul>
+        <a href="#" class="btn-ghost" style="display:block;text-align:center;">Contact Us</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ FINAL CTA ═══════════ -->
+<div class="cta-section">
+  <div class="cta-inner">
+    <div class="section-eyebrow" style="text-align:center;">Ready?</div>
+    <h2 class="cta-title">KNOW WHERE<br/><span>YOU STAND.</span></h2>
+    <p class="cta-sub">Stop guessing which schools to contact. Stop losing track of who you emailed. Start recruiting like you have a plan — because now you do.</p>
+    <a href="#pricing" class="btn-primary" style="font-size:1rem;padding:1.1rem 2.8rem;">Get Early Access Today</a>
+  </div>
+</div>
+
+<footer>
+  <div>© 2025 The Recruiting Hub · Built for Athletes, Not Guesswork</div>
+  <div style="margin-top:0.5rem;">parker-henderson-vb.netlify.app</div>
+</footer>
+
+<script>
+  // Tab switching
+  function showTab(id) {
+    document.querySelectorAll('.screen-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  // Intersection observer for scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 120);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.pain-card, .feature-card, .timeline-item').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
