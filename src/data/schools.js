@@ -362,22 +362,6 @@ export const ALL_SCHOOLS_DATA = [
     news: [], schedule26: [], notes: ""
   },
   {
-    id: "cbu", name: "Cal Baptist", city: "Riverside", state: "CA", mascot: "Lancers",
-    divLevel: "DI", conference: "MPSF", priority: "Target", section: "discovery",
-    acceptance: "80%", tuitionIn: "$36,500", tuitionOut: "$36,500",
-    programRank: "NR", setterNeed: "Med",
-    url: "https://www.calbaptist.edu", logoUrl: "https://www.calbaptist.edu",
-    vbUrl: "https://cbulancers.com/sports/mens-volleyball",
-    programIG: "#", questionnaireUrl: "#",
-    academic: { top10: ["Business Admin","Nursing","Kinesiology","Aviation (growing)","Engineering","Psychology","Education","Communications","Theology","Criminal Justice"], business: "School of Business — Baptist values-integrated curriculum", theology: "★★ Strong Baptist theological tradition — chapel requirement, active faith culture", aviation: "Aviation Science program — growing rapidly, near Ontario Airport", avgGPA: "3.3", gradRate: "67%" },
-    parkerFit: { business: true, aviation: true, theology: true, notes: "Cal Baptist is a hidden gem for Parker — CBU has a growing aviation program near Ontario Airport, strong Baptist faith tradition that parallels Brophy's values-formation, and business administration. Plays in the MPSF at D-I level against top programs. Riverside is a manageable drive from Phoenix." },
-    coaches: [{ name: "Matt Fuerbringer", role: "Head Coach", email: "mfuerbringer@calbaptist.edu", phone: "" }],
-    setters: [],
-    azRadar: [],
-    winHistory: [{ yr: '2026', w: 10, l: 15, p: '.400' }, { yr: '2025', w: 12, l: 14, p: '.462' }],
-    news: [], schedule26: [], notes: ""
-  },
-  {
     id: "lbsu", name: "Long Beach State", city: "Long Beach", state: "CA", mascot: "Beach",
     divLevel: "DI", conference: "Big West", priority: "Target", section: "discovery",
     acceptance: "40%", tuitionIn: "$7,400", tuitionOut: "$7,400",

@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- **Cal Baptist (CBU) removed from the school list.** Their men's volleyball
+  program has been discontinued — men's volleyball no longer appears in
+  `cbulancers.com`'s sports navigation and the old coaches page renders
+  empty. Historical schedule entries for matches other schools played vs
+  Cal Baptist are retained as game records.
+
 ### Fixed
 
 - **Head coach emails corrected for Ball State and Penn State** after
