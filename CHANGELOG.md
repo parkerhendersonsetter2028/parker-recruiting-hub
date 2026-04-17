@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **Discovery Engine now verifies the head coach from the school's own
+  volleyball page** instead of trusting the LLM's general-knowledge output.
+  After Claude returns the JSON, the function fetches `{vbUrl}/coaches`
+  (falling back through `/roster/coaches`, `/staff`, and the base `vbUrl`),
+  extracts every `mailto:` anchor with a ±2 kB HTML context window, and
+  picks the first one whose context contains "Head Coach" but NOT
+  Associate / Assistant / Interim / Former / Emeritus / Volunteer /
+  Director of Operations Head Coach. If no explicit Head Coach title is
+  found, it falls back to the first mailto on the page (on Sidearm sites
+  the head coach is typically listed first). The verified record
+  overrides `parsed.coaches`, and new metadata fields
+  (`_coachVerified`, `_coachVerifiedFrom`, `_coachTitleConfirmed`) are
+  surfaced so the UI can flag unverified entries. Motivated by the
+  Concordia Wisconsin add, where the LLM returned the wrong head coach.
+
 ### Removed
 
 - **Cal Baptist (CBU) removed from the school list.** Their men's volleyball
