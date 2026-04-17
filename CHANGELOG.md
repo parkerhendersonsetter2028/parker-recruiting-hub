@@ -22,6 +22,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     `donald.gleason@pfw.edu`.
   - Arizona Christian: "Chris Shearn / chris.shearn@arizonachristian.edu" →
     "Caden Toben / caden.toben@arizonachristian.edu" (new head coach).
+- **Four schools had broken `vbUrl` links that have now been repaired**, and
+  head-coach records re-verified against the corrected volleyball coaches
+  pages:
+  - Maryville: vbUrl `maryvilles.com` (non-existent) → `maryvillesaints.com`;
+    HC "Nick Loewen / nloewen@maryville.edu" → "Mike Haston /
+    mhaston@maryville.edu".
+  - Orange Coast College: vbUrl `occsports.com` (parked domain for sale) →
+    `occpirateathletics.com`; HC "Travis Turner / tturner@occ.cccd.edu"
+    confirmed unchanged.
+  - Benedictine Mesa: vbUrl `www.ben.edu/athletics/mens-volleyball` (404) →
+    `benuredhawks.com/sports/mens-volleyball`; HC "Matt August /
+    matthew.august@benedictine.edu" → "Grant DeGrasse / gdegrasse@ben.edu"
+    (named HC May 2025).
+  - Hope International: vbUrl `hopeinternational.edu/athletics` (non-routing)
+    → `hiuroyals.com/sports/mens-volleyball`; HC "Jeremy McCall /
+    jmccall@hiu.edu" → "Lisa Bangasser / labangasser@hiu.edu".
 - **Discovery Engine** returning "Claude returned non-JSON" for well-known
   schools (e.g. "Ohio State"). The code-fence-stripping regex in
   `claude-discovery.js` was matching the entire fenced block including its
