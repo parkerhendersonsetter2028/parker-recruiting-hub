@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Head coach emails corrected for Ball State and Penn State** after
+  verification against each school's official Sidearm coaches page. Ball
+  State's Mike Iandolo is `michael.iandolo@bsu.edu` (was `miandolo@bsu.edu`);
+  Penn State's Mark Pavlik is `mtp7@psu.edu` (was `map33@psu.edu`).
 - **Discovery Engine** returning "Claude returned non-JSON" for well-known
   schools (e.g. "Ohio State"). The code-fence-stripping regex in
   `claude-discovery.js` was matching the entire fenced block including its
