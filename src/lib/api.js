@@ -52,3 +52,37 @@ export async function saveUserData(payload) {
   }
   return res.json();
 }
+
+// ─── GMAIL (server-side OAuth) ───────────────────────────────────────────────
+// Refresh token lives in Netlify Blobs; the browser never handles tokens.
+export async function gmailAuthStatus() {
+  try {
+    const res = await fetch("/.netlify/functions/gmail-auth-status");
+    if (!res.ok) return { connected: false };
+    return res.json();
+  } catch {
+    return { connected: false };
+  }
+}
+
+export async function gmailDisconnect() {
+  const res = await fetch("/.netlify/functions/gmail-disconnect", { method: "POST" });
+  return res.ok;
+}
+
+// drafts: [{ schoolId, to, subject, body }]
+export async function createGmailDrafts(drafts) {
+  const res = await fetch("/.netlify/functions/gmail-create-drafts", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ drafts }),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    const err = new Error(data.error || `Drafts error: ${res.status}`);
+    err.code = data.error;
+    err.status = res.status;
+    throw err;
+  }
+  return data;
+}
