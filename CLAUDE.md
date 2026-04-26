@@ -52,8 +52,8 @@ Only one is needed, set in the Netlify dashboard (never committed):
 ## Deployment
 - Live at `parker-henderson-vb.netlify.app`
 - Auto-deploys on push to `main`
-- GitHub: `parkerhendersonsetter2028/parker-recruiting-hub`
-- Local clone on the Mac mini: `/Users/thenderson/Projects/parker-recruiting-hub/parker-recruiting-hub/`
+- GitHub: `timmypop-az/parker-recruiting-hub`
+- Local clone: `/Users/thenderson/Projects/Recruiting Hub/parker-recruiting-hub/`
 
 ## Coach photos (Sidearm CDN pattern)
 ```
