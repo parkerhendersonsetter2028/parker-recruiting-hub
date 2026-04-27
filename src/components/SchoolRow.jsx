@@ -17,7 +17,7 @@ export const SchoolRow = React.forwardRef(({ s, dragStyle, draggable, dragProps,
     <tr
       ref={ref}
       onClick={() => navigate(s)}
-      className={`hover:bg-blue-50/30 cursor-pointer transition-colors group ${draggable ? 'select-none' : ''}`}
+      className={`hover:bg-cc-bg cursor-pointer transition-colors duration-cc-base group ${draggable ? 'select-none' : ''}`}
       style={dragStyle}
       {...rest}
     >
@@ -27,7 +27,7 @@ export const SchoolRow = React.forwardRef(({ s, dragStyle, draggable, dragProps,
             <span
               {...(dragProps || {})}
               onClick={(e) => e.stopPropagation()}
-              className="flex-shrink-0 p-1 -ml-1 rounded text-slate-300 hover:text-slate-500 hover:bg-slate-100 cursor-grab active:cursor-grabbing"
+              className="flex-shrink-0 p-1 -ml-1 rounded text-cc-faint hover:text-cc-muted hover:bg-cc-bg cursor-grab active:cursor-grabbing"
               title="Drag to reorder"
               aria-label="Drag to reorder"
             >
@@ -37,18 +37,18 @@ export const SchoolRow = React.forwardRef(({ s, dragStyle, draggable, dragProps,
           <SchoolLogo school={s} size={density === 'compact' ? 'sm' : 'md'} />
           <div>
             <div className="flex items-center gap-2">
-              <span className={`font-bold text-slate-800 group-hover:text-blue-600 transition-colors ${density === 'compact' ? 'text-xs' : 'text-sm'}`}>{s.name}</span>
+              <span className={`font-display uppercase tracking-cc-wide text-cc-fg group-hover:text-cc-navy transition-colors ${density === 'compact' ? 'text-xs' : 'text-sm'}`}>{s.name}</span>
               <PriorityBadge priority={s.priority} />
             </div>
-            <div className="text-[11px] text-slate-500">
+            <div className="text-[11px] text-cc-subtle">
               {s.mascot || "—"}
               {s.coaches?.[0]?.name && s.coaches[0].name !== "Head Coach TBD" && (
-                <span className="ml-1 text-slate-400">
-                  · <span className="text-slate-600 font-medium">{s.coaches[0].name}</span>
+                <span className="ml-1 text-cc-faint">
+                  · <span className="text-cc-fg font-medium">{s.coaches[0].name}</span>
                   {s.coaches[0].email && (
                     <a
                       href={`mailto:${s.coaches[0].email}`}
-                      className="ml-1 text-blue-500 hover:text-blue-700 hover:underline"
+                      className="ml-1 text-cc-light-blue hover:text-cc-navy hover:underline"
                       onClick={e => e.stopPropagation()}
                     >
                       {s.coaches[0].email}
@@ -61,11 +61,11 @@ export const SchoolRow = React.forwardRef(({ s, dragStyle, draggable, dragProps,
         </div>
       </td>
       <td className={`px-5 ${py}`}><DivBadge divLevel={s.divLevel} /></td>
-      <td className={`px-5 ${py} text-slate-600 text-xs font-semibold whitespace-nowrap`}>{s.conference || "—"}</td>
-      <td className={`px-5 ${py} text-slate-500 text-xs whitespace-nowrap`}>{s.city}, {s.state}</td>
+      <td className={`px-5 ${py} text-cc-fg text-xs font-semibold whitespace-nowrap`}>{s.conference || "—"}</td>
+      <td className={`px-5 ${py} text-cc-muted text-xs whitespace-nowrap`}>{s.city}, {s.state}</td>
       <td className={`px-5 ${py}`}>
-        <div className="text-xs font-semibold text-slate-700">{s.acceptance || "—"}</div>
-        <div className="text-[11px] text-slate-500">{s.tuitionIn || "—"}</div>
+        <div className="text-xs font-semibold text-cc-fg">{s.acceptance || "—"}</div>
+        <div className="text-[11px] text-cc-subtle">{s.tuitionIn || "—"}</div>
       </td>
       <td className={`px-5 ${py}`}><NeedBadge need={s.setterNeed} /></td>
       <td className={`px-5 ${py}`}><StatusBadge statusKey={sStatus} /></td>
@@ -73,55 +73,55 @@ export const SchoolRow = React.forwardRef(({ s, dragStyle, draggable, dragProps,
         <div className="inline-flex items-center gap-1 relative">
           <button
             onClick={(e) => { e.stopPropagation(); setOpenMenuId(openMenuId === s.id ? null : s.id); }}
-            className="p-1.5 rounded-lg hover:bg-slate-200 text-slate-400 hover:text-slate-700 transition-colors"
+            className="p-1.5 rounded-cc-sm hover:bg-cc-bg text-cc-faint hover:text-cc-fg transition-colors"
             title="More actions"
             aria-label="More actions"
           >
             <MoreVertical className="w-4 h-4" />
           </button>
-          <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-blue-500 transition-colors" />
+          <ChevronRight className="w-4 h-4 text-cc-faint group-hover:text-cc-navy transition-colors" />
           {openMenuId === s.id && (
             <div
               onClick={(e) => e.stopPropagation()}
-              className="absolute right-6 top-8 z-30 w-52 bg-white border border-slate-200 rounded-xl shadow-xl py-1.5 text-left"
+              className="absolute right-6 top-8 z-30 w-52 bg-cc-surface border border-cc-border rounded-cc-md shadow-cc-popover py-1.5 text-left"
             >
               {!hidden && getEffectiveSection(s) !== "primary" && (
                 <button
                   onClick={() => { moveToSection(s.id, "primary"); setOpenMenuId(null); }}
-                  className="w-full flex items-center gap-2.5 px-4 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors"
+                  className="w-full flex items-center gap-2.5 px-4 py-2 text-xs font-bold uppercase tracking-cc-wider text-cc-fg hover:bg-cc-accent-soft hover:text-cc-navy transition-colors"
                 >
-                  <ArrowUpCircle className="w-4 h-4 text-blue-500" />
+                  <ArrowUpCircle className="w-4 h-4 text-cc-navy" />
                   Move to Primary
                 </button>
               )}
               {!hidden && getEffectiveSection(s) !== "discovery" && (
                 <button
                   onClick={() => { moveToSection(s.id, "discovery"); setOpenMenuId(null); }}
-                  className="w-full flex items-center gap-2.5 px-4 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 hover:bg-indigo-50 hover:text-indigo-700 transition-colors"
+                  className="w-full flex items-center gap-2.5 px-4 py-2 text-xs font-bold uppercase tracking-cc-wider text-cc-fg hover:bg-purple-50 hover:text-cc-purple transition-colors"
                 >
-                  <ArrowDownCircle className="w-4 h-4 text-indigo-500" />
+                  <ArrowDownCircle className="w-4 h-4 text-cc-purple" />
                   Move to Discovery
                 </button>
               )}
-              {!hidden && <div className="border-t border-slate-100 my-1" />}
+              {!hidden && <div className="border-t border-cc-border my-1" />}
               {hidden ? (
                 <button
                   onClick={() => { unhideSchool(s.id); setOpenMenuId(null); }}
-                  className="w-full flex items-center gap-2.5 px-4 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors"
+                  className="w-full flex items-center gap-2.5 px-4 py-2 text-xs font-bold uppercase tracking-cc-wider text-cc-fg hover:bg-cc-accent-soft hover:text-cc-navy transition-colors"
                 >
-                  <Eye className="w-4 h-4 text-blue-500" />
+                  <Eye className="w-4 h-4 text-cc-navy" />
                   Restore School
                 </button>
               ) : (
                 <button
                   onClick={() => { hideSchool(s.id); setOpenMenuId(null); }}
-                  className="w-full flex items-center gap-2.5 px-4 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 hover:bg-rose-50 hover:text-rose-700 transition-colors"
+                  className="w-full flex items-center gap-2.5 px-4 py-2 text-xs font-bold uppercase tracking-cc-wider text-cc-fg hover:bg-rose-50 hover:text-cc-maroon transition-colors"
                 >
-                  <EyeOff className="w-4 h-4 text-rose-500" />
+                  <EyeOff className="w-4 h-4 text-cc-maroon" />
                   Hide School
                 </button>
               )}
-              <div className="border-t border-slate-100 my-1" />
+              <div className="border-t border-cc-border my-1" />
               <button
                 onClick={() => {
                   setOpenMenuId(null);
@@ -129,7 +129,7 @@ export const SchoolRow = React.forwardRef(({ s, dragStyle, draggable, dragProps,
                     deleteSchool(s.id);
                   }
                 }}
-                className="w-full flex items-center gap-2.5 px-4 py-2 text-xs font-bold uppercase tracking-wide text-rose-600 hover:bg-rose-50 transition-colors"
+                className="w-full flex items-center gap-2.5 px-4 py-2 text-xs font-bold uppercase tracking-cc-wider text-cc-danger hover:bg-rose-50 transition-colors"
               >
                 <Trash2 className="w-4 h-4" />
                 Delete School

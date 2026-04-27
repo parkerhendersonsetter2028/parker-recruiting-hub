@@ -16,9 +16,7 @@ import { MobileSchoolCard } from '../components/MobileSchoolCard.jsx';
 import { DIV_CONFIG, PARKER } from '../data/constants.js';
 import { useApp } from '../context/AppContext.jsx';
 
-// ── SortableSchoolRow: wraps SchoolRow with @dnd-kit sortable listeners.
-// Activation distance (8 px) means plain clicks still fire SchoolRow's
-// onClick → navigate(s); drag only kicks in after the pointer moves.
+// Activation distance (8 px) keeps plain clicks → navigate; drag triggers after movement.
 function SortableSchoolRow({ s }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id: s.id });
@@ -26,7 +24,7 @@ function SortableSchoolRow({ s }) {
     transform: CSS.Transform.toString(transform),
     transition,
     opacity: isDragging ? 0.5 : 1,
-    background: isDragging ? '#eff6ff' : undefined,
+    background: isDragging ? 'var(--accent-soft)' : undefined,
   };
   return (
     <SchoolRow
@@ -40,19 +38,18 @@ function SortableSchoolRow({ s }) {
   );
 }
 
-// ── SortableHeader: clickable column header with asc/desc arrow ───────────────
 function SortableHeader({ column, label, className = '' }) {
   const { sortBy, sortDir, toggleSort } = useApp();
   const active = sortBy === column;
   return (
     <th
       onClick={() => toggleSort(column)}
-      className={`px-5 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-widest whitespace-nowrap cursor-pointer select-none hover:bg-slate-100/70 transition-colors ${className}`}
+      className={`px-5 py-4 text-[11px] font-bold text-cc-subtle uppercase tracking-cc-widest whitespace-nowrap cursor-pointer select-none hover:bg-cc-bg/70 transition-colors ${className}`}
     >
       <span className="inline-flex items-center gap-1">
         {label}
         {active ? (
-          sortDir === 'asc' ? <ChevronUp className="w-3 h-3 text-blue-600" /> : <ChevronDown className="w-3 h-3 text-blue-600" />
+          sortDir === 'asc' ? <ChevronUp className="w-3 h-3 text-cc-navy" /> : <ChevronDown className="w-3 h-3 text-cc-navy" />
         ) : (
           <span className="w-3 h-3 opacity-0" />
         )}
@@ -61,43 +58,38 @@ function SortableHeader({ column, label, className = '' }) {
   );
 }
 
-// ── StatsStrip: lean stat cards, moved out of the header ──────────────────────
 function StatsStrip() {
   const { allSchools, divCounts, contacted } = useApp();
   const cards = [
-    { label: 'Total Programs', value: allSchools.length,                                 accent: 'text-slate-800' },
-    { label: 'D-I',            value: divCounts['DI'] || 0,                              accent: 'text-blue-600'  },
-    { label: 'D-II / NAIA',    value: (divCounts['DII'] || 0) + (divCounts['NAIA'] || 0), accent: 'text-violet-600'},
-    { label: 'D-III / JUCO',   value: (divCounts['DIII'] || 0) + (divCounts['JUCO'] || 0),accent: 'text-emerald-600'},
-    { label: 'Contacted',      value: contacted,                                         accent: 'text-emerald-600'},
+    { label: 'Total Programs', value: allSchools.length,                                  accent: 'text-cc-fg'        },
+    { label: 'D-I',            value: divCounts['DI'] || 0,                               accent: 'text-cc-navy'      },
+    { label: 'D-II / NAIA',    value: (divCounts['DII'] || 0) + (divCounts['NAIA'] || 0), accent: 'text-cc-purple'    },
+    { label: 'D-III / JUCO',   value: (divCounts['DIII'] || 0) + (divCounts['JUCO'] || 0),accent: 'text-cc-forest'    },
+    { label: 'Contacted',      value: contacted,                                          accent: 'text-cc-success'   },
   ];
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
       {cards.map(c => (
-        <div key={c.label} className="bg-white border border-slate-200 rounded-2xl px-4 py-3">
-          <div
-            className={`font-black text-2xl leading-none ${c.accent}`}
-            style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-          >
+        <div key={c.label} className="bg-cc-surface border border-cc-border rounded-cc-lg px-4 py-3 shadow-cc-card">
+          <div className={`display-num text-3xl leading-none tabular ${c.accent}`}>
             {c.value}
           </div>
-          <div className="text-[11px] text-slate-500 uppercase tracking-wide mt-1 font-semibold">{c.label}</div>
+          <div className="text-[11px] text-cc-subtle uppercase tracking-cc-wider mt-1 font-semibold">{c.label}</div>
         </div>
       ))}
     </div>
   );
 }
 
-// ── SectionTabs: Primary / Discovery / Hidden ─────────────────────────────────
 function SectionTabs() {
   const { activeSection, setActiveSection, primarySchools, discoverySchools, hiddenSchools } = useApp();
   const tabs = [
-    { id: 'primary',   label: 'Primary Targets',   icon: Target,  count: primarySchools.length,   accent: 'text-blue-600'   },
-    { id: 'discovery', label: 'Discovery',         icon: Compass, count: discoverySchools.length, accent: 'text-indigo-500' },
-    { id: 'hidden',    label: 'Hidden',            icon: EyeOff,  count: hiddenSchools.length,    accent: 'text-slate-400'  },
+    { id: 'primary',   label: 'Primary Targets',   icon: Target,  count: primarySchools.length,   accent: 'text-cc-navy'   },
+    { id: 'discovery', label: 'Discovery',         icon: Compass, count: discoverySchools.length, accent: 'text-cc-purple' },
+    { id: 'hidden',    label: 'Hidden',            icon: EyeOff,  count: hiddenSchools.length,    accent: 'text-cc-faint'  },
   ];
   return (
-    <div className="flex items-center gap-1 border-b border-slate-200">
+    <div className="flex items-center gap-1 border-b border-cc-border">
       {tabs.map(t => {
         const Icon = t.icon;
         const active = activeSection === t.id;
@@ -105,15 +97,15 @@ function SectionTabs() {
           <button
             key={t.id}
             onClick={() => setActiveSection(t.id)}
-            className={`flex items-center gap-2 px-4 py-3 text-sm font-bold transition-all border-b-2 -mb-px ${
-              active ? 'border-blue-600 text-blue-700' : 'border-transparent text-slate-500 hover:text-slate-700'
+            className={`flex items-center gap-2 px-4 py-3 text-cc-button font-display uppercase tracking-cc-wider transition-colors duration-cc-base border-b-2 -mb-px ${
+              active ? 'border-cc-navy text-cc-navy' : 'border-transparent text-cc-subtle hover:text-cc-fg'
             }`}
           >
-            <Icon className={`w-4 h-4 ${active ? t.accent : 'text-slate-400'}`} />
+            <Icon className={`w-4 h-4 ${active ? t.accent : 'text-cc-faint'}`} />
             <span>{t.label}</span>
             <span
-              className={`text-[11px] font-bold px-1.5 py-0.5 rounded ${
-                active ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 text-slate-500'
+              className={`text-[11px] font-bold px-1.5 py-0.5 rounded-cc-sm tabular ${
+                active ? 'bg-cc-accent-soft text-cc-navy' : 'bg-cc-bg text-cc-subtle'
               }`}
             >
               {t.count}
@@ -125,10 +117,6 @@ function SectionTabs() {
   );
 }
 
-// ── AddResultBanner: inline success/failure feedback for the Add School flow ──
-// Shows what Claude resolved the user's input to, where the school was placed,
-// whether the head coach was verified, plus a "View it" link that jumps to the
-// detail page. Duplicate / not-volleyball / error states get their own styling.
 function AddResultBanner() {
   const { addResult, clearAddResult, navigate, setActiveSection } = useApp();
   if (!addResult) return null;
@@ -139,7 +127,7 @@ function AddResultBanner() {
     duplicate:      { bg: 'bg-amber-50/10 border-amber-300/40',     Icon: Info,           iconColor: 'text-amber-300'   },
     not_volleyball: { bg: 'bg-amber-50/10 border-amber-300/40',     Icon: AlertTriangle,  iconColor: 'text-amber-300'   },
     error:          { bg: 'bg-rose-50/10 border-rose-300/40',       Icon: AlertTriangle,  iconColor: 'text-rose-300'    },
-  }[kind] || { bg: 'bg-white/10 border-white/20', Icon: Info, iconColor: 'text-blue-200' };
+  }[kind] || { bg: 'bg-white/10 border-white/20', Icon: Info, iconColor: 'text-cc-gold' };
   const { bg, Icon, iconColor } = styles;
 
   const handleView = () => {
@@ -152,18 +140,18 @@ function AddResultBanner() {
   };
 
   return (
-    <div className={`mt-3 rounded-xl border ${bg} text-white`}>
+    <div className={`mt-3 rounded-cc-md border ${bg} text-white`}>
       <div className="flex items-start gap-3 p-3 sm:p-4">
         <Icon className={`w-5 h-5 flex-shrink-0 mt-0.5 ${iconColor}`} />
         <div className="flex-1 min-w-0">
           <div className="text-sm font-bold">{text}</div>
           {interpretation && (
-            <div className="text-[12px] text-blue-100/80 mt-0.5">
+            <div className="text-[12px] text-white/70 mt-0.5">
               Interpreted as: <span className="font-semibold text-white">{interpretation}</span>
             </div>
           )}
           {kind === 'success' && school && (
-            <div className="text-[12px] text-blue-100/80 mt-1 flex flex-wrap items-center gap-x-3 gap-y-0.5">
+            <div className="text-[12px] text-white/70 mt-1 flex flex-wrap items-center gap-x-3 gap-y-0.5">
               {school.divLevel && <span>{school.divLevel}</span>}
               {school.conference && <span>{school.conference}</span>}
               {(school.city || school.state) && <span>{[school.city, school.state].filter(Boolean).join(', ')}</span>}
@@ -181,7 +169,7 @@ function AddResultBanner() {
           {(kind === 'success' || kind === 'duplicate') && school && (
             <button
               onClick={handleView}
-              className="mt-2 inline-flex items-center gap-1.5 text-xs font-bold text-white bg-white/15 hover:bg-white/25 px-3 py-1.5 rounded-lg transition-colors"
+              className="mt-2 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-cc-wider text-white bg-white/15 hover:bg-white/25 px-3 py-1.5 rounded-cc-sm transition-colors"
             >
               View {school.name}
               <ArrowRight className="w-3.5 h-3.5" />
@@ -190,7 +178,7 @@ function AddResultBanner() {
         </div>
         <button
           onClick={clearAddResult}
-          className="p-1 rounded-lg hover:bg-white/10 text-blue-100/60 hover:text-white flex-shrink-0"
+          className="p-1 rounded-cc-sm hover:bg-white/10 text-white/60 hover:text-white flex-shrink-0"
           aria-label="Dismiss"
         >
           <X className="w-4 h-4" />
@@ -200,7 +188,6 @@ function AddResultBanner() {
   );
 }
 
-// ── DiscoveryEngine: compact, collapsible inline panel ────────────────────────
 function DiscoveryEngine() {
   const {
     openDiscovery, setOpenDiscovery,
@@ -211,8 +198,7 @@ function DiscoveryEngine() {
     return (
       <button
         onClick={() => setOpenDiscovery(true)}
-        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-white text-sm font-bold transition-all shadow-sm hover:shadow"
-        style={{ background: 'linear-gradient(135deg, #2563eb, #1e3a8a)' }}
+        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-cc-sm bg-cc-navy text-white text-cc-button font-display uppercase tracking-cc-widest transition-colors duration-cc-base hover:bg-cc-navy-700 active:translate-y-px focus:outline-none focus:ring-2 focus:ring-cc-focus focus:ring-offset-2"
       >
         <Sparkles className="w-4 h-4" />
         Discover a Program
@@ -220,27 +206,21 @@ function DiscoveryEngine() {
     );
   }
   return (
-    <div
-      className="rounded-2xl overflow-hidden shadow-sm border border-blue-900/20"
-      style={{ background: 'linear-gradient(135deg, #1e3a8a, #1e40af)' }}
-    >
+    <div className="rounded-cc-xl overflow-hidden shadow-cc-card border border-cc-navy-700 bg-cc-grad-navy">
       <div className="p-5 sm:p-6">
         <div className="flex items-start gap-3 mb-4">
-          <Sparkles className="text-blue-200 w-5 h-5 mt-0.5 flex-shrink-0" />
+          <Sparkles className="text-cc-gold w-5 h-5 mt-0.5 flex-shrink-0" />
           <div className="flex-1">
-            <h2
-              className="font-black text-white text-lg uppercase tracking-widest"
-              style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-            >
+            <h2 className="font-display text-white text-2xl uppercase tracking-cc-wide">
               Discovery Engine
             </h2>
-            <p className="text-blue-200 text-sm mt-0.5">
+            <p className="text-white/70 text-cc-body mt-0.5">
               Research any college's men's volleyball program instantly — powered by Claude AI.
             </p>
           </div>
           <button
             onClick={() => setOpenDiscovery(false)}
-            className="p-1.5 rounded-lg hover:bg-white/10 text-blue-200"
+            className="p-1.5 rounded-cc-sm hover:bg-white/10 text-white/70"
             aria-label="Close"
           >
             <X className="w-4 h-4" />
@@ -250,7 +230,7 @@ function DiscoveryEngine() {
           <input
             type="text"
             placeholder="Enter college name (e.g. 'Stanford', 'Ohio State')…"
-            className="flex-1 bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white font-semibold placeholder:text-white/40 focus:bg-white/20 outline-none text-sm"
+            className="flex-1 bg-white/10 border border-white/20 rounded-cc-md px-4 py-3 text-white font-semibold placeholder:text-white/40 focus:bg-white/20 focus:outline-none focus:ring-2 focus:ring-cc-gold/40 text-sm"
             value={newSchoolName}
             onChange={e => setNewSchoolName(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && handleAddSchool()}
@@ -259,7 +239,7 @@ function DiscoveryEngine() {
           <button
             onClick={handleAddSchool}
             disabled={isSearching}
-            className="bg-white text-blue-700 px-6 py-3 rounded-xl font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2 hover:bg-blue-50 transition-all disabled:opacity-60 flex-shrink-0"
+            className="bg-white text-cc-navy px-6 py-3 rounded-cc-sm font-display uppercase tracking-cc-widest text-cc-button flex items-center justify-center gap-2 hover:bg-cc-bg transition-colors disabled:opacity-60 flex-shrink-0"
           >
             {isSearching ? <Loader2 className="w-4 h-4 animate-spin" /> : <PlusCircle className="w-4 h-4" />}
             Add Program
@@ -269,7 +249,7 @@ function DiscoveryEngine() {
               onClick={() => {
                 if (window.confirm(`Remove all ${extraSchools.length} added school(s)?`)) setExtraSchools([]);
               }}
-              className="bg-white/10 border border-white/20 text-white/70 px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-wide hover:bg-white/20 hover:text-white transition-all flex-shrink-0"
+              className="bg-white/10 border border-white/20 text-white/70 px-4 py-3 rounded-cc-sm text-xs font-bold uppercase tracking-cc-wider hover:bg-white/20 hover:text-white transition-colors flex-shrink-0"
             >
               Clear Added ({extraSchools.length})
             </button>
@@ -281,15 +261,14 @@ function DiscoveryEngine() {
   );
 }
 
-// ── DensityToggle ─────────────────────────────────────────────────────────────
 function DensityToggle() {
   const { density, setDensity } = useApp();
   return (
-    <div className="hidden md:inline-flex items-center bg-white border border-slate-200 rounded-xl p-0.5">
+    <div className="hidden md:inline-flex items-center bg-cc-surface border border-cc-border rounded-cc-md p-0.5">
       <button
         onClick={() => setDensity('comfortable')}
-        className={`px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
-          density === 'comfortable' ? 'bg-slate-800 text-white' : 'text-slate-500 hover:text-slate-700'
+        className={`px-2.5 py-1.5 rounded-cc-sm text-xs font-bold transition-colors ${
+          density === 'comfortable' ? 'bg-cc-navy text-white' : 'text-cc-subtle hover:text-cc-fg'
         }`}
         title="Comfortable"
         aria-label="Comfortable density"
@@ -298,8 +277,8 @@ function DensityToggle() {
       </button>
       <button
         onClick={() => setDensity('compact')}
-        className={`px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
-          density === 'compact' ? 'bg-slate-800 text-white' : 'text-slate-500 hover:text-slate-700'
+        className={`px-2.5 py-1.5 rounded-cc-sm text-xs font-bold transition-colors ${
+          density === 'compact' ? 'bg-cc-navy text-white' : 'text-cc-subtle hover:text-cc-fg'
         }`}
         title="Compact"
         aria-label="Compact density"
@@ -310,7 +289,6 @@ function DensityToggle() {
   );
 }
 
-// ── MasterView: the Schools dashboard ─────────────────────────────────────────
 export function MasterView() {
   const {
     divFilter, setDivFilter, search, setSearch,
@@ -318,9 +296,6 @@ export function MasterView() {
     sortBy, setSortBy, schoolOrder, reorderSchools,
   } = useApp();
 
-  // Drag-and-drop setup. PointerSensor's 8-px activation constraint keeps
-  // plain clicks on a row navigating to the detail view; drag only triggers
-  // after the pointer moves that far.
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
@@ -330,15 +305,11 @@ export function MasterView() {
   const handleDragEnd = (event) => {
     const { active, over } = event;
     if (!over || active.id === over.id) return;
-    // Work off the currently visible ids so reorder respects the filter/tab.
     const visibleIds = filteredSchools.map(s => s.id);
     const oldIdx = visibleIds.indexOf(active.id);
     const newIdx = visibleIds.indexOf(over.id);
     if (oldIdx < 0 || newIdx < 0) return;
     const reorderedVisible = arrayMove(visibleIds, oldIdx, newIdx);
-    // Merge back into the global schoolOrder: take all ids from the existing
-    // order, drop the visible ones, then splice the new visible sequence in
-    // where the first visible id used to live.
     const baseOrder = schoolOrder.length
       ? schoolOrder.filter(id => allSchools.some(s => s.id === id))
       : allSchools.map(s => s.id);
@@ -350,8 +321,6 @@ export function MasterView() {
       ...reorderedVisible,
       ...withoutVisible.slice(insertAt),
     ];
-    // Also include any all-schools ids not yet in the order (new seeds/adds),
-    // so they don't get dropped off the end silently.
     for (const s of allSchools) if (!next.includes(s.id)) next.push(s.id);
     reorderSchools(next);
   };
@@ -361,8 +330,6 @@ export function MasterView() {
       setSortBy('name');
       return;
     }
-    // Seed schoolOrder the first time Manual is turned on so the order
-    // matches what the user currently sees.
     if (schoolOrder.length === 0) {
       reorderSchools(allSchools.map(s => s.id));
     }
@@ -374,17 +341,14 @@ export function MasterView() {
       {/* PAGE HEADER */}
       <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
         <div>
-          <div className="text-[11px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-2">
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-blue-500" />
+          <div className="text-[11px] font-bold text-cc-subtle uppercase tracking-cc-widest flex items-center gap-2">
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-cc-gold" />
             {PARKER.hs} · {PARKER.club} · Class of {PARKER.grad}
           </div>
-          <h1
-            className="font-black text-slate-900 tracking-tight leading-none mt-1"
-            style={{ fontSize: '2rem', fontFamily: "'Barlow Condensed', sans-serif" }}
-          >
-            SCHOOLS <span className="text-slate-400 font-normal">/ Program Pipeline</span>
+          <h1 className="font-display text-cc-fg uppercase tracking-cc-wide leading-none mt-1 text-cc-h2">
+            Schools <span className="text-cc-faint font-normal normal-case tracking-normal">/ Program Pipeline</span>
           </h1>
-          <p className="text-slate-500 text-sm mt-1">
+          <p className="text-cc-muted text-cc-body mt-1">
             {allSchools.length} programs tracked · Men's Volleyball · Setter
           </p>
         </div>
@@ -406,10 +370,10 @@ export function MasterView() {
             <button
               key={d}
               onClick={() => setDivFilter(d)}
-              className={`px-3 py-2 rounded-lg text-xs font-bold uppercase tracking-wide transition-all ${
+              className={`px-3 py-2 rounded-cc-sm text-xs font-bold uppercase tracking-cc-wider transition-colors duration-cc-base ${
                 divFilter === d
-                  ? 'bg-slate-800 text-white shadow'
-                  : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
+                  ? 'bg-cc-navy text-white shadow-cc-card'
+                  : 'bg-cc-surface text-cc-fg hover:bg-cc-bg border border-cc-border'
               }`}
             >
               {d === 'All' ? `All (${allSchools.length})` : `${DIV_CONFIG[d]?.label || d} (${divCounts[d] || 0})`}
@@ -417,11 +381,11 @@ export function MasterView() {
           ))}
         </div>
         <div className="relative flex-1 md:max-w-xs md:ml-auto">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4" />
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-cc-faint w-4 h-4" />
           <input
             type="text"
             placeholder="Search programs, conferences…"
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border border-slate-200 text-sm font-medium outline-none focus:border-blue-400 shadow-sm"
+            className="w-full pl-10 pr-4 py-2.5 rounded-cc-md bg-cc-surface border border-cc-border text-sm font-medium focus:outline-none focus:ring-2 focus:ring-cc-focus focus:border-transparent shadow-cc-card"
             value={search}
             onChange={e => setSearch(e.target.value)}
           />
@@ -429,10 +393,10 @@ export function MasterView() {
         <button
           onClick={toggleManualOrder}
           title={isCustom ? 'Click to return to column sorting' : 'Drag rows to reorder (desktop)'}
-          className={`hidden md:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold uppercase tracking-wide transition-all border ${
+          className={`hidden md:inline-flex items-center gap-1.5 px-3 py-2 rounded-cc-sm text-xs font-bold uppercase tracking-cc-wider transition-colors duration-cc-base border ${
             isCustom
-              ? 'bg-blue-600 text-white border-blue-600 shadow'
-              : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-100'
+              ? 'bg-cc-navy text-white border-cc-navy shadow-cc-card'
+              : 'bg-cc-surface text-cc-fg border-cc-border hover:bg-cc-bg'
           }`}
         >
           <Move className="w-3.5 h-3.5" />
@@ -443,21 +407,18 @@ export function MasterView() {
 
       {/* TABLE (desktop) + CARDS (mobile) */}
       {filteredSchools.length === 0 ? (
-        <div className="bg-white rounded-2xl border border-dashed border-slate-300 p-12 text-center">
-          <div
-            className="font-black text-slate-400 text-lg mb-1"
-            style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-          >
-            NO PROGRAMS MATCH
+        <div className="bg-cc-surface rounded-cc-lg border border-dashed border-cc-border p-12 text-center">
+          <div className="font-display text-cc-faint text-2xl uppercase tracking-cc-wide mb-1">
+            No programs match
           </div>
-          <p className="text-slate-500 text-sm">Try adjusting your filters or search.</p>
+          <p className="text-cc-muted text-cc-body">Try adjusting your filters or search.</p>
         </div>
       ) : (
         <>
           {/* Desktop table */}
-          <div className="hidden md:block bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+          <div className="hidden md:block bg-cc-surface rounded-cc-lg shadow-cc-card border border-cc-border overflow-hidden">
             {isCustom && (
-              <div className="px-5 py-2.5 bg-blue-50 border-b border-blue-100 text-[11px] font-bold uppercase tracking-widest text-blue-700 flex items-center gap-2">
+              <div className="px-5 py-2.5 bg-cc-accent-soft border-b border-cc-border text-[11px] font-bold uppercase tracking-cc-widest text-cc-navy flex items-center gap-2">
                 <Move className="w-3.5 h-3.5" />
                 Manual Order — drag any row to reorder. Click a row to open it.
               </div>
@@ -465,12 +426,12 @@ export function MasterView() {
             <div className="overflow-x-auto">
               <table className="w-full text-left">
                 <thead>
-                  <tr className="border-b border-slate-100" style={{ background: '#f8fafc' }}>
+                  <tr className="border-b border-cc-border bg-cc-surface-alt">
                     <SortableHeader column="name"       label="Institution / Head Coach" />
                     <SortableHeader column="divLevel"   label="Division" />
                     <SortableHeader column="conference" label="Conference" />
                     <SortableHeader column="location"   label="Location" />
-                    <th className="px-5 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-widest whitespace-nowrap">
+                    <th className="px-5 py-4 text-[11px] font-bold text-cc-subtle uppercase tracking-cc-widest whitespace-nowrap">
                       Acceptance / Tuition
                     </th>
                     <SortableHeader column="setterNeed" label="Setter Need" />
@@ -488,13 +449,13 @@ export function MasterView() {
                       items={filteredSchools.map(s => s.id)}
                       strategy={verticalListSortingStrategy}
                     >
-                      <tbody className="divide-y divide-slate-100">
+                      <tbody className="divide-y divide-cc-border">
                         {filteredSchools.map(s => <SortableSchoolRow key={s.id} s={s} />)}
                       </tbody>
                     </SortableContext>
                   </DndContext>
                 ) : (
-                  <tbody className="divide-y divide-slate-100">
+                  <tbody className="divide-y divide-cc-border">
                     {filteredSchools.map(s => <SchoolRow key={s.id} s={s} />)}
                   </tbody>
                 )}
@@ -510,29 +471,26 @@ export function MasterView() {
       )}
 
       {/* RECRUITING CALENDAR */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 sm:p-6">
+      <div className="bg-cc-surface rounded-cc-lg border border-cc-border shadow-cc-card p-5 sm:p-6">
         <div className="flex items-center gap-2 mb-4">
-          <Calendar className="text-blue-500 w-5 h-5" />
-          <h3
-            className="font-black text-slate-800 uppercase tracking-widest text-base"
-            style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-          >
+          <Calendar className="text-cc-navy w-5 h-5" />
+          <h3 className="font-display text-cc-fg uppercase tracking-cc-wide text-lg">
             Recruiting Calendar — Class of {PARKER.grad}
           </h3>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {[
-            { when: 'Now — 2027',    what: 'Contact coaches, fill questionnaires, attend camps/clinics. AZ Fear 17s visibility is key.', color: 'border-blue-400 bg-blue-50',     iconColor: 'text-blue-600',    Icon: Inbox },
-            { when: 'June 15, 2026', what: 'D-I coaches may now initiate contact with Parker (Sophomore year — critical window)',       color: 'border-amber-400 bg-amber-50',   iconColor: 'text-amber-600',   Icon: Phone },
-            { when: 'Nov 2028',      what: 'Early National Signing Period (D-I only) opens — target offer by this date',                color: 'border-purple-400 bg-purple-50', iconColor: 'text-purple-600',  Icon: PenLine },
-            { when: 'Feb 2028',      what: 'National Signing Day — final letters of intent due',                                        color: 'border-emerald-400 bg-emerald-50',iconColor: 'text-emerald-600', Icon: Trophy },
+            { when: 'Now — 2027',    what: 'Contact coaches, fill questionnaires, attend camps/clinics. AZ Fear 17s visibility is key.', border: 'border-cc-light-blue', bg: 'bg-sky-50',     iconColor: 'text-cc-light-blue', Icon: Inbox },
+            { when: 'June 15, 2026', what: 'D-I coaches may now initiate contact with Parker (Sophomore year — critical window)',       border: 'border-cc-warning',    bg: 'bg-amber-50',   iconColor: 'text-cc-warning',    Icon: Phone },
+            { when: 'Nov 2028',      what: 'Early National Signing Period (D-I only) opens — target offer by this date',                border: 'border-cc-purple',     bg: 'bg-purple-50',  iconColor: 'text-cc-purple',     Icon: PenLine },
+            { when: 'Feb 2028',      what: 'National Signing Day — final letters of intent due',                                        border: 'border-cc-forest',     bg: 'bg-emerald-50', iconColor: 'text-cc-forest',     Icon: Trophy },
           ].map((item, i) => {
             const Icon = item.Icon;
             return (
-              <div key={i} className={`rounded-xl border-l-4 p-4 ${item.color}`}>
+              <div key={i} className={`rounded-cc-md border-l-4 p-4 ${item.border} ${item.bg}`}>
                 <Icon className={`w-5 h-5 mb-1 ${item.iconColor}`} />
-                <div className="font-bold text-slate-800 text-sm mb-1">{item.when}</div>
-                <div className="text-slate-600 text-xs leading-relaxed">{item.what}</div>
+                <div className="font-display text-cc-fg text-sm uppercase tracking-cc-wide mb-1">{item.when}</div>
+                <div className="text-cc-muted text-xs leading-relaxed">{item.what}</div>
               </div>
             );
           })}

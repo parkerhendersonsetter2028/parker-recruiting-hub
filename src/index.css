@@ -1,6 +1,10 @@
+/* Campus Commit design tokens — must come before Tailwind directives so
+   :root vars are available to utilities like bg-cc-bg / text-cc-fg. */
+@import '../handoff/tokens/colors_and_type.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 * { box-sizing: border-box; }
-body { margin: 0; padding: 0; background: #f1f4f9; }
+body { margin: 0; padding: 0; }

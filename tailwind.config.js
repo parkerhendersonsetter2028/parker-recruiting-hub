@@ -1,5 +1,8 @@
+import ccPreset from './handoff/tailwind.preset.js';
+
 /** @type {import('tailwindcss').Config} */
 export default {
+  presets: [ccPreset],
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",

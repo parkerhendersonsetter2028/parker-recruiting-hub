@@ -12,34 +12,30 @@ import { STATUSES } from '../data/constants.js';
 import { getTrend, getRecordTally } from '../lib/helpers.js';
 import { useApp } from '../context/AppContext.jsx';
 
-// ── Prominent pipeline stepper ───────────────────────────────────────────────
+const SECTION_CARD = 'bg-cc-surface rounded-cc-lg shadow-cc-card border border-cc-border';
+const SECTION_HEADING = 'font-display text-cc-fg text-lg uppercase tracking-cc-wide';
+
 function PipelineStepper({ schoolStatus, statusIdx, setStatuses, schoolId }) {
   return (
-    <section className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-6">
+    <section className={`${SECTION_CARD} p-5 sm:p-6`}>
       <div className="flex flex-wrap items-center gap-3 mb-5">
         <div className="flex items-center gap-2">
-          <TrendingUp className="w-5 h-5 text-blue-600" />
-          <h3
-            className="font-black text-slate-800 text-base uppercase tracking-widest"
-            style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-          >
-            Recruiting Pipeline
-          </h3>
+          <TrendingUp className="w-5 h-5 text-cc-navy" />
+          <h3 className={SECTION_HEADING}>Recruiting Pipeline</h3>
         </div>
         <div className="ml-auto flex items-center gap-2">
-          <span className="text-[11px] font-bold uppercase tracking-widest text-slate-400">Current Stage</span>
+          <span className="text-[11px] font-bold uppercase tracking-cc-widest text-cc-faint">Current Stage</span>
           <StatusBadge statusKey={schoolStatus} />
         </div>
       </div>
 
       {/* Progress bar (visual only) */}
       <div className="relative mb-4">
-        <div className="h-1.5 rounded-full bg-slate-100 overflow-hidden">
+        <div className="h-1.5 rounded-full bg-cc-bg overflow-hidden">
           <div
-            className="h-full rounded-full transition-all"
+            className="h-full rounded-full bg-cc-navy transition-all duration-cc-base"
             style={{
               width: `${Math.max(0, statusIdx) / (STATUSES.length - 1) * 100}%`,
-              background: 'linear-gradient(90deg, #2563eb, #1d4ed8)',
             }}
           />
         </div>
@@ -54,22 +50,22 @@ function PipelineStepper({ schoolStatus, statusIdx, setStatuses, schoolId }) {
             <button
               key={s.key}
               onClick={() => setStatuses(prev => ({ ...prev, [schoolId]: s.key }))}
-              className={`relative py-3 px-2 rounded-xl text-[11px] font-bold uppercase tracking-wide transition-all border text-center ${
+              className={`relative py-3 px-2 rounded-cc-md text-[11px] font-bold uppercase tracking-cc-wider transition-colors duration-cc-base border text-center ${
                 active
-                  ? 'border-blue-600 bg-blue-600 text-white shadow-md'
+                  ? 'border-cc-navy bg-cc-navy text-white shadow-cc-card'
                   : complete
-                  ? 'border-blue-200 bg-blue-50 text-blue-700'
-                  : 'border-slate-200 bg-white text-slate-500 hover:border-slate-300 hover:text-slate-700'
+                  ? 'border-cc-accent-soft bg-cc-accent-soft text-cc-navy'
+                  : 'border-cc-border bg-cc-surface text-cc-subtle hover:border-cc-border-strong hover:text-cc-fg'
               }`}
             >
               <div className="flex flex-col items-center gap-1">
                 <span
-                  className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black ${
+                  className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-display tracking-cc-wide ${
                     active
-                      ? 'bg-white text-blue-600'
+                      ? 'bg-white text-cc-navy'
                       : complete
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-slate-100 text-slate-400'
+                      ? 'bg-cc-navy text-white'
+                      : 'bg-cc-bg text-cc-faint'
                   }`}
                 >
                   {complete ? <Check className="w-3 h-3" /> : i + 1}
@@ -92,7 +88,7 @@ export function DetailView() {
     reVerifyCoach, deleteSchool, coachOverrides,
   } = useApp();
   const [verifying, setVerifying] = useState(false);
-  const [verifyMsg, setVerifyMsg] = useState(null); // { kind: 'ok'|'err', text }
+  const [verifyMsg, setVerifyMsg] = useState(null);
   if (!sel) return null;
 
   const schoolStatus = statuses[sel.id] || 'None';
@@ -133,11 +129,11 @@ export function DetailView() {
   return (
     <div className="px-4 sm:px-6 lg:px-10 py-6 lg:py-8">
 
-      {/* PAGE HEADER (in-content, not dark banner — AppShell provides top bar) */}
+      {/* PAGE HEADER */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-6">
         <button
           onClick={goBack}
-          className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-900 text-xs font-bold uppercase tracking-wide transition-colors self-start"
+          className="inline-flex items-center gap-2 text-cc-subtle hover:text-cc-fg text-xs font-bold uppercase tracking-cc-wider transition-colors self-start"
         >
           <ArrowLeft className="w-4 h-4" /> Back to Schools
         </button>
@@ -146,27 +142,27 @@ export function DetailView() {
             onClick={handleReVerify}
             disabled={verifying}
             title="Re-fetch the head coach from this school's own volleyball page"
-            className="flex items-center gap-2 bg-white hover:bg-slate-50 border border-slate-200 px-4 py-2 rounded-xl text-slate-700 text-xs font-bold uppercase tracking-wide transition-all disabled:opacity-60"
+            className="flex items-center gap-2 bg-cc-surface hover:bg-cc-bg border border-cc-border px-4 py-2 rounded-cc-sm text-cc-fg text-xs font-bold uppercase tracking-cc-wider transition-colors disabled:opacity-60"
           >
-            {verifying ? <Loader2 className="w-4 h-4 animate-spin text-blue-500" /> : <ShieldCheck className="w-4 h-4 text-emerald-500" />}
+            {verifying ? <Loader2 className="w-4 h-4 animate-spin text-cc-navy" /> : <ShieldCheck className="w-4 h-4 text-cc-success" />}
             Re-verify Coach
           </button>
           <button
             onClick={() => goEmail(sel)}
-            className="flex items-center gap-2 bg-white hover:bg-slate-50 border border-slate-200 px-4 py-2 rounded-xl text-slate-700 text-xs font-bold uppercase tracking-wide transition-all"
+            className="flex items-center gap-2 bg-cc-surface hover:bg-cc-bg border border-cc-border px-4 py-2 rounded-cc-sm text-cc-fg text-xs font-bold uppercase tracking-cc-wider transition-colors"
           >
-            <Mail className="w-4 h-4 text-blue-500" /> Email Templates
+            <Mail className="w-4 h-4 text-cc-light-blue" /> Email Templates
           </button>
           <button
             onClick={goGmail}
-            className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 border border-emerald-500 px-4 py-2 rounded-xl text-white text-xs font-bold uppercase tracking-wide transition-all shadow-sm"
+            className="flex items-center gap-2 bg-cc-navy hover:bg-cc-navy-700 px-4 py-2 rounded-cc-sm text-white text-xs font-bold uppercase tracking-cc-wider transition-colors shadow-cc-card"
           >
             <Send className="w-4 h-4" /> Gmail Drafts
           </button>
           <button
             onClick={handleDelete}
             title="Remove this school from the hub"
-            className="flex items-center gap-2 bg-white hover:bg-rose-50 border border-slate-200 hover:border-rose-200 px-3 py-2 rounded-xl text-slate-500 hover:text-rose-600 text-xs font-bold uppercase tracking-wide transition-all"
+            className="flex items-center gap-2 bg-cc-surface hover:bg-rose-50 border border-cc-border hover:border-rose-200 px-3 py-2 rounded-cc-sm text-cc-subtle hover:text-cc-danger text-xs font-bold uppercase tracking-cc-wider transition-colors"
             aria-label="Delete school"
           >
             <Trash2 className="w-4 h-4" />
@@ -175,10 +171,10 @@ export function DetailView() {
       </div>
       {verifyMsg && (
         <div
-          className={`mb-4 flex items-start gap-2 px-4 py-3 rounded-xl border text-sm ${
+          className={`mb-4 flex items-start gap-2 px-4 py-3 rounded-cc-md border text-sm ${
             verifyMsg.kind === 'ok'
-              ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
-              : 'bg-rose-50 border-rose-200 text-rose-700'
+              ? 'bg-emerald-50 border-emerald-200 text-cc-forest'
+              : 'bg-rose-50 border-rose-200 text-cc-maroon'
           }`}
         >
           {verifyMsg.kind === 'ok' ? (
@@ -190,7 +186,7 @@ export function DetailView() {
         </div>
       )}
       {overriddenCoach?._verified && !verifyMsg && (
-        <div className="mb-4 flex items-start gap-2 px-4 py-2 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs">
+        <div className="mb-4 flex items-start gap-2 px-4 py-2 rounded-cc-md bg-emerald-50 border border-emerald-200 text-cc-forest text-xs">
           <ShieldCheck className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
           <span>
             Coach re-verified from <a href={overriddenCoach._sourceUrl} target="_blank" rel="noreferrer" className="underline hover:no-underline">the school's coaches page</a>
@@ -199,37 +195,34 @@ export function DetailView() {
         </div>
       )}
 
-      {/* EXECUTIVE SUMMARY (kept prominent — the "why") */}
+      {/* EXECUTIVE SUMMARY */}
       <ExecutiveSummary school={sel} />
 
       {/* SCHOOL IDENTITY STRIP */}
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-6 mb-6">
+      <div className={`${SECTION_CARD} p-5 sm:p-6 mb-6`}>
         <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
           <SchoolLogo school={sel} size="lg" />
           <div className="flex-1">
             <div className="flex flex-wrap items-center gap-2.5 mb-1">
-              <h2
-                className="font-black text-slate-900 text-2xl sm:text-3xl leading-none"
-                style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-              >
-                {sel.name.toUpperCase()}
+              <h2 className="font-display text-cc-fg text-3xl sm:text-4xl uppercase tracking-cc-wide leading-none">
+                {sel.name}
               </h2>
               <DivBadge divLevel={sel.divLevel} size="lg" />
               <PriorityBadge priority={sel.priority} />
               {sel.programRank && sel.programRank !== 'NR' && (
-                <span className="inline-flex items-center gap-1 px-3 py-1 bg-amber-50 border border-amber-200 rounded-full text-xs font-bold text-amber-700">
-                  <Trophy className="w-3 h-3" /> AVCA {sel.programRank}
+                <span className="inline-flex items-center gap-1 px-3 py-1 bg-amber-50 border border-amber-200 rounded-full text-xs font-bold text-cc-warning">
+                  <Trophy className="w-3 h-3 text-cc-gold" /> AVCA {sel.programRank}
                 </span>
               )}
             </div>
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-slate-600">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-cc-muted">
               <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5" /> {sel.city}, {sel.state}</span>
-              <span className="font-semibold text-slate-700">{sel.conference} Conference</span>
-              <a href={sel.url} target="_blank" rel="noreferrer" className="text-blue-600 hover:underline">
+              <span className="font-semibold text-cc-fg">{sel.conference} Conference</span>
+              <a href={sel.url} target="_blank" rel="noreferrer" className="text-cc-light-blue hover:text-cc-navy hover:underline">
                 University Site ↗
               </a>
               {sel.vbUrl && sel.vbUrl !== '#' && (
-                <a href={sel.vbUrl} target="_blank" rel="noreferrer" className="text-blue-600 hover:underline">
+                <a href={sel.vbUrl} target="_blank" rel="noreferrer" className="text-cc-light-blue hover:text-cc-navy hover:underline">
                   VB Program ↗
                 </a>
               )}
@@ -242,24 +235,21 @@ export function DetailView() {
               {
                 label: 'Trend',
                 value: trend === 'up' ? '↑ Up' : trend === 'down' ? '↓ Down' : '→ Flat',
-                color: trend === 'up' ? 'text-emerald-600' : trend === 'down' ? 'text-red-500' : 'text-slate-500',
+                color: trend === 'up' ? 'text-cc-success' : trend === 'down' ? 'text-cc-danger' : 'text-cc-subtle',
               },
             ].map((item, i) => (
-              <div key={i} className="text-center bg-slate-50 rounded-xl px-4 py-3 min-w-20">
-                <div
-                  className={`font-black text-lg leading-none ${item.color || 'text-slate-800'}`}
-                  style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-                >
+              <div key={i} className="text-center bg-cc-surface-alt rounded-cc-md px-4 py-3 min-w-20">
+                <div className={`display-num text-xl leading-none tabular ${item.color || 'text-cc-fg'}`}>
                   {item.value}
                 </div>
-                <div className="text-[11px] text-slate-500 uppercase tracking-wide mt-0.5 font-semibold">{item.label}</div>
+                <div className="text-[11px] text-cc-subtle uppercase tracking-cc-wider mt-0.5 font-semibold">{item.label}</div>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      {/* PROMINENT PIPELINE STEPPER (now its own full card, right up top) */}
+      {/* PIPELINE STEPPER */}
       <div className="mb-6">
         <PipelineStepper
           schoolStatus={schoolStatus}
@@ -276,42 +266,31 @@ export function DetailView() {
         <div className="lg:col-span-4 space-y-6">
 
           {/* Academic Profile */}
-          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+          <div className={`${SECTION_CARD} p-6`}>
             <div className="flex items-center gap-2 mb-4">
-              <GraduationCap className="w-4 h-4 text-blue-500" />
-              <h3
-                className="font-black text-slate-800 text-base uppercase tracking-widest"
-                style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-              >
-                Academic Fit
-              </h3>
+              <GraduationCap className="w-4 h-4 text-cc-navy" />
+              <h3 className={SECTION_HEADING}>Academic Fit</h3>
             </div>
             <div className="grid grid-cols-2 gap-3 mb-4">
-              <div className="bg-slate-50 rounded-xl p-3 text-center">
-                <div
-                  className="font-black text-lg text-slate-800"
-                  style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-                >
+              <div className="bg-cc-surface-alt rounded-cc-md p-3 text-center">
+                <div className="display-num text-xl text-cc-fg tabular">
                   {sel.academic?.avgGPA || '—'}
                 </div>
-                <div className="text-[11px] text-slate-500 uppercase font-semibold">Avg Team GPA</div>
+                <div className="text-[11px] text-cc-subtle uppercase tracking-cc-wider font-semibold">Avg Team GPA</div>
               </div>
-              <div className="bg-slate-50 rounded-xl p-3 text-center">
-                <div
-                  className="font-black text-lg text-slate-800"
-                  style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-                >
+              <div className="bg-cc-surface-alt rounded-cc-md p-3 text-center">
+                <div className="display-num text-xl text-cc-fg tabular">
                   {sel.academic?.gradRate || '—'}
                 </div>
-                <div className="text-[11px] text-slate-500 uppercase font-semibold">Grad Rate</div>
+                <div className="text-[11px] text-cc-subtle uppercase tracking-cc-wider font-semibold">Grad Rate</div>
               </div>
             </div>
             {(sel.academic?.top10?.length > 0) && (
               <div className="mb-3">
-                <div className="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-2">Top Programs</div>
+                <div className="text-[11px] font-bold text-cc-subtle uppercase tracking-cc-widest mb-2">Top Programs</div>
                 <div className="flex flex-wrap gap-1.5">
                   {sel.academic.top10.map((m, i) => (
-                    <span key={i} className="px-2.5 py-1 bg-blue-50 text-blue-700 rounded-full text-[11px] font-semibold">
+                    <span key={i} className="px-2.5 py-1 bg-cc-accent-soft text-cc-navy rounded-full text-[11px] font-semibold">
                       {m}
                     </span>
                   ))}
@@ -327,11 +306,11 @@ export function DetailView() {
                 if (!row.value || row.value === '—' || row.value === 'N/A') return null;
                 const Icon = row.Icon;
                 return (
-                  <div key={row.label} className="flex gap-2 p-2 bg-slate-50 rounded-lg">
-                    <Icon className="flex-shrink-0 w-4 h-4 text-slate-500 mt-0.5" />
+                  <div key={row.label} className="flex gap-2 p-2 bg-cc-surface-alt rounded-cc-sm">
+                    <Icon className="flex-shrink-0 w-4 h-4 text-cc-subtle mt-0.5" />
                     <div>
-                      <div className="font-bold text-slate-600 text-[11px] uppercase tracking-wide">{row.label}</div>
-                      <div className="text-slate-700 text-xs">{row.value}</div>
+                      <div className="font-bold text-cc-muted text-[11px] uppercase tracking-cc-wider">{row.label}</div>
+                      <div className="text-cc-fg text-xs">{row.value}</div>
                     </div>
                   </div>
                 );
@@ -341,33 +320,28 @@ export function DetailView() {
 
           {/* AZ Radar */}
           {(sel.azRadar?.length > 0) && (
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+            <div className={`${SECTION_CARD} p-6`}>
               <div className="flex items-center gap-2 mb-4">
-                <Zap className="w-4 h-4 text-orange-500" />
-                <h3
-                  className="font-black text-slate-800 text-base uppercase tracking-widest"
-                  style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-                >
-                  AZ Radar
-                </h3>
+                <Zap className="w-4 h-4 text-cc-orange" />
+                <h3 className={SECTION_HEADING}>AZ Radar</h3>
               </div>
               <div className="space-y-2">
                 {sel.azRadar.map((p, i) => (
                   <div
                     key={i}
-                    className={`p-3 rounded-xl border-l-4 ${
-                      p.hs?.includes('Brophy') ? 'border-blue-600 bg-blue-50' : 'border-orange-400 bg-orange-50/50'
+                    className={`p-3 rounded-cc-md border-l-4 ${
+                      p.hs?.includes('Brophy') ? 'border-cc-navy bg-cc-accent-soft' : 'border-cc-orange bg-orange-50/60'
                     }`}
                   >
                     <div className="flex items-center justify-between mb-1">
-                      <span className="font-black text-slate-800 text-sm">{p.name}</span>
-                      <span className="text-[11px] bg-white border border-slate-200 px-2 py-0.5 rounded font-bold text-slate-600">
+                      <span className="font-display text-cc-fg text-sm uppercase tracking-cc-wide">{p.name}</span>
+                      <span className="text-[11px] bg-cc-surface border border-cc-border px-2 py-0.5 rounded-cc-sm font-bold text-cc-muted">
                         {p.pos}
                       </span>
                     </div>
                     <span
                       className={`text-[11px] font-semibold ${
-                        p.hs?.includes('Brophy') ? 'text-blue-600' : 'text-orange-600'
+                        p.hs?.includes('Brophy') ? 'text-cc-navy' : 'text-cc-orange'
                       }`}
                     >
                       {p.hs}
@@ -380,40 +354,35 @@ export function DetailView() {
 
           {/* Setter Depth */}
           {(sel.setters?.length > 0) && (
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+            <div className={`${SECTION_CARD} p-6`}>
               <div className="flex items-center gap-2 mb-4">
-                <Users className="w-4 h-4 text-blue-500" />
-                <h3
-                  className="font-black text-slate-800 text-base uppercase tracking-widest"
-                  style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-                >
-                  Setter Depth Chart
-                </h3>
+                <Users className="w-4 h-4 text-cc-navy" />
+                <h3 className={SECTION_HEADING}>Setter Depth Chart</h3>
               </div>
               <div className="space-y-2">
                 {sel.setters.map((s, i) => (
-                  <div key={i} className="p-3 bg-slate-50 rounded-xl flex items-center justify-between">
+                  <div key={i} className="p-3 bg-cc-surface-alt rounded-cc-md flex items-center justify-between">
                     <div>
-                      <span className="font-bold text-slate-800 text-sm">{s.name}</span>
-                      <span className="ml-2 text-[11px] text-slate-500 uppercase font-semibold">{s.class || ''}</span>
+                      <span className="font-semibold text-cc-fg text-sm">{s.name}</span>
+                      <span className="ml-2 text-[11px] text-cc-subtle uppercase tracking-cc-wider font-semibold">{s.class || ''}</span>
                     </div>
-                    <span className="text-[11px] bg-slate-200 text-slate-700 font-bold px-2.5 py-1 rounded-full">
+                    <span className="text-[11px] bg-cc-bg text-cc-muted font-bold px-2.5 py-1 rounded-full">
                       Grad {s.grad}
                     </span>
                   </div>
                 ))}
               </div>
-              <div className="mt-4 p-3 rounded-xl border border-dashed border-slate-300 bg-slate-50/50">
-                <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wide mb-1">
+              <div className="mt-4 p-3 rounded-cc-md border border-dashed border-cc-border bg-cc-surface-alt/60">
+                <div className="text-[11px] font-bold text-cc-subtle uppercase tracking-cc-wider mb-1">
                   Class of 2028 Opening
                 </div>
                 <div
                   className={`flex items-center gap-2 text-sm font-bold ${
                     sel.setterNeed === 'High'
-                      ? 'text-emerald-600'
+                      ? 'text-cc-success'
                       : sel.setterNeed === 'Med'
-                      ? 'text-amber-600'
-                      : 'text-rose-600'
+                      ? 'text-cc-warning'
+                      : 'text-cc-danger'
                   }`}
                 >
                   <Circle
@@ -436,18 +405,13 @@ export function DetailView() {
           )}
 
           {/* Personal Notes */}
-          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+          <div className={`${SECTION_CARD} p-6`}>
             <div className="flex items-center gap-2 mb-3">
-              <BookOpen className="w-4 h-4 text-slate-500" />
-              <h3
-                className="font-black text-slate-800 text-base uppercase tracking-widest"
-                style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-              >
-                My Notes
-              </h3>
+              <BookOpen className="w-4 h-4 text-cc-subtle" />
+              <h3 className={SECTION_HEADING}>My Notes</h3>
             </div>
             <textarea
-              className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm text-slate-700 resize-none outline-none focus:border-blue-400 h-24"
+              className="w-full bg-cc-surface-alt border border-cc-border rounded-cc-md p-3 text-sm text-cc-fg resize-none focus:outline-none focus:ring-2 focus:ring-cc-focus focus:border-transparent h-24"
               placeholder="Add personal notes about this program…"
               value={schoolNotes}
               onChange={e => setNotes(prev => ({ ...prev, [sel.id]: e.target.value }))}
@@ -459,13 +423,8 @@ export function DetailView() {
         <div className="lg:col-span-8 space-y-6">
 
           {/* Outreach Console */}
-          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
-            <h3
-              className="font-black text-slate-800 text-base uppercase tracking-widest mb-5"
-              style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-            >
-              Outreach Console
-            </h3>
+          <div className={`${SECTION_CARD} p-6`}>
+            <h3 className={`${SECTION_HEADING} mb-5`}>Outreach Console</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div className="space-y-3">
                 {sel.questionnaireUrl && sel.questionnaireUrl !== '#' && (
@@ -473,18 +432,18 @@ export function DetailView() {
                     href={sel.questionnaireUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center justify-center gap-2 py-4 rounded-xl bg-blue-600 text-white text-sm font-bold uppercase tracking-wide hover:bg-blue-500 transition-all"
+                    className="flex items-center justify-center gap-2 py-4 rounded-cc-sm bg-cc-navy text-white text-sm font-display uppercase tracking-cc-widest hover:bg-cc-navy-700 transition-colors duration-cc-base"
                   >
                     Fill Questionnaire ↗
                   </a>
                 )}
                 {sel.programIG && sel.programIG !== '#' && (
-                  <div className="flex items-center justify-between p-3.5 bg-slate-50 rounded-xl border border-slate-100">
+                  <div className="flex items-center justify-between p-3.5 bg-cc-surface-alt rounded-cc-md border border-cc-border">
                     <div className="flex items-center gap-2">
-                      <Instagram className="w-4 h-4 text-pink-500" />
-                      <span className="text-xs font-bold text-slate-600 uppercase">Team IG</span>
+                      <Instagram className="w-4 h-4 text-cc-orange" />
+                      <span className="text-xs font-bold text-cc-muted uppercase tracking-cc-wider">Team IG</span>
                     </div>
-                    <span className="text-sm font-bold text-slate-800">{sel.programIG}</span>
+                    <span className="text-sm font-semibold text-cc-fg">{sel.programIG}</span>
                   </div>
                 )}
                 {sel.coaches?.map((c, i) => (
@@ -492,19 +451,19 @@ export function DetailView() {
                 ))}
               </div>
 
-              {/* Interaction Log */}
-              <div className="bg-slate-900 rounded-2xl p-5 text-white">
-                <div className="text-[11px] font-bold text-blue-400 uppercase tracking-widest mb-4">
+              {/* Interaction Log — dark navy panel */}
+              <div className="bg-cc-grad-navy rounded-cc-lg p-5 text-white border border-cc-navy-700">
+                <div className="text-[11px] font-bold text-cc-gold uppercase tracking-cc-widest mb-4">
                   Interaction Log
                 </div>
                 <input
                   type="date"
-                  className="w-full bg-slate-800 rounded-xl p-3 text-sm text-white mb-3 outline-none border border-slate-700 focus:border-blue-500"
+                  className="w-full bg-white/10 rounded-cc-md p-3 text-sm text-white mb-3 border border-white/20 focus:outline-none focus:ring-2 focus:ring-cc-gold/40 focus:bg-white/20"
                   value={logDate}
                   onChange={e => setLogDate(e.target.value)}
                 />
                 <select
-                  className="w-full bg-slate-800 rounded-xl p-3 text-sm text-white mb-3 outline-none border border-slate-700"
+                  className="w-full bg-white/10 rounded-cc-md p-3 text-sm text-white mb-3 border border-white/20 focus:outline-none focus:ring-2 focus:ring-cc-gold/40"
                   value={logType}
                   onChange={e => setLogType(e.target.value)}
                 >
@@ -519,7 +478,7 @@ export function DetailView() {
                 </select>
                 <button
                   onClick={addLog}
-                  className="w-full py-3 bg-blue-600 rounded-xl font-bold text-sm uppercase tracking-wide hover:bg-blue-500 transition-all"
+                  className="w-full py-3 bg-white text-cc-navy rounded-cc-sm font-display text-sm uppercase tracking-cc-widest hover:bg-cc-bg transition-colors duration-cc-base"
                 >
                   Log + Update Status
                 </button>
@@ -527,9 +486,9 @@ export function DetailView() {
                   {(logs[sel.id] || []).map((entry, i) => (
                     <div
                       key={i}
-                      className="group flex items-center gap-2 text-[11px] text-slate-400 border-t border-slate-800 pt-2"
+                      className="group flex items-center gap-2 text-[11px] text-white/60 border-t border-white/10 pt-2"
                     >
-                      <span className="font-semibold text-slate-300 flex-1 min-w-0 truncate">{entry.type}</span>
+                      <span className="font-semibold text-white/85 flex-1 min-w-0 truncate">{entry.type}</span>
                       <span className="flex-shrink-0">{entry.date}</span>
                       <button
                         onClick={() => {
@@ -537,7 +496,7 @@ export function DetailView() {
                             deleteLogEntry(sel.id, i);
                           }
                         }}
-                        className="flex-shrink-0 opacity-0 group-hover:opacity-100 focus:opacity-100 p-1 rounded hover:bg-slate-800 text-slate-500 hover:text-rose-400 transition-all"
+                        className="flex-shrink-0 opacity-0 group-hover:opacity-100 focus:opacity-100 p-1 rounded-cc-sm hover:bg-white/10 text-white/60 hover:text-rose-300 transition-all"
                         title="Delete this log entry"
                         aria-label="Delete log entry"
                       >
@@ -546,7 +505,7 @@ export function DetailView() {
                     </div>
                   ))}
                   {!(logs[sel.id]?.length) && (
-                    <p className="text-[11px] text-slate-500 italic">No interactions logged yet.</p>
+                    <p className="text-[11px] text-white/50 italic">No interactions logged yet.</p>
                   )}
                 </div>
               </div>
@@ -560,54 +519,46 @@ export function DetailView() {
                 label: 'Program Ranking',
                 value: sel.programRank || 'NR',
                 sub: 'AVCA Preseason',
-                icon: <Trophy className="w-4 h-4 text-amber-500" />,
+                icon: <Trophy className="w-4 h-4 text-cc-gold" />,
               },
               {
                 label: '2025 Record',
                 value: sel.winHistory?.[0] ? `${sel.winHistory[0].w}–${sel.winHistory[0].l}` : 'N/A',
                 sub: sel.winHistory?.[0]?.p ? `${sel.winHistory[0].p} win%` : '',
-                icon: <TrendingUp className="w-4 h-4 text-emerald-500" />,
+                icon: <TrendingUp className="w-4 h-4 text-cc-success" />,
               },
             ].map((item, i) => (
-              <div key={i} className="bg-white rounded-xl shadow-sm border border-slate-200 p-4 text-center">
+              <div key={i} className={`${SECTION_CARD} p-4 text-center`}>
                 <div className="flex justify-center mb-2">{item.icon}</div>
-                <div
-                  className="font-black text-2xl text-slate-800 leading-none"
-                  style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-                >
+                <div className="display-num text-3xl text-cc-fg leading-none tabular">
                   {item.value}
                 </div>
-                <div className="text-[11px] text-slate-500 uppercase tracking-wide mt-1 font-semibold">{item.label}</div>
-                {item.sub && <div className="text-[11px] text-slate-400 mt-0.5">{item.sub}</div>}
+                <div className="text-[11px] text-cc-subtle uppercase tracking-cc-wider mt-1 font-semibold">{item.label}</div>
+                {item.sub && <div className="text-[11px] text-cc-faint mt-0.5">{item.sub}</div>}
               </div>
             ))}
           </div>
 
           {/* Season Schedule */}
           {sel.schedule26?.length > 0 && (
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+            <div className={`${SECTION_CARD} p-6`}>
               <div className="flex items-center justify-between mb-2">
-                <h3
-                  className="font-black text-slate-800 text-base uppercase tracking-widest"
-                  style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-                >
-                  2026 Season Schedule
-                </h3>
+                <h3 className={SECTION_HEADING}>2026 Season Schedule</h3>
                 <div className="flex items-center gap-2">
-                  <span className="px-3 py-1.5 bg-green-50 text-green-700 border border-green-200 rounded-lg text-xs font-bold">
+                  <span className="px-3 py-1.5 bg-emerald-50 text-cc-forest border border-emerald-200 rounded-cc-sm text-xs font-bold tabular">
                     W {getRecordTally(sel.schedule26).w}
                   </span>
-                  <span className="text-slate-300 font-bold">–</span>
-                  <span className="px-3 py-1.5 bg-red-50 text-red-700 border border-red-200 rounded-lg text-xs font-bold">
+                  <span className="text-cc-faint font-bold">–</span>
+                  <span className="px-3 py-1.5 bg-rose-50 text-cc-maroon border border-rose-200 rounded-cc-sm text-xs font-bold tabular">
                     L {getRecordTally(sel.schedule26).l}
                   </span>
                 </div>
               </div>
-              <div className="flex items-center gap-4 mb-4 text-[11px] text-slate-500 font-semibold uppercase tracking-wide">
-                <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-blue-400 inline-block" /> Home</span>
-                <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-slate-300 inline-block" /> Away</span>
-                <span className="flex items-center gap-1"><span className="px-1.5 py-0.5 bg-indigo-50 text-indigo-500 rounded font-bold text-[10px]">CONF</span> Conference</span>
-                <span className="flex items-center gap-1"><span className="px-1.5 py-0.5 bg-amber-50 text-amber-600 rounded font-bold text-[10px]">POST</span> Postseason</span>
+              <div className="flex items-center gap-4 mb-4 text-[11px] text-cc-subtle font-semibold uppercase tracking-cc-wider">
+                <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-cc-light-blue inline-block" /> Home</span>
+                <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-cc-faint inline-block" /> Away</span>
+                <span className="flex items-center gap-1"><span className="px-1.5 py-0.5 bg-purple-50 text-cc-purple rounded-cc-sm font-bold text-[10px]">CONF</span> Conference</span>
+                <span className="flex items-center gap-1"><span className="px-1.5 py-0.5 bg-amber-50 text-cc-warning rounded-cc-sm font-bold text-[10px]">POST</span> Postseason</span>
               </div>
               <div className="space-y-1.5 max-h-[32rem] overflow-y-auto pr-1">
                 {sel.schedule26.map((g, i) => {
@@ -619,34 +570,34 @@ export function DetailView() {
                   return (
                     <div
                       key={i}
-                      className={`flex items-center gap-3 px-4 py-2.5 rounded-xl border transition-all ${
+                      className={`flex items-center gap-3 px-4 py-2.5 rounded-cc-md border transition-all ${
                         isUpcoming
-                          ? 'bg-slate-50/70 border-slate-100 opacity-60'
+                          ? 'bg-cc-surface-alt/70 border-cc-border opacity-60'
                           : isWin
-                          ? 'bg-green-50/40 border-green-100'
+                          ? 'bg-emerald-50/40 border-emerald-100'
                           : isLoss
-                          ? 'bg-red-50/30 border-red-100'
-                          : 'bg-white border-slate-100'
+                          ? 'bg-rose-50/30 border-rose-100'
+                          : 'bg-cc-surface border-cc-border'
                       }`}
                     >
-                      <div className={`w-2 h-2 rounded-full flex-shrink-0 ${g.home ? 'bg-blue-400' : 'bg-slate-300'}`} />
-                      <span className="text-[11px] font-bold text-slate-500 w-12 flex-shrink-0">{g.d}</span>
-                      <span className={`text-sm flex-1 font-semibold ${isUpcoming ? 'text-slate-500' : 'text-slate-800'}`}>
+                      <div className={`w-2 h-2 rounded-full flex-shrink-0 ${g.home ? 'bg-cc-light-blue' : 'bg-cc-faint'}`} />
+                      <span className="text-[11px] font-bold text-cc-subtle w-12 flex-shrink-0">{g.d}</span>
+                      <span className={`text-sm flex-1 font-semibold ${isUpcoming ? 'text-cc-subtle' : 'text-cc-fg'}`}>
                         {g.o}
                       </span>
                       {isPost && (
-                        <span className="px-1.5 py-0.5 bg-amber-50 text-amber-600 border border-amber-200 rounded text-[10px] font-bold uppercase flex-shrink-0">
+                        <span className="px-1.5 py-0.5 bg-amber-50 text-cc-warning border border-amber-200 rounded-cc-sm text-[10px] font-bold uppercase flex-shrink-0">
                           Post
                         </span>
                       )}
                       {isConf && !isPost && (
-                        <span className="px-1.5 py-0.5 bg-indigo-50 text-indigo-500 border border-indigo-200 rounded text-[10px] font-bold uppercase flex-shrink-0">
+                        <span className="px-1.5 py-0.5 bg-purple-50 text-cc-purple border border-purple-200 rounded-cc-sm text-[10px] font-bold uppercase flex-shrink-0">
                           Conf
                         </span>
                       )}
                       <span
-                        className={`text-xs font-black w-20 text-right flex-shrink-0 ${
-                          isUpcoming ? 'text-slate-300' : isWin ? 'text-green-600' : isLoss ? 'text-red-500' : 'text-slate-400'
+                        className={`text-xs font-bold w-20 text-right flex-shrink-0 tabular ${
+                          isUpcoming ? 'text-cc-faint' : isWin ? 'text-cc-success' : isLoss ? 'text-cc-danger' : 'text-cc-faint'
                         }`}
                       >
                         {g.r}
@@ -660,16 +611,11 @@ export function DetailView() {
 
           {/* Historical Stability */}
           {sel.winHistory?.length > 0 && (
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
-              <h3
-                className="font-black text-slate-800 text-base uppercase tracking-widest mb-4"
-                style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-              >
-                Historical Stability
-              </h3>
+            <div className={`${SECTION_CARD} p-6`}>
+              <h3 className={`${SECTION_HEADING} mb-4`}>Historical Stability</h3>
               <table className="w-full text-left">
                 <thead>
-                  <tr className="border-b border-slate-100 text-[11px] font-bold text-slate-500 uppercase tracking-widest">
+                  <tr className="border-b border-cc-border text-[11px] font-bold text-cc-subtle uppercase tracking-cc-widest">
                     <th className="pb-3 pr-4">Year</th>
                     <th className="pb-3 pr-4">W</th>
                     <th className="pb-3 pr-4">L</th>
@@ -677,7 +623,7 @@ export function DetailView() {
                     <th className="pb-3">Trend</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-cc-border">
                   {sel.winHistory.map((h, i) => {
                     const prev = sel.winHistory[i + 1];
                     const t = prev
@@ -687,13 +633,13 @@ export function DetailView() {
                         ? '↓'
                         : '→'
                       : '—';
-                    const tc = t === '↑' ? 'text-emerald-500' : t === '↓' ? 'text-red-400' : 'text-slate-300';
+                    const tc = t === '↑' ? 'text-cc-success' : t === '↓' ? 'text-cc-danger' : 'text-cc-faint';
                     return (
                       <tr key={i}>
-                        <td className="py-2.5 pr-4 font-bold text-slate-700">{h.yr}</td>
-                        <td className="py-2.5 pr-4 text-emerald-600 font-bold">{h.w}</td>
-                        <td className="py-2.5 pr-4 text-red-500 font-bold">{h.l}</td>
-                        <td className="py-2.5 font-semibold text-slate-600">{h.p}</td>
+                        <td className="py-2.5 pr-4 font-bold text-cc-fg tabular">{h.yr}</td>
+                        <td className="py-2.5 pr-4 text-cc-success font-bold tabular">{h.w}</td>
+                        <td className="py-2.5 pr-4 text-cc-danger font-bold tabular">{h.l}</td>
+                        <td className="py-2.5 font-semibold text-cc-muted tabular">{h.p}</td>
                         <td className={`py-2.5 font-bold text-lg ${tc}`}>{t}</td>
                       </tr>
                     );
@@ -705,13 +651,8 @@ export function DetailView() {
 
           {/* News */}
           {(sel.news?.length > 0) && (
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
-              <h3
-                className="font-black text-slate-800 text-base uppercase tracking-widest mb-4"
-                style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-              >
-                Program News
-              </h3>
+            <div className={`${SECTION_CARD} p-6`}>
+              <h3 className={`${SECTION_HEADING} mb-4`}>Program News</h3>
               <div className="space-y-3">
                 {sel.news.map((n, i) => (
                   <a
@@ -719,11 +660,11 @@ export function DetailView() {
                     href={n.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="block p-4 bg-slate-50 rounded-xl hover:bg-blue-50 border border-transparent hover:border-blue-100 transition-all group"
+                    className="block p-4 bg-cc-surface-alt rounded-cc-md hover:bg-cc-accent-soft border border-transparent hover:border-cc-border transition-colors duration-cc-base group"
                   >
-                    <div className="text-[11px] font-bold text-blue-500 uppercase tracking-wide mb-1">{n.date}</div>
-                    <div className="font-bold text-slate-800 text-sm group-hover:text-blue-600">{n.title}</div>
-                    <div className="text-xs text-slate-600 mt-1 leading-relaxed">{n.body}</div>
+                    <div className="text-[11px] font-bold text-cc-light-blue uppercase tracking-cc-wider mb-1">{n.date}</div>
+                    <div className="font-display text-cc-fg text-sm uppercase tracking-cc-wide group-hover:text-cc-navy">{n.title}</div>
+                    <div className="text-xs text-cc-muted mt-1 leading-relaxed">{n.body}</div>
                   </a>
                 ))}
               </div>

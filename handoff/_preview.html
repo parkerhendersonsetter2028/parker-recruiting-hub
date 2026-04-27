@@ -1,0 +1,129 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Campus Commit Brand Marks</title>
+<style>
+  body { background:#F1F4F9; font-family: ui-sans-serif, system-ui; padding: 32px; color: #0D1B3D;}
+  h1 { font-family: Georgia, serif; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color:#0D1B3D; margin: 0 0 8px; }
+  .sub { color:#475569; margin: 0 0 32px; font-size: 14px; }
+  h2 { font-family: ui-sans-serif; text-transform: uppercase; letter-spacing: .12em; font-size: 11px; color: #475569; margin: 32px 0 12px; font-weight: 700; }
+  .grid { display:grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .grid-2 { display:grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .card { background:#fff; border:1px solid #E2E8F0; border-radius:16px; padding:28px; box-shadow:0 1px 3px rgb(0 0 0/.06); display:flex; flex-direction:column; align-items:center; gap:12px;}
+  .card h3 { font-family: ui-monospace, monospace; font-size: 11px; color:#475569; margin: 0; text-transform: uppercase; letter-spacing:.08em;}
+  .card .holder { display:flex; align-items:center; justify-content:center; min-height: 200px; width: 100%;}
+  .card.dark { background:#0D1B3D; }
+  .card.dark h3 { color:#94A3B8;}
+  .small { font-size: 11px; color: #64748B; font-family: ui-monospace, monospace; text-align: center;}
+  img { display:block; max-width: 100%; height: auto; }
+  .swatch-row { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+  .swatch { display: flex; align-items: center; gap: 10px; }
+  .swatch .chip { width: 32px; height: 32px; border-radius: 8px; border: 1px solid rgb(0 0 0 / .08);}
+  .swatch code { font-size: 12px; font-family: ui-monospace, monospace; color: #475569; }
+</style></head><body>
+  <h1>Campus Commit — Brand Marks</h1>
+  <p class="sub">Varsity-collegiate set · refined April 2026</p>
+
+  <div class="swatch-row">
+    <div class="swatch"><div class="chip" style="background:#0D1B3D"></div><code>NAVY · #0D1B3D</code></div>
+    <div class="swatch"><div class="chip" style="background:#D4AF37"></div><code>GOLD · #D4AF37</code></div>
+    <div class="swatch"><div class="chip" style="background:#6B7A90"></div><code>TAGLINE GRAY · #6B7A90</code></div>
+    <div class="swatch"><div class="chip" style="background:#F1F4F9; border-color: #E2E8F0;"></div><code>CANVAS · #F1F4F9</code></div>
+  </div>
+
+  <h2>Primary lockup</h2>
+  <div class="grid-2">
+    <div class="card" style="grid-column: span 2;">
+      <h3>cc-primary-logo.png · cc-horizontal-lockup</h3>
+      <div class="holder"><img src="logos/cc-primary-logo.png" style="max-width: 800px;"></div>
+      <span class="small">Canonical horizontal banner — use in app headers, nav bars, marketing</span>
+    </div>
+  </div>
+
+  <h2>Small-size banner (no tagline) — for nav bars, mobile, social</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>cc-banner</h3>
+      <div class="holder"><img src="logos/cc-banner.png" width="280"></div>
+      <span class="small">Use 120–300px wide</span>
+    </div>
+    <div class="card">
+      <h3>cc-banner-navy</h3>
+      <div class="holder"><img src="logos/cc-banner-navy.png" width="280"></div>
+      <span class="small">All-navy</span>
+    </div>
+    <div class="card dark">
+      <h3>cc-banner-white</h3>
+      <div class="holder"><img src="logos/cc-banner-white.png" width="280"></div>
+      <span class="small" style="color:#94A3B8;">Reverse on dark</span>
+    </div>
+  </div>
+
+  <h2>Other variants</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>cc-monogram</h3>
+      <div class="holder"><img src="logos/cc-monogram.png" width="180"></div>
+      <span class="small">Icon only · sidebar, social avatar</span>
+    </div>
+    <div class="card">
+      <h3>cc-stacked</h3>
+      <div class="holder"><img src="logos/cc-stacked.png" width="200"></div>
+      <span class="small">Vertical · square social, splash</span>
+    </div>
+    <div class="card">
+      <h3>cc-wordmark</h3>
+      <div class="holder"><img src="logos/cc-wordmark.png" width="280"></div>
+      <span class="small">Wordmark only</span>
+    </div>
+    <div class="card">
+      <h3>cc-onecolor-navy</h3>
+      <div class="holder"><img src="logos/cc-onecolor-navy.png" width="320"></div>
+      <span class="small">All-navy · use when gold conflicts</span>
+    </div>
+    <div class="card dark">
+      <h3>cc-onecolor-white</h3>
+      <div class="holder"><img src="logos/cc-onecolor-white.png" width="320"></div>
+      <span class="small" style="color:#94A3B8;">Reverse · dark backgrounds</span>
+    </div>
+    <div class="card">
+      <h3>cc-shield</h3>
+      <div class="holder"><img src="logos/cc-shield.png" width="170"></div>
+      <span class="small">Crest · achievement contexts</span>
+    </div>
+    <div class="card">
+      <h3>cc-app-icon</h3>
+      <div class="holder"><img src="logos/cc-app-icon.png" width="200"></div>
+      <span class="small">App icon · iOS, Android, PWA</span>
+    </div>
+    <div class="card">
+      <h3>cc-badge-stamp</h3>
+      <div class="holder"><img src="logos/cc-badge-stamp.png" width="200"></div>
+      <span class="small">"Top Match" / verified stamp</span>
+    </div>
+    <div class="card">
+      <h3>cc-favicon</h3>
+      <div class="holder" style="gap: 12px;">
+        <img src="logos/cc-app-icon-16.png" width="16">
+        <img src="logos/cc-app-icon-32.png" width="32">
+        <img src="logos/cc-app-icon-64.png" width="64">
+        <img src="logos/cc-app-icon-128.png" width="128">
+      </div>
+      <span class="small">16 / 32 / 64 / 128</span>
+    </div>
+  </div>
+
+  <h2>On dark backgrounds</h2>
+  <div class="grid">
+    <div class="card dark">
+      <h3>monogram on navy</h3>
+      <div class="holder"><img src="logos/cc-monogram.png" width="180"></div>
+    </div>
+    <div class="card dark">
+      <h3>shield on navy</h3>
+      <div class="holder"><img src="logos/cc-shield.png" width="160"></div>
+    </div>
+    <div class="card dark">
+      <h3>badge on navy</h3>
+      <div class="holder"><img src="logos/cc-badge-stamp.png" width="180"></div>
+    </div>
+  </div>
+</body></html>

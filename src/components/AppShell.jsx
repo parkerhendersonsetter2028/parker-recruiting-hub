@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, ShieldCheck } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { FontStyle } from './FontStyle.jsx';
 import { Sidebar } from './Sidebar.jsx';
 import { useApp } from '../context/AppContext.jsx';
@@ -18,25 +18,22 @@ export function AppShell({ children }) {
   const pageTitle = view === 'detail' && sel ? sel.name : PAGE_TITLES[view] || 'Recruiting Hub';
 
   return (
-    <div className="min-h-screen flex" style={{ background: '#f1f4f9' }}>
+    <div className="min-h-screen flex bg-cc-bg">
       <FontStyle />
       <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       <div className="flex-1 min-w-0 flex flex-col">
         {/* Mobile top bar */}
-        <div className="md:hidden bg-white border-b border-slate-200 px-4 py-3 flex items-center gap-3 sticky top-0 z-20">
+        <div className="md:hidden bg-cc-surface border-b border-cc-border px-4 py-3 flex items-center gap-3 sticky top-0 z-20">
           <button
             onClick={() => setSidebarOpen(true)}
-            className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-600"
+            className="p-1.5 rounded-cc-sm hover:bg-cc-bg text-cc-muted"
             aria-label="Open menu"
           >
             <Menu className="w-5 h-5" />
           </button>
           <div className="flex items-center gap-2 min-w-0">
-            <ShieldCheck className="w-4 h-4 text-blue-600 flex-shrink-0" />
-            <div
-              className="font-black text-slate-800 text-sm tracking-wide truncate"
-              style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-            >
+            <img src="/brand/cc-monogram.png" alt="Campus Commit" className="w-6 h-6 flex-shrink-0" />
+            <div className="font-display uppercase text-cc-fg text-sm tracking-cc-wide truncate">
               {pageTitle.toUpperCase()}
             </div>
           </div>

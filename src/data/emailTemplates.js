@@ -28,9 +28,12 @@ export const buildTemplate = (id, school) => {
   return templates[id] || templates.intro;
 };
 
+// Phase tints map to Campus Commit's tagging accents.
+// Navy (workhorse) for the intro, forest for the live-eval tournament phase,
+// purple for the creative/follow-up video phase.
 export const COLOR_MAP = {
-  blue:    { badge: 'bg-blue-600',    light: 'bg-blue-50 border-blue-200 text-blue-700',       btn: 'bg-blue-600 hover:bg-blue-500 text-white' },
-  emerald: { badge: 'bg-emerald-600', light: 'bg-emerald-50 border-emerald-200 text-emerald-700', btn: 'bg-emerald-600 hover:bg-emerald-500 text-white' },
-  purple:  { badge: 'bg-purple-600',  light: 'bg-purple-50 border-purple-200 text-purple-700',  btn: 'bg-purple-600 hover:bg-purple-500 text-white' },
+  blue:    { badge: 'bg-cc-navy',   light: 'bg-cc-accent-soft border-cc-border text-cc-navy', btn: 'bg-cc-navy hover:bg-cc-navy-700 text-white' },
+  emerald: { badge: 'bg-cc-forest', light: 'bg-emerald-50 border-emerald-200 text-cc-forest', btn: 'bg-cc-forest hover:bg-emerald-700 text-white' },
+  purple:  { badge: 'bg-cc-purple', light: 'bg-purple-50 border-purple-200 text-cc-purple',   btn: 'bg-cc-purple hover:bg-purple-700 text-white' },
 };
 

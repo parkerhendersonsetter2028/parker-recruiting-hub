@@ -1,0 +1,174 @@
+/* ============================================================
+   Campus Commit — Design Tokens
+   Find Your Fit. Commit Your Future.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Barlow+Condensed:wght@600;700;800;900&display=swap');
+
+:root {
+  /* ── BRAND ─────────────────────────────────────────────── */
+  --navy: #0D1B3D;          /* core brand */
+  --navy-700: #0A2447;
+  --navy-600: #143057;
+  --navy-500: #1E3A8A;      /* gradient pair */
+  --gold: #D4AF37;          /* achievement accent */
+  --gold-soft: #E8C766;
+  --gold-deep: #B8941F;
+
+  /* ── NEUTRALS (slate ladder) ───────────────────────────── */
+  --white: #FFFFFF;
+  --gray-50: #F8FAFC;
+  --gray-100: #F1F4F9;      /* canvas */
+  --gray-200: #E2E8F0;      /* borders */
+  --gray-300: #CBD5E1;
+  --gray-400: #94A3B8;
+  --gray-500: #64748B;
+  --gray-600: #475569;
+  --gray-700: #334155;
+  --gray-800: #1E293B;
+  --gray-900: #0F172A;
+  --near-black: #111827;
+
+  /* ── SECONDARY / TAGGING ───────────────────────────────── */
+  --forest: #167A4E;
+  --maroon: #8B1E32;
+  --purple: #5E33A1;
+  --orange: #F07216;
+  --light-blue: #2E92F5;
+
+  /* ── SEMANTIC ROLES (light mode) ───────────────────────── */
+  --bg: var(--gray-100);
+  --surface: var(--white);
+  --surface-alt: var(--gray-50);
+  --border: var(--gray-200);
+  --border-strong: var(--gray-300);
+
+  --fg: var(--gray-900);
+  --fg-muted: var(--gray-600);
+  --fg-subtle: var(--gray-500);
+  --fg-faint: var(--gray-400);
+  --fg-on-navy: var(--white);
+
+  --accent: var(--navy);
+  --accent-fg: var(--white);
+  --accent-soft: #E8EEF8;
+
+  --gold-accent: var(--gold);
+
+  /* States */
+  --success: #16A34A;
+  --success-bg: #DCFCE7;
+  --warning: #D97706;
+  --warning-bg: #FEF3C7;
+  --danger:  #DC2626;
+  --danger-bg:  #FEE2E2;
+
+  /* ── TYPE ──────────────────────────────────────────────── */
+  --font-display: 'Oswald', 'Barlow Condensed', 'Trade Gothic', system-ui, sans-serif;
+  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono:    ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --tracking-tight: -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.04em;
+  --tracking-wider: 0.06em;
+  --tracking-widest: 0.08em;
+
+  /* Type scale */
+  --h1-size: 48px; --h1-line: 52px; --h1-weight: 700;
+  --h2-size: 36px; --h2-line: 42px; --h2-weight: 700;
+  --h3-size: 28px; --h3-line: 34px; --h3-weight: 700;
+  --h4-size: 22px; --h4-line: 28px; --h4-weight: 600;
+  --h5-size: 18px; --h5-line: 24px; --h5-weight: 600;
+  --h6-size: 14px; --h6-line: 20px; --h6-weight: 700;
+
+  --body-lg-size: 17px; --body-lg-line: 26px;
+  --body-size:    15px; --body-line:    22px;
+  --body-sm-size: 13px; --body-sm-line: 19px;
+  --caption-size: 11px; --caption-line: 16px;
+  --button-size:  13px; --button-line:  16px;
+
+  /* ── SPACING (8pt) ─────────────────────────────────────── */
+  --s-1: 4px;   --s-2: 8px;   --s-3: 12px;  --s-4: 16px;
+  --s-5: 20px;  --s-6: 24px;  --s-8: 32px;  --s-10: 40px;
+  --s-12: 48px; --s-16: 64px; --s-20: 80px; --s-24: 96px;
+
+  /* ── RADII ─────────────────────────────────────────────── */
+  --r-xs: 4px;
+  --r-sm: 6px;     /* buttons, badges */
+  --r-md: 12px;    /* inputs, tags */
+  --r-lg: 16px;    /* cards */
+  --r-xl: 24px;    /* hero cards */
+  --r-pill: 9999px;
+
+  /* ── ELEVATION ─────────────────────────────────────────── */
+  --shadow-card:   0 1px 2px rgb(0 0 0 / 0.04), 0 1px 3px rgb(0 0 0 / 0.06);
+  --shadow-hover:  0 1px 2px rgb(0 0 0 / 0.04), 0 4px 12px rgb(0 27 61 / 0.10);
+  --shadow-popover:0 12px 32px rgb(0 27 61 / 0.16);
+  --ring-focus:    0 0 0 2px var(--navy);
+
+  /* ── GRADIENTS ─────────────────────────────────────────── */
+  --grad-navy: linear-gradient(135deg, #1E3A8A 0%, #0D1B3D 100%);
+  --grad-gold: linear-gradient(135deg, #E8C766 0%, #D4AF37 100%);
+
+  /* ── MOTION ────────────────────────────────────────────── */
+  --motion-fast: 120ms;
+  --motion-base: 180ms;
+  --motion-slow: 280ms;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+}
+
+/* Dark mode — deep navy canvas, never pure black */
+:root[data-theme="dark"], .cc-dark {
+  --bg: #04112A;
+  --surface: #0B1B3A;
+  --surface-alt: #122448;
+  --border: #1F3461;
+  --border-strong: #2A4577;
+
+  --fg: #F1F5FB;
+  --fg-muted: #B7C2DB;
+  --fg-subtle: #8493B5;
+  --fg-faint: #5C6E92;
+
+  --accent: #4A78D6;
+  --accent-fg: #FFFFFF;
+  --accent-soft: #15244A;
+
+  --gold-accent: #E8C766;
+
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.3), 0 1px 3px rgb(0 0 0 / 0.45);
+  --shadow-hover: 0 4px 16px rgb(0 0 0 / 0.5);
+}
+
+/* ── BASE ELEMENTS ─────────────────────────────────────── */
+html, body { background: var(--bg); color: var(--fg); }
+body {
+  font-family: var(--font-body);
+  font-size: var(--body-size);
+  line-height: var(--body-line);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  color: var(--fg);
+  margin: 0;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+h1 { font-size: var(--h1-size); line-height: var(--h1-line); font-weight: var(--h1-weight); letter-spacing: var(--tracking-tight); }
+h2 { font-size: var(--h2-size); line-height: var(--h2-line); font-weight: var(--h2-weight); }
+h3 { font-size: var(--h3-size); line-height: var(--h3-line); font-weight: var(--h3-weight); }
+h4 { font-size: var(--h4-size); line-height: var(--h4-line); font-weight: var(--h4-weight); }
+h5 { font-size: var(--h5-size); line-height: var(--h5-line); font-weight: var(--h5-weight); }
+h6 { font-size: var(--h6-size); line-height: var(--h6-line); font-weight: var(--h6-weight); letter-spacing: var(--tracking-widest); }
+
+p   { margin: 0 0 var(--s-3) 0; }
+small { font-size: var(--body-sm-size); line-height: var(--body-sm-line); color: var(--fg-muted); }
+.eyebrow { font-family: var(--font-body); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: var(--tracking-widest); color: var(--fg-subtle); }
+
+.display-num { font-family: var(--font-display); font-weight: 700; letter-spacing: var(--tracking-tight); }
+.tabular { font-variant-numeric: tabular-nums; }
+
+button, input, select, textarea { font-family: var(--font-body); }
