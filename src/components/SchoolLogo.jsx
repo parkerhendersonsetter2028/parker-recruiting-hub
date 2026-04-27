@@ -5,7 +5,7 @@ import { domainFromUrl } from '../lib/helpers.js';
 export const SchoolLogo = ({ school, size = "md" }) => {
   const sizes = { xs: 32, sm: 40, md: 48, lg: 80 };
   const px = sizes[size];
-  const cls = `flex-shrink-0 rounded-xl bg-white border border-slate-200 shadow-sm overflow-hidden flex items-center justify-center`;
+  const cls = `flex-shrink-0 rounded-cc-md bg-cc-surface border border-cc-border shadow-cc-card overflow-hidden flex items-center justify-center`;
   const style = { width: px, height: px, minWidth: px };
 
   const domain = domainFromUrl(school?.logoUrl || school?.url || "");
@@ -28,12 +28,15 @@ export const SchoolLogo = ({ school, size = "md" }) => {
       </div>
     );
   }
-  // letter fallback
-  const colors = ["bg-blue-600","bg-violet-600","bg-emerald-600","bg-orange-500","bg-slate-600","bg-rose-600"];
+  // letter fallback — pick from cc tagging palette so it harmonizes with the rest of the app
+  const colors = ["bg-cc-accent", "bg-cc-purple", "bg-cc-forest", "bg-cc-orange", "bg-cc-maroon", "bg-cc-light-blue"];
   const colorIdx = (school?.name?.charCodeAt(0) || 0) % colors.length;
   return (
     <div className={`${cls} ${colors[colorIdx]} border-0`} style={style}>
-      <span style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 900, color: "white", fontSize: px * 0.45 }}>
+      <span
+        className="font-display tracking-cc-wide text-white"
+        style={{ fontSize: px * 0.45 }}
+      >
         {school?.name?.charAt(0) || "?"}
       </span>
     </div>
