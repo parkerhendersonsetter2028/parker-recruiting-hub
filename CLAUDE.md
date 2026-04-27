@@ -78,7 +78,9 @@ Node was installed via homebrew on 2026-04-26. If npm isn't on PATH, `/opt/homeb
 
 ## Git remote
 
-The cloned repo's `origin` was deliberately removed because it pointed at the local `parker-recruiting-hub` folder — pushing would have written this rebrand into Parker's repo. Add a real remote when the Campus Commit GitHub repo is created. Until then, all commits stay local.
+`origin` → `https://github.com/timmypop-az/campus-commit-hub` (private). The original cloned `origin` (which pointed at the local `parker-recruiting-hub` folder) was removed before this real remote was added — pushing to that would have written the rebrand into Parker's repo. The GitHub repo was created on 2026-04-27.
+
+Repo is private; flip with `gh repo edit timmypop-az/campus-commit-hub --visibility public` if/when ready.
 
 ## What's intentionally NOT done yet
 
